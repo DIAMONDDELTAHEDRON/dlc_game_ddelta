@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.0",
   name = "castle",
   class = "",
   tilewidth = 40,
@@ -27,5 +27,19 @@ return {
   properties = {},
   wangsets = {},
   tilecount = 40,
-  tiles = {}
+  tiles = {
+    {
+      id = 24,
+      animation = {
+        {
+          tileid = 24,
+          duration = 500
+        },
+        {
+          tileid = 39,
+          duration = 500
+        }
+      }
+    }
+  }
 }
