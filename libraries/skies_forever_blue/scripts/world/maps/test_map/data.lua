@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 8,
-  nextobjectid = 56,
+  nextobjectid = 57,
   properties = {
     ["music"] = "ch3_board3"
   },
@@ -471,6 +471,19 @@ return {
             ["cutscene"] = "sword.shop_exit",
             ["once"] = false
           }
+        },
+        {
+          id = 56,
+          name = "coin",
+          type = "",
+          shape = "rectangle",
+          x = 672,
+          y = 704,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     }
