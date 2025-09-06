@@ -46,6 +46,15 @@ function test_map:swap_grid(x, y)
         self.swapping_grid = nil
         Game.lock_movement = false
     end)
+
+    for i, c in ipairs(Game.world.followers) do
+        c.x = Game.world.player.x
+        c.y = Game.world.player.y
+        c.history = {}
+        c.history_time = 0
+        c:setFacing(Game.world.player.facing)
+    end
+
 end
 
 function test_map:update()

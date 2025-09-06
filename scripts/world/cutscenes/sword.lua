@@ -59,11 +59,19 @@ return {
         Game.world:loadMap("test_map")
 
 
-        Game.world.player:setActor("player_kris")
+        Game.world.player:setActor("HERO_SWORD")
         Game.world.player.force_walk = true
 
         for i, c in ipairs(Game.world.followers) do
-            c:setActor("player_kris")--temp
+            if i == 1 then
+                c:setActor("HERO_AXE")
+            elseif i == 2 then
+                c:setActor("HERO_SCARF")
+            elseif i == 3 then
+                c:setActor("WHITE CLOAK")
+            else
+                c:setActor("HERO_SWORD")--temp
+            end
         end
 
         Game.board = openMenulol(room_board())
@@ -87,5 +95,17 @@ return {
     --    cam.y = save.cam_y
     --end
 
+    end,
+
+    shop_enter = function(cutscene, event)
+        Game.world.player.x = 192
+        Game.world.player.y = 240
+        Game.world.camera.x, Game.world.camera.y = 192, 176
+    end,
+
+    shop_exit = function(cutscene, event)
+        Game.world.player.x = 480
+        Game.world.player.y = 880
+        Game.world.camera.x, Game.world.camera.y = 576, 944
     end,
 }

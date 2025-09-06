@@ -1,4 +1,4 @@
-local actor, super = Class(Actor, "player_kris")
+local actor, super = Class(Actor, "WHITE CLOAK")
 
 function actor:onSpriteInit(sprite)
     sprite:setOrigin(0, -0.5)
@@ -6,13 +6,13 @@ end
 
 function actor:init()
     super.init(self)
-    self.name = "Kris"
+    self.name = "WHITE CLOAK"
 
     self.width = 16
     self.height = 16
     self.hitbox = {0.2, 8.2, 15.4, 15.4}
     self.soul_offset = {8, 16}
-    self.path = "sword/party/kris"
+    self.path = "sword/party/WHITE CLOAK"
     self.default = "walk"
     self.voice = nil
     self.portrait_path = nil
@@ -36,9 +36,9 @@ function actor:init()
         ["item"] = {-1, 0},
     }
 
-    self.health = 160
-    self.healthMax = 160
-    self.color = {0, 1, 1}
+    self.health = 90
+    self.healthMax = 90
+    self.color = {1, 1, 1}
 end
 
 return actor
