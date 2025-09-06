@@ -13,7 +13,7 @@ return {
   nextobjectid = 90,
   properties = {
     ["music"] = "tv_changingroom",
-    ["name"] = "Test Map - Room 1"
+    ["name"] = "Play Room - Ramb"
   },
   tilesets = {
     {

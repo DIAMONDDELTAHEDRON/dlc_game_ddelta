@@ -38,6 +38,16 @@ function test_map:onExit()
 
 end
 
+
+function test_map:swap_grid(x, y)
+    Game.stage.timer:tween(0.5, Game.world.camera, {y = y, x = x}, 'linear', function()
+        Game.world.camera.y = y
+        Game.world.camera.x = x
+        self.swapping_grid = nil
+        Game.lock_movement = false
+    end)
+end
+
 function test_map:update()
     super.update(self)
     if Game.world.player then
@@ -48,27 +58,58 @@ function test_map:update()
         --Game.world.camera.x = math.floor(px / grid_w) * grid_w + 192
         --Game.world.camera.y = math.floor(py / grid_h) * grid_h + 176
 
-        local misc_x = math.floor(px / grid_w) * grid_w + 192
-        local misc_y = math.floor(py / grid_h) * grid_h + 176
+        local xa = math.floor((px + 15) / grid_w) * grid_w + 192
+        local ya = math.floor((py + 14) / grid_h) * grid_h + 176
+
+        local xb = math.floor((px - 15) / grid_w) * grid_w + 192
+        local yb = math.floor((py - 16) / grid_h) * grid_h + 176
         
-        if (misc_x ~= Game.world.camera.x) or (misc_y ~= Game.world.camera.y) then
-            Game.lock_movement = true
-        else
-            Game.lock_movement = false
+        if not self.swapping_grid then
+            if (yb ~= ya) or (xb ~= xa) then
+                local x = math.floor(px / grid_w) * grid_w + 192
+                local y = math.floor(py / grid_h) * grid_h + 176
+                if x ~= xb then
+                    x = xb
+                    self:snap("right", Game.world.player.x - 32, Game.world.player.y)
+                elseif x ~= xa then
+                    x = xa
+                    self:snap("left", Game.world.player.x + 32, Game.world.player.y)
+                end
+                if y ~= yb then
+                    y = yb
+                    self:snap("bottom", Game.world.player.x, Game.world.player.y - 32)
+                elseif y ~= ya then
+                    y = ya
+                    self:snap("top", Game.world.player.x, Game.world.player.y + 32)
+                end
+                self.swapping_grid = true
+                Game.lock_movement = true
+                self:swap_grid(x, y)
+            end
         end
 
-        if misc_x > Game.world.camera.x then
-            Game.world.camera.x = Game.world.camera.x + DTMULT*self.speedx
-        elseif misc_x < Game.world.camera.x then
-            Game.world.camera.x = Game.world.camera.x - DTMULT*self.speedx
-        end
+    end
+end
 
-        if misc_y > Game.world.camera.y then
-            Game.world.camera.y = Game.world.camera.y + DTMULT*self.speedy
-        elseif misc_y < Game.world.camera.y then
-            Game.world.camera.y = Game.world.camera.y - DTMULT*self.speedy
-        end
+function test_map:getArea(x, y)
+    local w = 192 * 2
+    local h = 256
 
+    local col = math.floor(x / w)
+    local row = math.floor(y / h)
+    return col, row
+end
+
+function test_map:snap(dir, x, y)
+    local c, r = self:getArea(x, y)
+    if dir == "left" then
+        Game.world.player.x = (c*384) + 16
+    elseif dir == "right" then
+        Game.world.player.x = (c*384) + 368
+    elseif dir == "top" then
+        Game.world.player.y = (r*256) + 16
+    elseif dir == "bottom" then
+        Game.world.player.y = (r*256) + 240
     end
 end
 

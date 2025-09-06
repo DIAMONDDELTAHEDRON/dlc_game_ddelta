@@ -25,14 +25,22 @@ function room_board:init()
     self.console.x = 270
     self.console.y = 322
 
-
     local br = Game:getFlag("board_actors")
+    self.npcs = {}
 
-    self.kris = NPC(br[1].actor, br[1].x, br[1].y)
-    self.kris.world = Game.world
+    for i, member in ipairs(Game.party) do
+        if br[i] then
+            local npc = NPC(br[i].actor, br[i].x, br[i].y)
+            npc.world = Game.world
+            self:addChild(npc)
+            npc:setFacing("up")
 
-    self:addChild(self.kris)
-    self.kris:setFacing("up")
+            self.npcs[member.id] = npc
+        end
+    end
+
+    --self.npcs["kris"]
+    --self.npcs["susie"]
 
     self.couch = Sprite(q.."couch")
     self:addChild(self.couch)
@@ -49,12 +57,19 @@ function room_board:init()
 
 
     -- x + 94 for every other health bar
+    self.healthbars = {}
+    self.healthbars[1] = board_healthbar(128, 32, Game.world.player.actor)
+    self:addChild(self.healthbars[1])
 
-    self.player_one = board_healthbar(128, 32, Game.world.player.actor)
-    self:addChild(self.player_one)
+    for i, follower in ipairs(Game.world.followers) do
+        local x = 128 + (94 * i)
+        local b = i + 1
+        self.healthbars[b] = board_healthbar(x, 32, follower.actor)
+        self:addChild(self.healthbars[b])
+    end
 
 
-    self.score = board_score((128 + 92 * #Game.party) + 2, 32)
+    self.score = board_score((128 + 92 * #Game.party) + (2 * #Game.party), 32)
     self:addChild(self.score)
 
 end
@@ -66,7 +81,7 @@ function room_board:update()
         self:quit()
     end
 
-    if Input.down("menu") then
+    if Input.down("cancel") then
         self.quit_timer = self.quit_timer + DTMULT*2
     elseif self.quit_timer > 0 then
         self.quit_timer = self.quit_timer - DTMULT*3
@@ -81,7 +96,7 @@ function room_board:draw()
     love.graphics.setFont(self.font)
     love.graphics.setColor(1, 1, 1)
 
-    love.graphics.print("Hold [MENU] to EXIT", 150, 28 - 18)
+    love.graphics.print("Hold [CANCEL] to EXIT", 150, 28 - 18)
 
     local last = love.graphics.getLineWidth()
     love.graphics.setLineWidth(5)
@@ -89,17 +104,31 @@ function room_board:draw()
     love.graphics.setLineWidth(last)   
 
 end
-
 function room_board:quit()
-
     Game.world:loadMap("floortv/board")
 
     local br = Game:getFlag("board_actors")
-    Game.world.player.y = br[1].y
+
     Game.world.player.x = br[1].x
+    Game.world.player.y = br[1].y
+    Game.world.player:setFacing("up")
+
+    Game.world:startCutscene(function(cutscene)
+        cutscene:wait((Game.world.tv == "floortv/board"))
+
+        for i, follower in ipairs(Game.world.followers) do
+            local i = i + 1
+            follower.x = br[i].x
+            follower.y = br[i].y
+            --follower:setFacing("up")
+        end
+
+        --Game.world.player.history = Game:getFlag("walk_history")
+
+    end)
+
     Game.world.can_open_menu = true
     Game.world.in_game = nil
-    Game.world.player:setFacing("up")
 end
 
 return room_board

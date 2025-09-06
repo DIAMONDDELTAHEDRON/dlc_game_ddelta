@@ -5,7 +5,7 @@
  </editorsettings>
  <properties>
   <property name="music" value="tv_changingroom"/>
-  <property name="name" value="Test Map - Room 1"/>
+  <property name="name" value="Play Room - Ramb"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/castle.tsx"/>
  <tileset firstgid="41" source="../tilesets/tv_floor/board.tsx"/>

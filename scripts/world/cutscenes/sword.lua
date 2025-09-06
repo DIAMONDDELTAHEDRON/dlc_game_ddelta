@@ -45,13 +45,26 @@ return {
         br[1].x = Game.world.player.x
         br[1].y = Game.world.player.y
 
+        for i, c in ipairs(Game.world.followers) do
+            local i = i + 1
+            br[i] = {}
+            br[i].actor = c.actor.id
+            br[i].x = c.x
+            br[i].y = c.y
+        end
+
         Game:setFlag("board_actors", br)
+        --Game:setFlag("walk_history", Game.world.player.history)
 
         Game.world:loadMap("test_map")
 
 
         Game.world.player:setActor("player_kris")
         Game.world.player.force_walk = true
+
+        for i, c in ipairs(Game.world.followers) do
+            c:setActor("player_kris")--temp
+        end
 
         Game.board = openMenulol(room_board())
         Game.world:closeMenu()

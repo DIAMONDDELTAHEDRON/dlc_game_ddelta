@@ -4,6 +4,7 @@ return {
         --* Welcome to plug'n play.
         --* Welcome to the game corner.
         --* Welcome to the play area.
+        --* Welcome to the prize corner.
         --* Games. Unlimited Games. But no more Games
     end,
     ramb = function(cutscene, event)
