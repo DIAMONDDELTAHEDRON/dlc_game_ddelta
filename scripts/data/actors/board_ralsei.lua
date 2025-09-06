@@ -1,4 +1,4 @@
-local actor, super = Class(Actor, "HERO_SCARF")
+local actor, super = Class(Actor, "board_ralsei")
 
 function actor:onSpriteInit(sprite)
     sprite:setOrigin(0, -0.5)
@@ -6,13 +6,13 @@ end
 
 function actor:init()
     super.init(self)
-    self.name = "HERO_SCARF"
+    self.name = "ralsei"
 
     self.width = 16
     self.height = 16
     self.hitbox = {0.2, 8.2, 15.4, 15.4}
     self.soul_offset = {8, 16}
-    self.path = "sword/party/HERO_SCARF"
+    self.path = "sword/party/ralsei"
     self.default = "walk"
     self.voice = nil
     self.portrait_path = nil

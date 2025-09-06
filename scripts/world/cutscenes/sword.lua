@@ -59,18 +59,18 @@ return {
         Game.world:loadMap("test_map")
 
 
-        Game.world.player:setActor("HERO_SWORD")
+        Game.world.player:setActor("board_kris")
         Game.world.player.force_walk = true
 
         for i, c in ipairs(Game.world.followers) do
             if i == 1 then
-                c:setActor("HERO_AXE")
+                c:setActor("board_susie")
             elseif i == 2 then
-                c:setActor("HERO_SCARF")
+                c:setActor("board_ralsei")
             elseif i == 3 then
-                c:setActor("WHITE CLOAK")
+                c:setActor("board_noelle")
             else
-                c:setActor("HERO_SWORD")--temp
+                c:setActor("board_kris")--temp
             end
         end
 
