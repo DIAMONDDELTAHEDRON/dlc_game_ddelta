@@ -73,29 +73,47 @@ function PushBlockBoard:init(x, y, shape, properties, sprite, solved_sprite)
     self.carry.y = -5
 end
 
+
+function PushBlockBoard:checkCol(x, y)
+    local collided = false
+
+    local bound_check = Hitbox(self.world, x + 0.5, y + 0.5, 31, 31)
+
+    Object.startCache()
+    for _,collider in ipairs(Game.world.map.block_collision) do
+        if collider:collidesWith(bound_check) then
+            collided = true
+            break
+        end
+    end
+    if Game.world.player:collidesWith(bound_check) then
+        collided = true
+    end
+    if not collided then
+        self.collidable = false
+        collided = self.world:checkCollision(bound_check)
+        self.collidable = true
+    end
+    Object.endCache()
+
+    return collided
+end
+
 function PushBlockBoard:update()
     super.update(self)
 
     if self.state == "LIFT" then
-        local p = Game.world.player
-        local pf = p.facing
 
-        local a, b = 0, 0
-        if pf == "up" then b = -82 end
-        if pf == "down" then b = 82 end
-        if pf == "left" then a = -82 end
-        if pf == "right" then a = 82 end
+        self:canThrow()
 
-        local c, r = Mod:getSquare(p.x + a, p.y + b)
+        if self.throw_reticle.visible and Input.pressed("confirm") then
+            local p = Game.world.player
+            local rec = self.throw_reticle
 
-        self.throw_reticle.x = c * 32
-        self.throw_reticle.y = r * 32
-
-        if Input.pressed("confirm") then
             p.actor.default = "walk"
             p:resetSprite()
 
-            self.x, self.y = self.throw_reticle.x, self.throw_reticle.y
+            self.x, self.y = rec.x, rec.y
             Game.world:removeChild(self.throw_reticle)
             p:removeChild(self.carry)
             self:playPushSound()
@@ -108,7 +126,8 @@ function PushBlockBoard:update()
 end
 
 function PushBlockBoard:onInteract(chara, facing)
-    if self.solid and chara.actor.id == "board_susie" then
+    if not self.solid then return false end
+    if chara.actor.id == "board_susie" then
 
         self:playLiftSound()
         chara.actor.default = "walk_armsup"
@@ -255,6 +274,34 @@ function PushBlockBoard:reset()
             self.state = "IDLE"
         end)
     end)
+end
+
+
+function PushBlockBoard:canThrow()
+    local p = Game.world.player
+    local a, b = Mod:getPf()
+    local c, r = Mod:boardTile(p.x + a, p.y + b)
+    self.throw_reticle.visible = true
+
+    -- if block placement is invalid we push it back a few
+    -- if its still invalid we give up
+
+    if self:checkCol(c, r) then
+        a, b = Mod:getPf(32)
+        c, r = c - a, r - b
+
+        if self:checkCol(c, r) then
+            c, r = c - a, r - b
+  
+            if self:checkCol(c, r) then
+                self.throw_reticle.visible = false
+            end
+        end
+    end
+
+
+    self.throw_reticle.x = c
+    self.throw_reticle.y = r
 end
 
 --- *(Override)* Called when the block is reset
