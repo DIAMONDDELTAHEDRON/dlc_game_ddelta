@@ -58,20 +58,28 @@ return {
 
         Game.world:loadMap("test_map")
 
-
-        Game.world.player:setActor("board_kris")
+		-- TODO eventually: Figure out if we'll handle assist members at all
+		if Registry.actors["board_" + br[1].actor] then
+			Game.world.player:setActor("board_" .. br[1].actor)
+		else
+			Game.world.player:setActor("board_kris")
+		end
         Game.world.player.force_walk = true
 
         for i, c in ipairs(Game.world.followers) do
-            if i == 1 then
-                c:setActor("board_susie")
-            elseif i == 2 then
-                c:setActor("board_ralsei")
-            elseif i == 3 then
-                c:setActor("board_noelle")
-            else
-                c:setActor("board_kris")--temp
-            end
+			if Registry.actors["board_" + br[i+1].actor] then
+				c:setActor("board_" .. br[i+1].actor)
+			else
+				if i == 1 then
+					c:setActor("board_susie")
+				elseif i == 2 then
+					c:setActor("board_ralsei")
+				elseif i == 3 then
+					c:setActor("board_noelle")
+				else
+					c:setActor("board_kris")--temp
+				end
+			end
         end
 
         Game.board = openMenulol(room_board())
