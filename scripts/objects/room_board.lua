@@ -88,6 +88,25 @@ function room_board:update()
     elseif self.quit_timer < 0 then
         self.quit_timer = 0
     end
+    if Input.pressed("menu") and #Game.party == 1 then
+        self:swap_party()
+    end
+end
+
+function room_board:swap_party()
+    local charas = {"kris", "susie", "ralsei", "noelle"}
+    local p = Game.world.player
+
+    local id = p.actor.id:gsub("board_", "")
+    for i, name in ipairs(charas) do
+        if name == id then
+            local next_index = (i % #charas) + 1
+            p:setActor("board_" .. charas[next_index])
+            break
+        end
+    end
+    local b = self.healthbars[1]
+    b:init(b.x, b.y, p.actor)
 end
 
 function room_board:draw()

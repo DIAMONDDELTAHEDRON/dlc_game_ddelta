@@ -1,7 +1,8 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
+
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +10,8 @@ return {
   height = 32,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 9,
-  nextobjectid = 57,
+  nextlayerid = 8,
+  nextobjectid = 58,
   properties = {
     ["music"] = "ch3_board3"
   },
@@ -470,6 +471,35 @@ return {
           properties = {
             ["cutscene"] = "sword.shop_exit",
             ["once"] = false
+          }
+        },
+        {
+          id = 56,
+          name = "coin",
+          type = "",
+          shape = "rectangle",
+          x = 672,
+          y = 704,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 57,
+          name = "pushblock",
+          type = "",
+          shape = "rectangle",
+          x = 544,
+          y = 800,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["pushdist"] = 32,
+            ["sprite"] = "world/events/sword/pushblock"
           }
         }
       }
