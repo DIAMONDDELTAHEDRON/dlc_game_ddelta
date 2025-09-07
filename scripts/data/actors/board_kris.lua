@@ -40,7 +40,7 @@ function actor:init()
     self.healthMax = 160
     self.color = {0, 1, 1}
 	
-	self.ability = "push"
+	self.ability = "interact"	-- ???
 end
 
 return actor

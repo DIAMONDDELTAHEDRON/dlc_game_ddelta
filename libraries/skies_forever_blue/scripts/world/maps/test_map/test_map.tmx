@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="59">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="59">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -119,7 +119,7 @@
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
-  <object id="57" name="pushblock" x="560" y="800" width="32" height="32">
+  <object id="57" name="pushblock" x="544" y="800" width="32" height="32">
    <properties>
     <property name="pushdist" type="int" value="32"/>
     <property name="sprite" value="world/events/sword/pushableblock"/>
