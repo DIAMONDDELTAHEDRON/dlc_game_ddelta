@@ -48,7 +48,7 @@ Utils.hook(PushBlock, "update", function(orig, self)
 end)
 
 Utils.hook(PushBlock, "onInteract", function(orig, self, chara, facing)
-    if self.solid and chara.actor.id == "board_susie" then
+    if self.solid and chara.actor.ability == "carry" then
 
         self:playPushSound()
         chara.actor.default = "walk_armsup"
@@ -64,7 +64,7 @@ Utils.hook(PushBlock, "onInteract", function(orig, self, chara, facing)
         self.visible = false
         self.state = "CARRIED"
         return true
-    elseif chara.actor.id ~= "board_kris" then
+    elseif chara.actor.ability ~= "push" then
         return true
     end
     self:playPushSound()

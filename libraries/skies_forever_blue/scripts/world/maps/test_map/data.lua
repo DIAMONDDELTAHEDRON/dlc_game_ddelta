@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -477,7 +477,7 @@ return {
           name = "pushblock",
           type = "",
           shape = "rectangle",
-          x = 544,
+          x = 560,
           y = 800,
           width = 32,
           height = 32,
