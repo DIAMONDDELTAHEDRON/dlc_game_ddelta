@@ -59,7 +59,7 @@ return {
         Game.world:loadMap("test_map")
 
 		-- TODO eventually: Figure out if we'll handle assist members at all
-		if Registry.actors["board_" + br[1].actor] then
+		if Registry.actors["board_" + br[1].actor] and Utils.containsValue(Game:getFlag("unlocked_board_members", {}), Game.party[1].id) then
 			Game.world.player:setActor("board_" .. br[1].actor)
 		else
 			Game.world.player:setActor("board_kris")
@@ -67,7 +67,7 @@ return {
         Game.world.player.force_walk = true
 
         for i, c in ipairs(Game.world.followers) do
-			if Registry.actors["board_" + br[i+1].actor] then
+			if Registry.actors["board_" + br[i+1].actor] and Utils.containsValue(Game:getFlag("unlocked_board_members", {}), Game.party[i+1].id) then
 				c:setActor("board_" .. br[i+1].actor)
 			else
 				if i == 1 then
