@@ -1,8 +1,8 @@
----@class room_board : Object
----@overload fun(...) : room_board
-local room_board, super = Class(Object)
+---@class BoardGame : Object
+---@overload fun(...) : BoardGame
+local BoardGame, super = Class(Object)
 
-function room_board:init()
+function BoardGame:init()
     super.init(self)
 
     self.quit_timer = 0
@@ -19,7 +19,6 @@ function room_board:init()
     self:addChild(self.wall)
     self.wall:setScale(2)
     self.wall.debug_select = false
-
 
     self.console = Sprite(q.."console") --356 --322 --34
     self:addChild(self.console)
@@ -41,9 +40,6 @@ function room_board:init()
         end
     end
 
-    --self.npcs["kris"]
-    --self.npcs["susie"]
-
     self.couch = Sprite(q.."couch")
     self:addChild(self.couch)
     self.couch:setScale(2)
@@ -56,31 +52,44 @@ function room_board:init()
     self.playerpodiums.x = 128
     self.playerpodiums.y = 474 - 36
     self.playerpodiums.layer = 1
+	
+    --board character variables
+    self.charas = {"kris", "susie", "ralsei", "noelle", "jamm"}
+    self.chara_state = "none"
+    self.canfreemove = true
 
+    --kris related variables
+    self.kris_has_sword = false
+    self.swordbuffer = 0
+    self.swordfacing = "down"
 
     -- x + 94 for every other health bar
     self.healthbars = {}
-    self.healthbars[1] = board_healthbar(128, 32, Game.world.player.actor)
+    self.healthbars[1] = BoardHealthBar(128, 32, Game.world.player.actor)
     self:addChild(self.healthbars[1])
 
     for i, follower in ipairs(Game.world.followers) do
         local x = 128 + (94 * i)
         local b = i + 1
-        self.healthbars[b] = board_healthbar(x, 32, follower.actor)
+        self.healthbars[b] = BoardHealthBar(x, 32, follower.actor)
         self:addChild(self.healthbars[b])
     end
 
-
-    self.score = board_score((128 + 92 * #Game.party) + (2 * #Game.party), 32)
+    self.score = BoardScoreBar(410, 32)
     self:addChild(self.score)
-
+	
+    self.sword_route = false
 end
 
-function room_board:update()
+function BoardGame:update()
     super.update(self)
 
     if self.quit_timer >= 90 then
         self:quit()
+    end
+	
+    if Input.pressed("confirm") then
+        self:characterAction()
     end
 
     if Input.down("cancel") then
@@ -90,20 +99,61 @@ function room_board:update()
     elseif self.quit_timer < 0 then
         self.quit_timer = 0
     end
-    if Input.pressed("menu") and #Game.party == 1 and not Game.world.player.carry then
-        self:swap_party()
+
+    if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not self.sword_route then
+        self:swapCharacter()
     end
 end
 
-function room_board:swap_party()
-    local charas = {"kris", "susie", "ralsei", "noelle"}
+function BoardGame:characterAction() -- character abilities should mainly be handled here
+    local p = Game.world.player
+    local id = p.actor.id:gsub("board_", "")
+
+    for i, name in ipairs(self.charas) do
+        if name == id.."kris" then    -- nothing (unless you've obtained the sword.)
+            return
+        end
+        if name == id.."susie" then   -- grab and throw
+            return
+        end
+        if name == id.."ralsei" then  -- stool forme
+            return
+        end
+        if name == id.."lancer" then  -- digging
+            return
+        end
+        if name == id.."elnina" then  -- crying
+            return
+        end
+        if name == id.."noelle" then  -- ice magic
+            return
+        end
+        if name == id.."jamm" then    -- hookshot
+            return
+        end
+	end
+end
+
+function BoardGame:swapCharacter()   -- changes the current player character
     local p = Game.world.player
 
+    local puff = Sprite("sword/effects/smokepuff", 8, 16)
+    puff:setColor(201/255, 201/255, 201/255, 1)
+    puff:setOrigin(0.5, 0.5)
+    puff:setLayer(p.layer + 0.1)
+    p:addChild(puff)
+    puff:play(1/30, false, function() puff:remove() end)
+
     local id = p.actor.id:gsub("board_", "")
-    for i, name in ipairs(charas) do
+    for i, name in ipairs(self.charas) do
         if name == id then
-            local next_index = (i % #charas) + 1
-            p:setActor("board_" .. charas[next_index])
+            local next_index = (i % #self.charas) + 1
+            p:setActor("board_" .. self.charas[next_index])
+
+            Assets.playSound("voice/board", 1, 1.1 + (next_index / 10))
+            Assets.playSound("voice/board", 1, 0.2 + (next_index / 10))
+            Assets.playSound("board/splash", 0.4, 0.8)
+
             break
         end
     end
@@ -111,21 +161,21 @@ function room_board:swap_party()
     b:init(b.x, b.y, p.actor)
 end
 
-function room_board:draw()
+function BoardGame:draw()
     super.draw(self)
 
-    love.graphics.setFont(self.font)
+    love.graphics.setFont(Assets.getFont("main"))
     love.graphics.setColor(1, 1, 1)
 
-    love.graphics.print("Hold [CANCEL] to EXIT", 150, 28 - 18)
+    love.graphics.printfOutline("Hold [CANCEL] to EXIT", 164, 5, 2)
 
     local last = love.graphics.getLineWidth()
     love.graphics.setLineWidth(5)
-    love.graphics.arc( "line", "open", 120, 40 - 18, 15, 0, self.quit_timer/14 )
+    love.graphics.arc( "line", "open", 120, (40-18), 15, 0, self.quit_timer/14 )
     love.graphics.setLineWidth(last)   
-
 end
-function room_board:quit()
+
+function BoardGame:quit()
     Game.world:loadMap("floortv/board")
 
     local br = Game:getFlag("board_actors")
@@ -145,11 +195,10 @@ function room_board:quit()
         end
 
         --Game.world.player.history = Game:getFlag("walk_history")
-
     end)
 
     Game.world.can_open_menu = true
     Game.world.in_game = nil
 end
 
-return room_board
+return BoardGame
