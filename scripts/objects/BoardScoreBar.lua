@@ -1,8 +1,8 @@
----@class board_score : Object
----@overload fun(...) : board_score
-local board_score, super = Class(Object)
+---@class BoardScoreBar : Object
+---@overload fun(...) : BoardScoreBar
+local BoardScoreBar, super = Class(Object)
 
-function board_score:init(x, y)
+function BoardScoreBar:init(x, y)
     super.init(self)
 
     self.x = x or 0
@@ -17,10 +17,9 @@ function board_score:init(x, y)
     if not Game:getFlag("POINTS") then Game:setFlag("POINTS", 0) end
 
     self.font = Assets.getFont("8bit")
-
 end
 
-function board_score:draw()
+function BoardScoreBar:draw()
     super.draw(self)
 
     love.graphics.setFont(self.font)
@@ -33,4 +32,4 @@ function board_score:draw()
     love.graphics.print(p, 94 - (16*m), 8)
 end
 
-return board_score 
+return BoardScoreBar 

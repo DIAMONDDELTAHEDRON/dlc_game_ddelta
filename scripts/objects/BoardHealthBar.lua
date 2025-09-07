@@ -1,8 +1,8 @@
----@class board_healthbar : Object
----@overload fun(...) : board_healthbar
-local board_healthbar, super = Class(Object)
+---@class BoardHealthBar : Object
+---@overload fun(...) : BoardHealthBar
+local BoardHealthBar, super = Class(Object)
 
-function board_healthbar:init(x, y, party)
+function BoardHealthBar:init(x, y, party)
     super.init(self)
 
     self.x = x or 0
@@ -22,22 +22,19 @@ function board_healthbar:init(x, y, party)
 
 end
 
-function board_healthbar:update()
+function BoardHealthBar:update()
     super.update(self)
 end
 
-function board_healthbar:h()
+function BoardHealthBar:h()
     return self.party.health
 end
 
-function board_healthbar:draw()
+function BoardHealthBar:draw()
     super.draw(self)
 
     love.graphics.setColor(self.party:getColor())
-
     love.graphics.rectangle( "fill", 14, 12, ((self:h()/50)/self.div) * 50, 6)
-
-
 end
 
-return board_healthbar
+return BoardHealthBar

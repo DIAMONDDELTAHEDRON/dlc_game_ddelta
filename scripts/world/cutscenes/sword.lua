@@ -82,7 +82,7 @@ return {
 			end
         end
 
-        Game.board = openMenulol(room_board())
+        Game.board = openMenulol(BoardGame())
         Game.world:closeMenu()
 
         Game.world.camera.x = 576
