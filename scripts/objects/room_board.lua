@@ -18,6 +18,8 @@ function room_board:init()
     self.wall = Sprite(q.."wall")
     self:addChild(self.wall)
     self.wall:setScale(2)
+    self.wall.debug_select = false
+
 
     self.console = Sprite(q.."console") --356 --322 --34
     self:addChild(self.console)
