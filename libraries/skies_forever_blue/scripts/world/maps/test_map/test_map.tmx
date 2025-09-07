@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="57">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="58">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -119,14 +119,12 @@
     <property name="once" type="bool" value="false"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup id="8" name="objects_filter">
-  <object id="56" name="filter" x="0" y="0">
+  <object id="56" name="coin" x="672" y="704" width="32" height="32"/>
+  <object id="57" name="pushblock" x="544" y="800" width="32" height="32">
    <properties>
-    <property name="texh" type="float" value="256"/>
-    <property name="texw" type="float" value="384"/>
+    <property name="pushdist" type="int" value="32"/>
+    <property name="sprite" value="world/events/sword/pushblock"/>
    </properties>
-   <point/>
   </object>
  </objectgroup>
 </map>
