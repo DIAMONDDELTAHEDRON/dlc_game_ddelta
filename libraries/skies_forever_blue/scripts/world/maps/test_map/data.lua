@@ -485,7 +485,7 @@ return {
           visible = true,
           properties = {
             ["pushdist"] = 32,
-            ["sprite"] = "world/events/sword/pushblock"
+            ["sprite"] = "world/events/sword/pushableblock"
           }
         },
         {

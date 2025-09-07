@@ -1,9 +1,72 @@
 function Mod:init()
     --print("Loaded "..self.info.name.."!")
 
+Utils.hook(PushBlock, "init", function(orig, self, x, y, shape, properties, sprite, solved_sprite)
+    orig(self, x, y, shape, properties, sprite, solved_sprite)
+
+    self.throw_reticle = Sprite("world/events/sword/throw_reticle")
+    self.throw_reticle:setScale(2)
+    
+    local sprite_b = properties["sprite"] or sprite or "world/events/sword/pushableblock"
+    self.carry = Sprite(sprite_b)
+    self.carry.y = -5
+end)
+
+Utils.hook(PushBlock, "update", function(orig, self)
+    orig(self)
+    if self.state == "CARRIED" then
+
+        local p = Game.world.player
+        local pf = p.facing
+
+        local a, b = 0, 0
+        if pf == "up" then b = -82 end
+        if pf == "down" then b = 82 end
+        if pf == "left" then a = -82 end
+        if pf == "right" then a = 82 end
+
+        local c, r = Mod:getSquare(p.x + a, p.y + b)
+
+        self.throw_reticle.x = c * 32
+        self.throw_reticle.y = r * 32
+
+        if Input.pressed("confirm") then
+
+            p.actor.default = "walk"
+            p:resetSprite()
+
+            self.x, self.y = self.throw_reticle.x, self.throw_reticle.y
+            Game.world:removeChild(self.throw_reticle)
+            p:removeChild(self.carry)
+            self:playPushSound()
+            self.solid = true
+            self.visible = true
+            self.state = "IDLE"
+            p.carry = nil
+        end
+    end
+end)
 
 Utils.hook(PushBlock, "onInteract", function(orig, self, chara, facing)
-    if chara.actor.id ~= "board_kris" then return true end
+    if self.solid and chara.actor.id == "board_susie" then
+
+        self:playPushSound()
+        chara.actor.default = "walk_armsup"
+        chara:resetSprite()
+        chara.carry = true
+
+        chara:addChild(self.carry)
+
+        Game.world:addChild(self.throw_reticle)
+        self.throw_reticle.layer = chara.layer
+
+        self.solid = false
+        self.visible = false
+        self.state = "CARRIED"
+        return true
+    elseif chara.actor.id ~= "board_kris" then
+        return true
+    end
     self:playPushSound()
 
     if self.state ~= "IDLE" then return true end
@@ -65,4 +128,10 @@ Utils.hook(World, "onKeyPressed", function(orig, self, key)
     end
 end)
 
+end
+
+function Mod:getSquare(x, y)
+    local r = math.floor(x/32)
+    local c = math.floor(y/32)
+    return r, c
 end
