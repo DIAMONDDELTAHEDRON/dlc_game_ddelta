@@ -122,7 +122,7 @@
   <object id="57" name="pushblock" x="544" y="800" width="32" height="32">
    <properties>
     <property name="pushdist" type="int" value="32"/>
-    <property name="sprite" value="world/events/sword/pushblock"/>
+    <property name="sprite" value="world/events/sword/pushableblock"/>
    </properties>
   </object>
   <object id="58" name="coin" x="672" y="704" width="32" height="32"/>

@@ -90,7 +90,7 @@ function room_board:update()
     elseif self.quit_timer < 0 then
         self.quit_timer = 0
     end
-    if Input.pressed("menu") and #Game.party == 1 then
+    if Input.pressed("menu") and #Game.party == 1 and not Game.world.player.carry then
         self:swap_party()
     end
 end
