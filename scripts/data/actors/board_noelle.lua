@@ -39,6 +39,8 @@ function actor:init()
     self.health = 90
     self.healthMax = 90
     self.color = {1, 1, 1}
+	
+	self.ability = "ice"
 end
 
 return actor
