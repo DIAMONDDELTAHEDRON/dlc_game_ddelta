@@ -2,6 +2,21 @@ function Mod:init()
     --print("Loaded "..self.info.name.."!")
 
 
+Utils.hook(PushBlock, "onInteract", function(orig, self, chara, facing)
+    if chara.actor.id ~= "board_kris" then return true end
+    self:playPushSound()
+
+    if self.state ~= "IDLE" then return true end
+
+    if not self:checkCollision(facing) then
+        self:onPush(facing)
+    else
+        self:onPushFail(facing)
+    end
+
+    return true
+end)
+
 
 Utils.hook(World, "onKeyPressed", function(orig, self, key)
     if Kristal.Config["debug"] and Input.ctrl() then

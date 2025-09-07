@@ -1,8 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
-
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -11,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 8,
-  nextobjectid = 58,
+  nextobjectid = 59,
   properties = {
     ["music"] = "ch3_board3"
   },
@@ -474,19 +473,6 @@ return {
           }
         },
         {
-          id = 56,
-          name = "coin",
-          type = "",
-          shape = "rectangle",
-          x = 672,
-          y = 704,
-          width = 32,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 57,
           name = "pushblock",
           type = "",
@@ -501,6 +487,19 @@ return {
             ["pushdist"] = 32,
             ["sprite"] = "world/events/sword/pushblock"
           }
+        },
+        {
+          id = 58,
+          name = "coin",
+          type = "",
+          shape = "rectangle",
+          x = 672,
+          y = 704,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
