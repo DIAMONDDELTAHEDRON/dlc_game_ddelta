@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="56">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="57">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
@@ -118,6 +118,15 @@
     <property name="cutscene" value="sword.shop_exit"/>
     <property name="once" type="bool" value="false"/>
    </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="objects_filter">
+  <object id="56" name="filter" x="0" y="0">
+   <properties>
+    <property name="texh" type="float" value="256"/>
+    <property name="texw" type="float" value="384"/>
+   </properties>
+   <point/>
   </object>
  </objectgroup>
 </map>

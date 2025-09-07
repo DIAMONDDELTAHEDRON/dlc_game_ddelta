@@ -58,7 +58,6 @@ return {
 
         Game.world:loadMap("test_map")
 
-
         Game.world.player:setActor("board_kris")
         Game.world.player.force_walk = true
 
