@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -150,7 +150,7 @@ return {
         {
           id = 12,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 576,
           y = 672,
@@ -180,7 +180,7 @@ return {
         {
           id = 18,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 384,
           y = 736,
@@ -193,7 +193,7 @@ return {
         {
           id = 19,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 608,
           y = 736,
@@ -206,7 +206,7 @@ return {
         {
           id = 21,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 704,
           y = 512,
@@ -219,7 +219,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 384,
           y = 512,
@@ -232,7 +232,7 @@ return {
         {
           id = 26,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 448,
           y = 512,
@@ -245,7 +245,7 @@ return {
         {
           id = 27,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -258,7 +258,7 @@ return {
         {
           id = 28,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 352,
           y = 32,
@@ -271,7 +271,7 @@ return {
         {
           id = 29,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 224,
           y = 224,
@@ -284,7 +284,7 @@ return {
         {
           id = 30,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 224,
@@ -297,7 +297,7 @@ return {
         {
           id = 32,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 32,
@@ -310,7 +310,7 @@ return {
         {
           id = 35,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 416,
           y = 832,
@@ -323,7 +323,7 @@ return {
         {
           id = 37,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 512,
           y = 768,
@@ -336,7 +336,7 @@ return {
         {
           id = 38,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 384,
           y = 960,
@@ -349,7 +349,7 @@ return {
         {
           id = 40,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 608,
           y = 960,
@@ -362,7 +362,7 @@ return {
         {
           id = 42,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 384,
           y = 896,
@@ -375,7 +375,7 @@ return {
         {
           id = 43,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 608,
           y = 768,
@@ -388,7 +388,7 @@ return {
         {
           id = 53,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 736,
           y = 896,
@@ -401,7 +401,7 @@ return {
         {
           id = 54,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 384,
           y = 928,
@@ -414,7 +414,7 @@ return {
         {
           id = 55,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 544,
           y = 992,
@@ -443,7 +443,7 @@ return {
         {
           id = 45,
           name = "script",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 448,
           y = 832,
@@ -459,7 +459,7 @@ return {
         {
           id = 46,
           name = "script",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 160,
           y = 256,
@@ -474,8 +474,8 @@ return {
         },
         {
           id = 57,
-          name = "pushblock",
-          type = "",
+          name = "pushblock_board",
+          class = "",
           shape = "rectangle",
           x = 544,
           y = 800,
@@ -483,15 +483,12 @@ return {
           height = 32,
           rotation = 0,
           visible = true,
-          properties = {
-            ["pushdist"] = 32,
-            ["sprite"] = "world/events/sword/pushableblock"
-          }
+          properties = {}
         },
         {
           id = 58,
           name = "coin",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 672,
           y = 704,
@@ -520,7 +517,7 @@ return {
         {
           id = 56,
           name = "filter",
-          type = "",
+          class = "",
           shape = "point",
           x = 0,
           y = 0,
