@@ -98,7 +98,7 @@ function BoardGame:update()
         self:characterAction()
     end
 
-    if Input.down("cancel") then
+    if Input.down("cancel") and not Game.world:hasCutscene() then
         self.quit_timer = self.quit_timer + DTMULT*2
     elseif self.quit_timer > 0 then
         self.quit_timer = self.quit_timer - DTMULT*3

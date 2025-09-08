@@ -19,6 +19,10 @@ function event:onAdd()
 	self:setLayer(WORLD_LAYERS["above_events"])
 end
 
+function event:onRemove()
+	self:setLayer(0)
+end
+
 function event:drawMask()
     if self.collider then
         self.collider:drawFill()
