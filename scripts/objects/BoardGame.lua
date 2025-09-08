@@ -56,12 +56,18 @@ function BoardGame:init()
     --board character variables
     self.charas = {"kris", "susie", "ralsei", "noelle", "jamm"}
     self.chara_state = "none"
-    self.canfreemove = true
 
-    --kris related variables
+    --kris variables
     self.kris_has_sword = false
     self.swordbuffer = 0
     self.swordfacing = "down"
+
+    --ralsei variables
+    self.go_stoole = false
+    self.stool = nil
+    self.stoolbuff = 0
+    self.unstoole = false
+
 
     -- x + 94 for every other health bar
     self.healthbars = {}
@@ -103,46 +109,90 @@ function BoardGame:update()
     if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not self.sword_route then
         self:swapCharacter()
     end
+
+    local p = Game.world.player
+    local id = p.actor.id:gsub("board_", "")
+    local name = id..""..id
+	
+    if name == id.."ralsei" then
+        if self.stoolbuff > 0 then
+            self.stoolbuff =  self.stoolbuff - (1 * DTMULT)
+        end
+    end
 end
 
 function BoardGame:characterAction() -- character abilities should mainly be handled here
     local p = Game.world.player
     local id = p.actor.id:gsub("board_", "")
-    local name = id..""..id --I have no clue how this is meant to work
-    --for i, name in ipairs(self.charas) do
-        if name == id.."kris" then    -- nothing (unless you've obtained the sword.)
-            return
-        end
-        if name == id.."susie" then   -- grab and throw
-            return
-        end
-        if name == id.."ralsei" then  -- stool forme
-            if self.chara_state == "STOOL_FORME" then
-                p:resetSprite()
-                Game.lock_movement = false
-                self.chara_state = "none"
-            else
-                p:setSprite("stoolforme")
-                local c, r = Mod:boardTile(p.x, p.y)
-                p.x, p.y = c + 16, r + 16 
+    local name = id..""..id
+
+    if name == id.."kris" then    -- nothing (unless you've obtained the sword.)
+        return
+    end
+    if name == id.."susie" then   -- grab and throw
+        return
+    end
+    if name == id.."ralsei" then  -- stool forme
+        local can_stoole = true
+        local stoolevolume = 0.6
+		
+        if self.chara_state == "none" and (self.stoolbuff <= 0 or self.go_stoole) then
+            if can_stoole then
+                self.go_stoole = false
+				
+                self.stool_x, self.stool_y = Mod:boardTile(p.x, p.y)
+                p.x, p.y = self.stool_x + 16, self.stool_y + 16
+
+                --creates a "pushblock_board" event
+                self.stool = Game.world:spawnObject(Registry.createEvent("pushblock_board", {
+                    x = self.stool_x, 
+                    y =  self.stool_y, 
+                    properties = { 
+					    sprite = "sword/party/ralsei/stoolforme",
+					    pushsound = "voice/ralsei"
+                    }
+                }))
+                self.stool:setLayer(p.layer - 0.1)
+
+                self.chara_state = "stoolforme"
+                Assets.playSound("board/ralsei_cube", stoolevolume, 1)
                 Game.lock_movement = true
-                self.chara_state = "STOOL_FORME"
+                p.alpha = 0
+                self.stoolbuff = 3
             end
-            return
         end
-        if name == id.."lancer" then  -- digging
-            return
+
+        if self.chara_state == "stoolforme" and (self.stoolbuff <= 0 or self.unstoole) then
+            self.unstoole = false
+
+            Assets.playSound("board/ralsei_cube", stoolevolume, 0.7)
+            self.stool:remove()
+            Game.lock_movement = false
+            self.chara_state = "none"
+            p.alpha = 1
+            self.stoolbuff = 3
         end
-        if name == id.."elnina" then  -- crying
-            return
-        end
-        if name == id.."noelle" then  -- ice magic
-            return
-        end
-        if name == id.."jamm" then    -- hookshot
-            return
-        end
-	--end
+
+        --particle effect when changing forms
+        local puff = Sprite("sword/effects/smokepuff", 8, 16)
+        puff:setColor(19/255, 210/255, 111/255, 1)
+        puff:setOrigin(0.5, 0.5)
+        puff:setLayer(p.layer + 0.1)
+        p:addChild(puff)
+        puff:play(1/30, false, function() puff:remove() end)
+    end
+    if name == id.."lancer" then  -- digging
+        return
+    end
+    if name == id.."elnina" then  -- crying
+        return
+    end
+    if name == id.."noelle" then  -- ice magic
+        return
+    end
+    if name == id.."jamm" then    -- hookshot
+        return
+    end
 end
 
 function BoardGame:swapCharacter()   -- changes the current player character

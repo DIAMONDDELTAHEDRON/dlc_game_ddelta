@@ -9,12 +9,11 @@
 ---
 ---@field solid             boolean     
 ---
----@field push_dist         number      *[Property `pushdist`]* The number of pixels the block moves per push (Defaults to `40`, one tile)
+---@field push_dist         number      *[Property `pushdist`]* The number of pixels the block moves per push (Defaults to `32`, one tile)
 ---@field push_timer        number      *[Property `pushtime`]* The time the block takes to complete a push, in seconds (Defaults to `0.2`)
 ---
 ---@field push_sound        string      *[Property `pushsound`]* The name of the sound file to play when the block is pushed (Defaults to `pushsound`)
----@field collide_sound     string      *[Property `collidesound`]* The name of the sound file to play when the block cannot be pushed (Defaults to `collidesound`)
----@field lift_sound        string      *[Property `liftsound`]* The name of the sound file to play when the block is lifted up by Susie (Defaults to `liftsound`)
+---@field collide_sound     string      *[Property `collisionsound`]* The name of the sound file to play when the block cannot be pushed (Defaults to `collisionsound`)
 ---
 ---@field press_buttons     boolean     *[Property `pressbuttons`]* Unused (Defaults to `true`)
 ---
@@ -30,12 +29,12 @@
 ---@field solved            boolean     Whether the pushblock is in a solved state
 ---
 ---@overload fun(...) : PushBlockBoard
-local PushBlockBoard, super = Class(Event)
+local PushBlockBoard, super = Class(Event, "pushblock_board")
 
-function PushBlockBoard:init(x, y, shape, properties, sprite, solved_sprite)
-    super.init(self, x, y, shape)
+function PushBlockBoard:init(data, x, y, shape, sprite, solved_sprite)
+    super.init(self, data, x, y, shape)
 
-    properties = properties or {}
+    local properties = data.properties or {}
 
     self.default_sprite = properties["sprite"] or sprite or "world/events/sword/pushableblock"
     self.solved_sprite = properties["solvedsprite"] or properties["sprite"] or solved_sprite or sprite or "world/events/sword/pushableblock"
