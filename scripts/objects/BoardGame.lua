@@ -108,8 +108,8 @@ end
 function BoardGame:characterAction() -- character abilities should mainly be handled here
     local p = Game.world.player
     local id = p.actor.id:gsub("board_", "")
-
-    for i, name in ipairs(self.charas) do
+    local name = id..""..id --I have no clue how this is meant to work
+    --for i, name in ipairs(self.charas) do
         if name == id.."kris" then    -- nothing (unless you've obtained the sword.)
             return
         end
@@ -117,6 +117,17 @@ function BoardGame:characterAction() -- character abilities should mainly be han
             return
         end
         if name == id.."ralsei" then  -- stool forme
+            if self.chara_state == "STOOL_FORME" then
+                p:resetSprite()
+                Game.lock_movement = false
+                self.chara_state = "none"
+            else
+                p:setSprite("stoolforme")
+                local c, r = Mod:boardTile(p.x, p.y)
+                p.x, p.y = c + 16, r + 16 
+                Game.lock_movement = true
+                self.chara_state = "STOOL_FORME"
+            end
             return
         end
         if name == id.."lancer" then  -- digging
@@ -131,7 +142,7 @@ function BoardGame:characterAction() -- character abilities should mainly be han
         if name == id.."jamm" then    -- hookshot
             return
         end
-	end
+	--end
 end
 
 function BoardGame:swapCharacter()   -- changes the current player character
