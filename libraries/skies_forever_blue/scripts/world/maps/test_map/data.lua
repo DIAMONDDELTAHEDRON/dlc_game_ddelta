@@ -1,7 +1,7 @@
 return {
   version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.0",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,9 +10,9 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 60,
+  nextobjectid = 64,
   properties = {
-    ["music"] = "ch3_board3"
+    ["music"] = "dogcheck/ch3_board3"
   },
   tilesets = {
     {
@@ -154,6 +154,32 @@ return {
           shape = "point",
           x = 576,
           y = 672,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 60,
+          name = "shop_enter",
+          type = "",
+          shape = "point",
+          x = 192,
+          y = 240,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 62,
+          name = "shop_exit",
+          type = "",
+          shape = "point",
+          x = 480,
+          y = 880,
           width = 0,
           height = 0,
           rotation = 0,
@@ -441,38 +467,6 @@ return {
       properties = {},
       objects = {
         {
-          id = 45,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 448,
-          y = 832,
-          width = 64,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "sword.shop_enter",
-            ["once"] = false
-          }
-        },
-        {
-          id = 46,
-          name = "script",
-          type = "",
-          shape = "rectangle",
-          x = 160,
-          y = 256,
-          width = 64,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["cutscene"] = "sword.shop_exit",
-            ["once"] = false
-          }
-        },
-        {
           id = 57,
           name = "pushblock_board",
           type = "",
@@ -512,6 +506,38 @@ return {
           properties = {
             ["text1"] = "HELLO AND WELCOME TO THE TEST NPC.",
             ["text2"] = "I HOPE THAT YOU HAVE A NICE DAY."
+          }
+        },
+        {
+          id = 61,
+          name = "transition_board",
+          type = "",
+          shape = "rectangle",
+          x = 448,
+          y = 832,
+          width = 64,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["marker"] = { id = 60 },
+            ["music"] = "none"
+          }
+        },
+        {
+          id = 63,
+          name = "transition_board",
+          type = "",
+          shape = "rectangle",
+          x = 160,
+          y = 256,
+          width = 64,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["marker"] = { id = 62 },
+            ["music"] = "dogcheck/ch3_board3"
           }
         }
       }

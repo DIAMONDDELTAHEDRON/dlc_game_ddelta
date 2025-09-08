@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="60">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="36" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="64">
  <editorsettings>
   <export target="data.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="music" value="ch3_board3"/>
+  <property name="music" value="dogcheck/ch3_board3"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/skies_forever_blue.tsx"/>
  <tileset firstgid="197" source="../../tilesets/bg_board_adventure_tileset.tsx"/>
@@ -84,6 +84,12 @@
   <object id="12" name="spawn" x="576" y="672">
    <point/>
   </object>
+  <object id="60" name="shop_enter" x="192" y="240">
+   <point/>
+  </object>
+  <object id="62" name="shop_exit" x="480" y="880">
+   <point/>
+  </object>
  </objectgroup>
  <objectgroup color="#0000ff" id="7" name="collision" tintcolor="#0000ff">
   <object id="18" x="384" y="736" width="160" height="32"/>
@@ -107,24 +113,24 @@
   <object id="55" x="544" y="992" width="64" height="32"/>
  </objectgroup>
  <objectgroup id="2" name="objects">
-  <object id="45" name="script" x="448" y="832" width="64" height="32">
-   <properties>
-    <property name="cutscene" value="sword.shop_enter"/>
-    <property name="once" type="bool" value="false"/>
-   </properties>
-  </object>
-  <object id="46" name="script" x="160" y="256" width="64" height="32">
-   <properties>
-    <property name="cutscene" value="sword.shop_exit"/>
-    <property name="once" type="bool" value="false"/>
-   </properties>
-  </object>
   <object id="57" name="pushblock_board" x="544" y="800" width="32" height="32"/>
   <object id="58" name="coin" x="672" y="704" width="32" height="32"/>
   <object id="59" name="interactable_board" x="448" y="640" width="32" height="32">
    <properties>
     <property name="text1" value="HELLO AND WELCOME TO THE TEST NPC."/>
     <property name="text2" value="I HOPE THAT YOU HAVE A NICE DAY."/>
+   </properties>
+  </object>
+  <object id="61" name="transition_board" x="448" y="832" width="64" height="32">
+   <properties>
+    <property name="marker" type="object" value="60"/>
+    <property name="music" value="none"/>
+   </properties>
+  </object>
+  <object id="63" name="transition_board" x="160" y="256" width="64" height="32">
+   <properties>
+    <property name="marker" type="object" value="62"/>
+    <property name="music" value="dogcheck/ch3_board3"/>
    </properties>
   </object>
  </objectgroup>
