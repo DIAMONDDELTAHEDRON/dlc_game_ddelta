@@ -25,11 +25,11 @@ function BoardScoreBar:draw()
     love.graphics.setFont(self.font)
     love.graphics.setColor(1, 1, 1)
 
-    love.graphics.print("P", 10, 8)
+    love.graphics.print("P", 10, 8-3)
 
     local p = Game:getFlag("POINTS", 0)
     local m = #tostring(p)
-    love.graphics.print(p, 94 - (16*m), 8)
+    love.graphics.print(p, 94 - (16*m), 8-3)
 end
 
 return BoardScoreBar 

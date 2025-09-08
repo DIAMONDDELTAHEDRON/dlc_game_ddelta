@@ -1,4 +1,4 @@
 {
-    "defaultSize": 16,
-    "lineSpacing": 28,
+    "glyphs":" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
+    "lineSpacing": 16
 }
