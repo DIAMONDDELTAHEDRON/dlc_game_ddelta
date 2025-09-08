@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.0",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,8 +9,8 @@ return {
   height = 32,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 8,
-  nextobjectid = 59,
+  nextlayerid = 10,
+  nextobjectid = 60,
   properties = {
     ["music"] = "ch3_board3"
   },
@@ -150,7 +150,7 @@ return {
         {
           id = 12,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 576,
           y = 672,
@@ -180,7 +180,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 736,
@@ -193,7 +193,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 736,
@@ -206,7 +206,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 704,
           y = 512,
@@ -219,7 +219,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 512,
@@ -232,7 +232,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 448,
           y = 512,
@@ -245,7 +245,7 @@ return {
         {
           id = 27,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 0,
@@ -258,7 +258,7 @@ return {
         {
           id = 28,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 352,
           y = 32,
@@ -271,7 +271,7 @@ return {
         {
           id = 29,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 224,
           y = 224,
@@ -284,7 +284,7 @@ return {
         {
           id = 30,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 224,
@@ -297,7 +297,7 @@ return {
         {
           id = 32,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 32,
@@ -310,7 +310,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 416,
           y = 832,
@@ -323,7 +323,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 768,
@@ -336,7 +336,7 @@ return {
         {
           id = 38,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 960,
@@ -349,7 +349,7 @@ return {
         {
           id = 40,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 960,
@@ -362,7 +362,7 @@ return {
         {
           id = 42,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 896,
@@ -375,7 +375,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 768,
@@ -388,7 +388,7 @@ return {
         {
           id = 53,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 736,
           y = 896,
@@ -401,7 +401,7 @@ return {
         {
           id = 54,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 384,
           y = 928,
@@ -414,7 +414,7 @@ return {
         {
           id = 55,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 544,
           y = 992,
@@ -443,7 +443,7 @@ return {
         {
           id = 45,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 448,
           y = 832,
@@ -459,7 +459,7 @@ return {
         {
           id = 46,
           name = "script",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 160,
           y = 256,
@@ -475,7 +475,7 @@ return {
         {
           id = 57,
           name = "pushblock_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 544,
           y = 800,
@@ -488,7 +488,7 @@ return {
         {
           id = 58,
           name = "coin",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 672,
           y = 704,
@@ -497,6 +497,22 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 59,
+          name = "interactable_board",
+          type = "",
+          shape = "rectangle",
+          x = 448,
+          y = 640,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "HELLO AND WELCOME TO THE TEST NPC.",
+            ["text2"] = "I HOPE THAT YOU HAVE A NICE DAY."
+          }
         }
       }
     },
@@ -517,7 +533,7 @@ return {
         {
           id = 56,
           name = "filter",
-          class = "",
+          type = "",
           shape = "point",
           x = 0,
           y = 0,
