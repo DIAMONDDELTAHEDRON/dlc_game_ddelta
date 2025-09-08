@@ -94,11 +94,11 @@ function BoardGame:update()
         self:quit()
     end
 	
-    if Input.pressed("confirm") then
+    if Input.pressed("confirm") and not( Game.world:hasCutscene() or Game.world.map.swapping_grid) then
         self:characterAction()
     end
 
-    if Input.down("cancel") and not Game.world:hasCutscene() then
+    if Input.down("cancel") and not (Game.world:hasCutscene() or Game.world.map.swapping_grid)  then
         self.quit_timer = self.quit_timer + DTMULT*2
     elseif self.quit_timer > 0 then
         self.quit_timer = self.quit_timer - DTMULT*3
@@ -106,9 +106,10 @@ function BoardGame:update()
         self.quit_timer = 0
     end
 
-    if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not self.sword_route then
+    if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not (Game.world:hasCutscene() or Game.world.map.swapping_grid or self.sword_route) then
         self:swapCharacter()
     end
+
 
     local p = Game.world.player
     local id = p.actor.id:gsub("board_", "")
