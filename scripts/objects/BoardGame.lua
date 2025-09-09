@@ -54,7 +54,7 @@ function BoardGame:init()
     self.playerpodiums.layer = 1
 	
     --board character variables
-    self.charas = {"kris", "susie", "ralsei", "noelle", "jamm"}
+    self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "jamm"}
     self.chara_state = "none"
 
     --kris variables
@@ -62,11 +62,24 @@ function BoardGame:init()
     self.swordbuffer = 0
     self.swordfacing = "down"
 
+    --susie variables
+    self.grab = 0
+    self.grabcon = 0
+    self.grabbuffer = 0
+    self.grabbed = 0
+    self.grabmarker = nil
+    self.doagrab = false
+
     --ralsei variables
     self.go_stoole = false
     self.stool = nil
     self.stoolbuff = 0
     self.unstoole = false
+
+    --lancer variables
+    self.digfreeze = 0
+    self.digcon = 0
+    self.digtime = 0
 
 
     -- x + 94 for every other health bar
