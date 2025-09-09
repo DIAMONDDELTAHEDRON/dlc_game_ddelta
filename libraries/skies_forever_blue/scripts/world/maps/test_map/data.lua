@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 64,
+  nextobjectid = 65,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -471,8 +471,8 @@ return {
           name = "pushblock_board",
           type = "",
           shape = "rectangle",
-          x = 544,
-          y = 800,
+          x = 672,
+          y = 640,
           width = 32,
           height = 32,
           rotation = 0,
@@ -514,7 +514,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 448,
-          y = 832,
+          y = 846,
           width = 64,
           height = 32,
           rotation = 0,
