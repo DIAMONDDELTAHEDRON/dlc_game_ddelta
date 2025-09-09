@@ -54,7 +54,7 @@ function BoardGame:init()
     self.playerpodiums.layer = 1
 	
     --board character variables
-    self.charas = {"kris", "susie", "ralsei", "noelle", "jamm"}
+    self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "jamm"}
     self.chara_state = "none"
 
     --kris variables
@@ -62,11 +62,24 @@ function BoardGame:init()
     self.swordbuffer = 0
     self.swordfacing = "down"
 
+    --susie variables
+    self.grab = 0
+    self.grabcon = 0
+    self.grabbuffer = 0
+    self.grabbed = 0
+    self.grabmarker = nil
+    self.doagrab = false
+
     --ralsei variables
     self.go_stoole = false
     self.stool = nil
     self.stoolbuff = 0
     self.unstoole = false
+
+    --lancer variables
+    self.digfreeze = 0
+    self.digcon = 0
+    self.digtime = 0
 
 
     -- x + 94 for every other health bar
@@ -81,8 +94,11 @@ function BoardGame:init()
         self:addChild(self.healthbars[b])
     end
 
-    self.score = BoardScoreBar(410, 32)
-    self:addChild(self.score)
+    self.score_bar = BoardScoreBar(410, 32)
+    self:addChild(self.score_bar)
+
+    self.inventory_bar = BoardInventoryBar(80, 64)
+    self:addChild(self.inventory_bar)
 	
     self.sword_route = false
 end
@@ -221,6 +237,19 @@ function BoardGame:swapCharacter()   -- changes the current player character
     end
     local b = self.healthbars[1]
     b:init(b.x, b.y, p.actor)
+end
+
+function BoardGame:addScore(score, sound)
+    local scoreadder = self:addChild(BoardScoreAdder())
+    scoreadder.scoreamount = score
+
+    if sound then
+        scoreadder.mysnd = sound
+    end
+end
+
+function BoardGame:setScore(score)
+    Game:setFlag("points", score)
 end
 
 function BoardGame:draw()
