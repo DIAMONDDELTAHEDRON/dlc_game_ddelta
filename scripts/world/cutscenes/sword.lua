@@ -1,6 +1,19 @@
 return {
     play = function(cutscene, event)
 
+
+      if Game.world.board then return end --This is such a hacky way to do this
+
+        local c = cutscene:choicer({"World", "BoardObject"})
+
+        if c == 2 then
+            local board = BoardWorld("world_test_map", 1, 2)
+            Game.world.board = board
+            Game.world:addChild(board)
+
+            return
+        end
+
         local function openMenulol(menu, layer)
             local self = Game.world
             if self.menu then

@@ -6,7 +6,7 @@ function transition_board:init(data)
 
     self.data = data
     self.marker = self.data.properties['marker'] or nil
-    --self.solid = false
+    self.solid = true
     --self.hitbox = {0, 0, data.width, data.height}
 end
 
