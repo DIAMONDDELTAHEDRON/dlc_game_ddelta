@@ -10,11 +10,11 @@ function BoardScoreBar:init(x, y)
 
     self.q = "sword/ui/"
 
-    self.box = Sprite(self.q.."score")
-    self:addChild(self.box)
-    self.box:setScale(2)
+    self.sprite = Sprite(self.q.."score")
+    self:addChild(self.sprite)
+    self.sprite:setScale(2)
 
-    if not Game:getFlag("POINTS") then Game:setFlag("POINTS", 0) end
+    if not Game:getFlag("points") then Game:setFlag("points", 0) end
 
     self.font = Assets.getFont("8bit")
 end
@@ -23,13 +23,13 @@ function BoardScoreBar:draw()
     super.draw(self)
 
     love.graphics.setFont(self.font)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setColor(self.sprite.color[1], self.sprite.color[2], self.sprite.color[3])
 
-    love.graphics.print("P", 10, 8-3)
+    love.graphics.print("P", 10, 5)
 
-    local p = Game:getFlag("POINTS", 0)
+    local p = Game:getFlag("points", 0)
     local m = #tostring(p)
-    love.graphics.print(p, 94 - (16*m), 8-3)
+    love.graphics.print(p, 94 - (16*m), 5)
 end
 
 return BoardScoreBar 
