@@ -8,6 +8,7 @@ return {
 
         if c == 2 then
             local board = BoardWorld("world_test_map", 1, 2)
+            Game.world.player.active = false
             Game.world.board = board
             Game.world:addChild(board)
 
