@@ -50,7 +50,7 @@ local BoardWorld, super = Class(Object)
 ---@param map? string    The optional name of a map to initially load with the world
 function BoardWorld:init(map, x, y)
     super.init(self)
-
+    self.world = self
     -- states: GAMEPLAY, FADING, MENU
     self.state = "" -- Make warnings shut up, TODO: fix this
     self.state_manager = StateManager("GAMEPLAY", self, true)

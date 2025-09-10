@@ -27,7 +27,7 @@ function InteractableBoard:onInteract(player, dir)
     end
     local cutscene
     if self.cutscene then
-        cutscene = self.world:startCutscene(self.cutscene, self, player, dir)
+        cutscene = Game.world:startCutscene(self.cutscene, self, player, dir)
     else
         cutscene = self.world:startCutscene(function(c)
             local text = self.text
