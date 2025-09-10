@@ -1,8 +1,5 @@
 local actor, super = Class(Actor, "board_noelle")
 
-function actor:onSpriteInit(sprite)
-    sprite:setOrigin(0, -0.5)
-end
 
 function actor:init()
     super.init(self)
@@ -40,8 +37,6 @@ function actor:init()
     self.healthMax = 90
     self.color = {1, 1, 1}
     self.health_color = {1, 1, 0}
-	
-	self.ability = "ice"
 end
 
 return actor
