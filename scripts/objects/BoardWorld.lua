@@ -1248,49 +1248,82 @@ function BoardWorld:cameraUpdate() -- this whole thing scares me
         local grid_h = 256
 
         local xa = math.floor((px + 15) / grid_w) * grid_w + 192
-        local ya = math.floor((py + 14) / grid_h) * grid_h + 176
+        local ya = math.floor((py + 8) / grid_h) * grid_h + 176
 
         local xb = math.floor((px - 15) / grid_w) * grid_w + 192
-        local yb = math.floor((py - 16) / grid_h) * grid_h + 176
+        local yb = math.floor((py - 24) / grid_h) * grid_h + 176
         
-        if not self.swapping_grid then
-            if (yb ~= ya) or (xb ~= xa) then
-                local x = math.floor(px / grid_w) * grid_w + 192
-                local y = math.floor(py / grid_h) * grid_h + 176
-                if x ~= xb then
-                    x = xb
-                    self:snap("right", self.player.x - 32, self.player.y)
-                elseif x ~= xa then
-                    x = xa
-                    self:snap("left", self.player.x + 32, self.player.y)
-                end
-                if y ~= yb then
-                    y = yb
-                    self:snap("bottom", self.player.x, self.player.y - 32)
-                elseif y ~= ya then
-                    y = ya
-                    self:snap("top", self.player.x, self.player.y + 32)
-                end
-                --self.swapping_grid = true
-                --Game.lock_movement = true
-                self:swap_grid(x, y)
+        local x1,y1,x2,y2 = self:getAreaBounds()
+
+        if not self.swapping_grid and not Game.lock_movement then
+            local x = math.floor(px / grid_w) * grid_w + 192
+            local y = math.floor(py / grid_h) * grid_h + 176
+            if px < x1 then
+                self:shiftGrid("left")
+            elseif px > x2 then
+                self:shiftGrid("right")
+            elseif py < y1 then
+                self:shiftGrid("up")
+            elseif py > y2 then
+                self:shiftGrid("down")
             end
+            --self.swapping_grid = true
+            --Game.lock_movement = true
         end
-
     end
+end
 
+---@param direction facing
+function BoardWorld:shiftGrid(direction, after)
+    Game.lock_movement = true
+    local x, y = self.area_column, self.area_row
+    if direction == "up" then
+        y = y - 1
+    elseif direction == "down" then
+        y = y + 1
+    elseif direction == "right" then
+        x = x + 1
+    elseif direction == "left" then
+        x = x - 1
+    end
+    local cx, cy = self:getAreaCenter(x, y)
+    self.camera:panTo(cx, cy, 0.5, "linear", function ()
+        if after and after(self) then return end
+        Game.lock_movement = false
+        self.area_column, self.area_row = x, y
+        if direction == "up" then
+            self:snapPlayer("bottom", self:getAreaPosition(x, y))
+        elseif direction == "down" then
+            self:snapPlayer("top", self:getAreaPosition(x, y))
+        elseif direction == "right" then
+            self:snapPlayer("left", self:getAreaPosition(x, y))
+        elseif direction == "left" then
+            self:snapPlayer("right", self:getAreaPosition(x, y))
+        end
+    end)
 end
 
 function BoardWorld:swap_grid(x, y)
-    local x, y = self:getArea(x, y)
-    self:moveCamera(x, y)
+    local cx, cy = self:getArea(x, y)
+    self:moveCamera(cx, cy)
 end
 
+---@param x integer
+---@param y integer
 function BoardWorld:moveCamera(x, y) --Faking the camera again
     local cam_x = (x + 0.5) * 384
     local cam_y = (y + 0.5) * 256
     self.camera.x = cam_x
     self.camera.y = cam_y
+    self.area_column, self.area_row = x, y
+end
+
+---@param x integer
+---@param y integer
+---@return number, number
+function BoardWorld:getAreaCenter(x,y)
+    return (x + 0.5) * 384,
+           (y + 0.5) * 256
 end
 
 function BoardWorld:getArea(x, y)
@@ -1302,17 +1335,46 @@ function BoardWorld:getArea(x, y)
     return col, row
 end
 
-function BoardWorld:snap(dir, x, y)
+function BoardWorld:snapPlayer(dir, x, y)
     local c, r = self:getArea(x, y)
+    local x1, y1, x2, y2 = self:getAreaBounds(c,r)
     if dir == "left" then
-        self.player.x = (c*384) + 16
+        self.player.x = x1
     elseif dir == "right" then
-        self.player.x = (c*384) + 368
+        self.player.x = x2
     elseif dir == "top" then
-        self.player.y = (r*256) + 16
+        self.player.y = y1
     elseif dir == "bottom" then
-        self.player.y = (r*256) + 240
+        self.player.y = y2
     end
+end
+
+---@param x integer Row of area to get bounds of
+---@param y integer Column of area to get bounds of
+---@return number, number, number, number
+---@overload fun(self:self): number, number, number, number
+function BoardWorld:getAreaBounds(x, y)
+    if not x then
+        x, y = self.area_column, self.area_row
+    end
+    local x1, y1 = self:getAreaPosition(x, y)
+    local x2, y2 = self:getAreaPosition(x + 1, y + 1)
+    local px = 8
+    x1, y1 = x1 + 16, y1 + 32
+    x2, y2 = x2 - 16, y2 - 0
+    return x1,y1,x2,y2
+end
+
+---@param x integer Row of area to get bounds of
+---@param y integer Column of area to get bounds of
+---@return number, number
+function BoardWorld:getAreaPosition(x, y)
+    assert(x == math.floor(x), "Non-integer x value passed: "..x)
+    assert(y == math.floor(y), "Non-integer y value passed: "..y)
+    if not x then
+        x, y = self.area_column, self.area_row
+    end
+    return x * self.camera.width, y * self.camera.height
 end
 
 function BoardWorld:canDeepCopy()
