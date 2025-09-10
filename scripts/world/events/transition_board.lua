@@ -14,7 +14,7 @@ function transition_board:onCollide(chara)
     if not chara.is_player or Game.lock_movement then return end
     Game.lock_movement = true
     local world = Game.world
-    world.map.swapping_grid = true
+    --world.map.swapping_grid = true
     Assets.playSound("board/escaped")
     local layer = Game.world.board.layer + 0.01
     self.rec = Rectangle(128, -128 + 64, 384, 128) --top one
