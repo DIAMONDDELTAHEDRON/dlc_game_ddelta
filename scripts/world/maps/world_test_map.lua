@@ -1,7 +1,7 @@
 return {
-  version = "1.10",
+  version = "1.11",
   luaversion = "5.1",
-  tiledversion = "1.10.2",
+  tiledversion = "1.11.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -185,7 +185,7 @@ return {
           type = "",
           shape = "point",
           x = 480,
-          y = 880,
+          y = 912,
           width = 0,
           height = 0,
           rotation = 0,
@@ -689,7 +689,7 @@ return {
           type = "",
           shape = "rectangle",
           x = 448,
-          y = 848,
+          y = 864,
           width = 64,
           height = 32,
           rotation = 0,
@@ -761,24 +761,7 @@ return {
       parallaxx = 1,
       parallaxy = 1,
       properties = {},
-      objects = {
-        {
-          id = 56,
-          name = "filter",
-          type = "",
-          shape = "point",
-          x = 0,
-          y = 0,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["texh"] = 256,
-            ["texw"] = 384
-          }
-        }
-      }
+      objects = {}
     }
   }
 }

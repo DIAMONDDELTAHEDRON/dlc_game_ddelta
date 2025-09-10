@@ -111,8 +111,15 @@ function BoardWorld:init(map, x, y)
     if map then
         self:loadMap(map)
     end
-    self:addFX(MaskFX(self))
-    print("plue")
+    -- self:addFX(MaskFX(self))
+    self:addFX(CRTShaderFX("crt", {
+        ["vignette_scale"] = 0.2,
+        ["vignette_intensity"] = math.pow(1.5, 1.5 - 0.2) * 18,
+        ["chromatic_scale"] = 0.5,
+        ["filter_amount"] = 0.1,
+        ["time"] = function () return ((Kristal.getTime() * 30)/2) % 3 end,
+        ["texsize"] = {1/self.camera.width, 1/self.camera.height},
+    }))
 end
 
 --- Heals a member of the party
