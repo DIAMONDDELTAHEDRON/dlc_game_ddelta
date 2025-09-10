@@ -1,0 +1,10 @@
+---@meta
+BoardPointsDisplay = modRequire("scripts.objects.BoardPointsDisplay")
+BoardEvent = modRequire("scripts.objects.boardevent")
+BoardScoreBar = modRequire("scripts.objects.BoardScoreBar")
+BoardHealthBar = modRequire("scripts.objects.BoardHealthBar")
+BoardTextbox = modRequire("scripts.objects.BoardTextbox")
+BoardGame = modRequire("scripts.objects.BoardGame")
+BoardScoreAdder = modRequire("scripts.objects.BoardScoreAdder")
+BoardInventoryBar = modRequire("scripts.objects.BoardInventoryBar")
+BoardSmokePuff = modRequire("scripts.objects.BoardSmokePuff")

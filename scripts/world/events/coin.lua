@@ -1,4 +1,4 @@
-local Coin, super = Class(Event)
+local Coin, super = Class(BoardEvent)
 
 function Coin:init(data)
     super.init(self, data.center_x, data.center_y, data.width, data.height)
@@ -25,7 +25,7 @@ end
 function Coin:onAdd(parent)
     if parent.world then
         self.world = parent.world
-    else
+    elseif not self.world then
         self.world = Game.world.board
     end
 end

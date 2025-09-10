@@ -1,4 +1,6 @@
-local board_event, super = Class(Event)
+---@class BoardEvent : Event
+---@field world BoardWorld
+local board_event, super = Class(Event, "BoardEvent")
 
 function board_event:onAdd(parent)
     if parent.world then
