@@ -10,7 +10,7 @@ function actor:init()
 
     self.width = 16
     self.height = 16
-    self.hitbox = {0.2, 8.2, 15.4, 15.4}
+    self.hitbox = {0.2, 16.2, 15.4, 7.4}
     self.soul_offset = {8, 16}
     self.path = "sword/party/susie"
     self.default = "walk"
@@ -39,6 +39,7 @@ function actor:init()
     self.health = 190
     self.healthMax = 190
     self.color = {1, 0, 1}
+    self.health_color = Utils.hexToRgb("#FB95EC")
 	
 	self.ability = "carry"
 end

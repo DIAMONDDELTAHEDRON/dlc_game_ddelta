@@ -30,10 +30,18 @@ function BoardHealthBar:h()
     return self.party.health
 end
 
+function BoardHealthBar:getHealthColor()
+    if self.party.health_color then
+        return self.party.health_color[1], self.party.health_color[2], self.party.health_color[3], self.party.health_color[4] or 1
+    else
+        return self.party:getColor()
+    end
+end
+
 function BoardHealthBar:draw()
     super.draw(self)
 
-    love.graphics.setColor(self.party:getColor())
+    love.graphics.setColor(self:getHealthColor())
     love.graphics.rectangle( "fill", 14, 12, ((self:h()/50)/self.div) * 50, 6)
 end
 

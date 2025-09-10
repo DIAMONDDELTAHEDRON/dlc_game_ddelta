@@ -10,7 +10,7 @@ function actor:init()
 
     self.width = 16
     self.height = 16
-    self.hitbox = {0.2, 8.2, 15.4, 15.4}
+    self.hitbox = {0.2, 16.2, 15.4, 7.4}
     self.soul_offset = {8, 16}
     self.path = "sword/party/noelle"
     self.default = "walk"
@@ -39,6 +39,7 @@ function actor:init()
     self.health = 90
     self.healthMax = 90
     self.color = {1, 1, 1}
+    self.health_color = {1, 1, 0}
 	
 	self.ability = "ice"
 end

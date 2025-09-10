@@ -39,6 +39,7 @@ function actor:init()
     self.health = 160
     self.healthMax = 160
     self.color = {0, 1, 1}
+    self.health_color = Utils.hexToRgb("#8FFCD8")
 	
 	self.ability = "interact"	-- ???
 end
