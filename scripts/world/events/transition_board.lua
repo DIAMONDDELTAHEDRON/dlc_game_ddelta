@@ -13,33 +13,34 @@ end
 function transition_board:onCollide(chara)
     if not chara.is_player or Game.lock_movement then return end
     Game.lock_movement = true
-    Game.world.map.swapping_grid = true
+    local world = Game.world
+    world.map.swapping_grid = true
     Assets.playSound("board/escaped")
-
+    local layer = Game.world.board.layer + 0.01
     self.rec = Rectangle(128, -128 + 64, 384, 128) --top one
     local rec = self.rec
     rec.parallax_y, rec.parallax_x = 0, 0
-    rec.layer = 1
-    Game.world:addChild(rec)
+    rec.layer = layer
+    world:addChild(rec)
     
     self.rec2 = Rectangle(128, 256 + 64, 384, 128) --bottom one
     local rec2 = self.rec2
     rec2.parallax_y, rec2.parallax_x = 0, 0
-    rec2.layer = 1
-    Game.world:addChild(rec2)
+    rec2.layer = layer
+    world:addChild(rec2)
 
     self.rec3 = Rectangle(-192 + 128, 64, 192, 256) --left one
     local rec3 = self.rec3
     rec3.parallax_y, rec3.parallax_x = 0, 0
-    rec3.layer = 1
-    Game.world:addChild(rec3)
+    rec3.layer = layer
+    world:addChild(rec3)
 
 
     self.rec4 = Rectangle(384 + 128, 64, 192, 256) --right one
     local rec4 = self.rec4
     rec4.parallax_y, rec4.parallax_x = 0, 0
-    rec4.layer = 1
-    Game.world:addChild(rec4)
+    rec4.layer = layer
+    world:addChild(rec4)
 
     rec:setColor(0, 0, 0)
     rec2:setColor(0, 0, 0)
@@ -61,12 +62,12 @@ function transition_board:teleportPlayer(chara)
     local grid_w = 384
     local grid_h = 256
 
-    local x, y = Game.world.map:getMarker(type(self.marker) == "table" and self.data.properties.marker.id or self.marker)
+    local x, y = Game.world.board.map:getMarker(type(self.marker) == "table" and self.data.properties.marker.id or self.marker)
 
-    chara.x, chara.y = x, y
+    --chara.x, chara.y = x, y
 
-    Game.world.camera.x = math.floor(chara.x / grid_w) * grid_w + 192
-    Game.world.camera.y = math.floor(chara.y / grid_h) * grid_h + 176
+    --Game.world.camera.x = math.floor(chara.x / grid_w) * grid_w + 192
+    --Game.world.camera.y = math.floor(chara.y / grid_h) * grid_h + 176
     
     local music = self.data.properties.music
     if music and (Game.world.music.current ~= music) then
@@ -75,25 +76,28 @@ function transition_board:teleportPlayer(chara)
 
     chara.x, chara.y = x, y
 
+    local x, y = Game.world.board:getArea(x, y)
+    Game.world.board:moveCamera(x, y)
 
+    local world = Game.world
 
     Game.stage.timer:tween(0.3, self.rec4, {x = 384 + 128}, 'linear', function()
-        Game.world:removeChild(self.rec4)
+        world:removeChild(self.rec4)
         self.rec4 = nil
     end)
     Game.stage.timer:tween(0.3, self.rec3, {x = -192 + 128}, 'linear', function()
-        Game.world:removeChild(self.rec3)
+        world:removeChild(self.rec3)
         self.rec3 = nil
     end)
     Game.stage.timer:tween(0.3, self.rec2, {y = 256 + 64}, 'linear', function()
-        Game.world:removeChild(self.rec2)
+        world:removeChild(self.rec2)
         self.rec2 = nil
     end)
     Game.stage.timer:tween(0.3, self.rec, {y = -128 + 64}, 'linear', function()
-        Game.world:removeChild(self.rec)
+        world:removeChild(self.rec)
         self.rec = nil
         Game.lock_movement = false
-        Game.world.map.swapping_grid = false
+        --Game.world.map.swapping_grid = false
     end)
 
 end
