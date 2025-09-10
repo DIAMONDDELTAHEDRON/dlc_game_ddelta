@@ -51,6 +51,7 @@ local BoardWorld, super = Class(Object)
 function BoardWorld:init(map, x, y)
     super.init(self)
     self.world = self
+    self.camera = Camera(self, 0,0,384,256)
     -- states: GAMEPLAY, FADING, MENU
     self.state = "" -- Make warnings shut up, TODO: fix this
     self.state_manager = StateManager("GAMEPLAY", self, true)
@@ -64,6 +65,7 @@ function BoardWorld:init(map, x, y)
     self.height = self.map.height * self.map.tile_height
 
     self:moveCamera((x or 0), (y or 0))
+    self.x, self.y = 128, 64
 
     self.player = nil
     self.soul = nil
@@ -109,6 +111,8 @@ function BoardWorld:init(map, x, y)
     if map then
         self:loadMap(map)
     end
+    self:addFX(MaskFX(self))
+    print("plue")
 end
 
 --- Heals a member of the party
@@ -1283,10 +1287,10 @@ function BoardWorld:swap_grid(x, y)
 end
 
 function BoardWorld:moveCamera(x, y) --Faking the camera again
-    local cam_x = 128 + x * -384
-    local cam_y = 64 + y * -256
-    self.x = cam_x
-    self.y = cam_y
+    local cam_x = (x + 0.5) * 384
+    local cam_y = (y + 0.5) * 256
+    self.camera.x = cam_x
+    self.camera.y = cam_y
 end
 
 function BoardWorld:getArea(x, y)
@@ -1313,6 +1317,11 @@ end
 
 function BoardWorld:canDeepCopy()
     return false
+end
+
+function BoardWorld:drawMask()
+    love.graphics.origin()
+    love.graphics.rectangle("fill",128,64,384,256)
 end
 
 return BoardWorld
