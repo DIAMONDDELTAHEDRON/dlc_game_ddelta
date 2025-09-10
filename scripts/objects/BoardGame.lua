@@ -191,12 +191,11 @@ function BoardGame:characterAction() -- character abilities should mainly be han
         end
 
         --particle effect when changing forms
-        local puff = Sprite("sword/effects/smokepuff", 8, 16)
+        local puff = BoardSmokePuff(8, 16)
         puff:setColor(19/255, 210/255, 111/255, 1)
         puff:setOrigin(0.5, 0.5)
         puff:setLayer(p.layer + 0.1)
         p:addChild(puff)
-        puff:play(1/30, false, function() puff:remove() end)
     end
     if name == id.."lancer" then  -- digging
         return
@@ -215,12 +214,11 @@ end
 function BoardGame:swapCharacter()   -- changes the current player character
     local p = Game.world.player
 
-    local puff = Sprite("sword/effects/smokepuff", 8, 16)
+    local puff = BoardSmokePuff(8, 16)
     puff:setColor(201/255, 201/255, 201/255, 1)
     puff:setOrigin(0.5, 0.5)
     puff:setLayer(p.layer + 0.1)
     p:addChild(puff)
-    puff:play(1/30, false, function() puff:remove() end)
 
     local id = p.actor.id:gsub("board_", "")
     for i, name in ipairs(self.charas) do
