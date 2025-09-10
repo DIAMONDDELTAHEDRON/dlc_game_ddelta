@@ -30,7 +30,7 @@
 ---
 ---@field conroller_parent  Object                          The object that all controllers are parented to
 ---
----@field fader             Fader
+---@field fader             BoardFader
 ---
 ---@field timer             Timer
 ---
@@ -89,7 +89,7 @@ function BoardWorld:init(map, x, y)
     self.controller_parent.world = self
     self:addChild(self.controller_parent)
 
-    self.fader = Fader()
+    self.fader = BoardFader()
     self.fader.layer = WORLD_LAYERS["above_ui"]
     self.fader.persistent = true
     self:addChild(self.fader)

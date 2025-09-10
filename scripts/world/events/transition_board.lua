@@ -1,4 +1,4 @@
-local transition_board, super = Class(Event)
+local transition_board, super = Class(BoardEvent)
 
 function transition_board:init(data)
     super.init(self, data.x, data.y, data.width, data.height)
@@ -13,47 +13,14 @@ end
 function transition_board:onCollide(chara)
     if not chara.is_player or Game.lock_movement then return end
     Game.lock_movement = true
-    local world = Game.world
+    local world = self.world or Game.world
     --world.map.swapping_grid = true
     Assets.playSound("board/escaped")
-    local layer = Game.world.board.layer + 0.01
-    self.rec = Rectangle(128, -128 + 64, 384, 128) --top one
-    local rec = self.rec
-    rec.parallax_y, rec.parallax_x = 0, 0
-    rec.layer = layer
-    world:addChild(rec)
+    local layer = 100
     
-    self.rec2 = Rectangle(128, 256 + 64, 384, 128) --bottom one
-    local rec2 = self.rec2
-    rec2.parallax_y, rec2.parallax_x = 0, 0
-    rec2.layer = layer
-    world:addChild(rec2)
-
-    self.rec3 = Rectangle(-192 + 128, 64, 192, 256) --left one
-    local rec3 = self.rec3
-    rec3.parallax_y, rec3.parallax_x = 0, 0
-    rec3.layer = layer
-    world:addChild(rec3)
-
-
-    self.rec4 = Rectangle(384 + 128, 64, 192, 256) --right one
-    local rec4 = self.rec4
-    rec4.parallax_y, rec4.parallax_x = 0, 0
-    rec4.layer = layer
-    world:addChild(rec4)
-
-    rec:setColor(0, 0, 0)
-    rec2:setColor(0, 0, 0)
-    rec3:setColor(0, 0, 0)
-    rec4:setColor(0, 0, 0)
-
-    Game.stage.timer:tween(0.3, rec4, {x = 128 + 192}, 'linear')
-    Game.stage.timer:tween(0.3, rec3, {x = 128}, 'linear')
-    Game.stage.timer:tween(0.3, rec2, {y = 128 + 64}, 'linear')
-    Game.stage.timer:tween(0.3, rec, {y = 64}, 'linear', function()
+    self.world.fader:transition(function ()
         self:teleportPlayer(chara)
     end)
-
 
 end
 
@@ -77,28 +44,9 @@ function transition_board:teleportPlayer(chara)
     chara.x, chara.y = x, y
 
     local x, y = Game.world.board:getArea(x, y)
-    Game.world.board:moveCamera(x, y)
+    self.world:moveCamera(x, y)
 
-    local world = Game.world
-
-    Game.stage.timer:tween(0.3, self.rec4, {x = 384 + 128}, 'linear', function()
-        world:removeChild(self.rec4)
-        self.rec4 = nil
-    end)
-    Game.stage.timer:tween(0.3, self.rec3, {x = -192 + 128}, 'linear', function()
-        world:removeChild(self.rec3)
-        self.rec3 = nil
-    end)
-    Game.stage.timer:tween(0.3, self.rec2, {y = 256 + 64}, 'linear', function()
-        world:removeChild(self.rec2)
-        self.rec2 = nil
-    end)
-    Game.stage.timer:tween(0.3, self.rec, {y = -128 + 64}, 'linear', function()
-        world:removeChild(self.rec)
-        self.rec = nil
-        Game.lock_movement = false
-        --Game.world.map.swapping_grid = false
-    end)
+    Game.lock_movement = false
 
 end
 
