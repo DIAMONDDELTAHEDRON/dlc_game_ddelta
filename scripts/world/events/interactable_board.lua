@@ -29,7 +29,7 @@ function InteractableBoard:onInteract(player, dir)
     if self.cutscene then
         cutscene = Game.world:startCutscene(self.cutscene, self, player, dir)
     else
-        cutscene = self.world:startCutscene(function(c)
+        cutscene = Game.world:startCutscene(function(c)
             local text = self.text
             local text_index = Utils.clamp(self.interact_count, 1, #text)
             if type(text[text_index]) == "table" then

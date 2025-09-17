@@ -7,7 +7,7 @@ function actor:init()
 
     self.width = 16
     self.height = 16
-    self.hitbox = {0.2, 16.2, 15.4, 7.4}
+    self.hitbox = {0.2, 8.2, 15.4, 7.4}
     self.soul_offset = {8, 16}
     self.path = "sword/party/susie"
     self.default = "walk"

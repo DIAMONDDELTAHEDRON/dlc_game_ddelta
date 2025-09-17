@@ -4,14 +4,15 @@ return {
 
       if Game.world.board then return end --This is such a hacky way to do this
 
-        local c = cutscene:choicer({"World", "BoardObject"})
+        local c = cutscene:choicer({"Dont", "PLAY"})
 
         if c == 2 then
             local board = BoardWorld("world_test_map", 1, 2)
             Game.world.player.active = false
-            Game.world.board = board
             Game.world:addChild(board)
 
+            return
+        else
             return
         end
 

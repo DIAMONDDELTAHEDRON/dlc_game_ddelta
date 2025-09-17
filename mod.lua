@@ -30,7 +30,7 @@ Utils.hook(World, "onKeyPressed", function(orig, self, key)
 
     if Game.lock_movement then return end
 
-    if self.state == "GAMEPLAY" then
+    if self.state == "GAMEPLAY" and not Game.world.board then
         if Input.isConfirm(key) and self.player and not self:hasCutscene() then
             if self.player:interact() then
                 Input.clear("confirm")

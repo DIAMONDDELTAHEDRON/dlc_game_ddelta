@@ -33,8 +33,8 @@ end
 function Coin:onCollide(chara)
     Assets.stopAndPlaySound("item", 1, 1.2)
 
-    local pointsDisplay = Game.world.board:spawnObject(BoardPointsDisplay(self.x, self.y, 10))
-    pointsDisplay:setLayer(Game.world.board.player.layer + 0.1)
+    local pointsDisplay = Game.world.board:spawnObject(BoardPointsDisplay(self.x, self.y, 20, Game.world.board.player.layer + 99))
+    --pointsDisplay:setLayer(Game.world.board.player.layer + 0.1)
     self:remove()
 end
 

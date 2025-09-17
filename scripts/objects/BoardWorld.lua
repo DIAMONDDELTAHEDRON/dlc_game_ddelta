@@ -51,6 +51,7 @@ local BoardWorld, super = Class(Object)
 function BoardWorld:init(map, x, y)
     super.init(self)
     self.world = self
+    Game.world.board = self
     self.camera = Camera(self, 0,0,384,256)
     -- states: GAMEPLAY, FADING, MENU
     self.state = "" -- Make warnings shut up, TODO: fix this
@@ -356,7 +357,7 @@ end
 
 ---@param key string
 function BoardWorld:onKeyPressed(key)
-    if Kristal.Config["debug"] and Input.ctrl() then
+--[[    if Kristal.Config["debug"] and Input.ctrl() then
     end
 
     if Game.lock_movement then return end
@@ -365,13 +366,15 @@ function BoardWorld:onKeyPressed(key)
         if Input.isConfirm(key) and self.player and not self:hasCutscene() then
             if self.player:interact() then
                 Input.clear("confirm")
+            else
+                self.ui:characterAction()
             end
         end
     end
 
     if Input.isMenu(key) then
         self:remove()
-    end
+    end]]
 end
 
 --- Checks whether there is currently a textbox open
@@ -524,6 +527,10 @@ function BoardWorld:spawnPlayer(...)
     self.player.layer = self.map.object_layer
     self.player:setFacing(facing)
     self:addChild(self.player)
+
+
+    self.ui = BoardUI()
+    Game.world:addChild(self.ui)
 
     --[[if party then
         self.player.party = party
