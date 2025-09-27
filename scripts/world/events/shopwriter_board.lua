@@ -26,7 +26,7 @@ function shopwriter_board:update()
 	if not board then
 		return
 	end
-	local cola, rowa = board:getArea(board.player.x, board.player.y)
+	local cola, rowa = board:getArea(board.player.x, board.player.y - 1)
 	local colb, rowb = board:getArea(self.x, self.y)
 	if self.text_active and (cola ~= colb or rowa ~= rowb or Game.world.map.swapping_grid) then
 		self.text_active = false

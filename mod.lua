@@ -58,7 +58,7 @@ end
 
 
 function Mod:getPf(i) --Get player facing and return a number
-    local pf = Game.world.player.facing
+    local pf = Game.world.board.player.facing
     local a, b = 0, 0
     local n = 82
     if i then n = i end

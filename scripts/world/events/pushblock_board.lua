@@ -85,7 +85,7 @@ function PushBlockBoard:checkCol(x, y)
             break
         end
     end
-    if Game.world.player:collidesWith(bound_check) then
+    if Game.world.board.player:collidesWith(bound_check) then
         collided = true
     end
     if not collided then
@@ -101,31 +101,37 @@ end
 function PushBlockBoard:update()
     super.update(self)
 
+    if self.wait_a_frame_plz then self.wait_a_frame_plz = nil end
+
     if self.state == "LIFT" then
 
         self:canThrow()
 
         if self.throw_reticle.visible and Input.pressed("confirm") then
-            local p = Game.world.player
+            local p = Game.world.board.player
             local rec = self.throw_reticle
 
             p.actor.default = "walk"
             p:resetSprite()
 
             self.x, self.y = rec.x, rec.y
-            Game.world:removeChild(self.throw_reticle)
+            Game.world.board:removeChild(self.throw_reticle)
             p:removeChild(self.carry)
             self:playPushSound()
             self.solid = true
             self.visible = true
             self.state = "IDLE"
             p.carry = nil
+
+            --1 frame pickup cooldown so susie doesnt pick it up the same frame she drops it
+            -- i'm sorry to anyone who is reading this
+            self.wait_a_frame_plz = 0 
         end
     end
 end
 
 function PushBlockBoard:onInteract(chara, facing)
-    if not self.solid then return false end
+    if not self.solid or self.wait_a_frame_plz then return false end
     if chara.actor.id == "board_susie" then
 
         self:playLiftSound()
@@ -135,12 +141,13 @@ function PushBlockBoard:onInteract(chara, facing)
 
         chara:addChild(self.carry)
 
-        Game.world:addChild(self.throw_reticle)
+        Game.world.board:addChild(self.throw_reticle)
         self.throw_reticle.layer = chara.layer
 
         self.solid = false
         self.visible = false
         self.state = "LIFT"
+
         return true
     elseif chara.actor.id ~= "board_kris" then
         return true
@@ -190,10 +197,10 @@ function PushBlockBoard:checkCollision(facing)
     local x1, y1 = math.min(self.x, target_x), math.min(self.y, target_y)
     local x2, y2 = math.max(self.x + self.width, target_x + self.width), math.max(self.y + self.height, target_y + self.height)
 
-    local bound_check = Hitbox(self.world, x1 + 1, y1 + 1, x2 - x1 - 2, y2 - y1 - 2)
+    local bound_check = Hitbox(Game.world.board, x1 + 1, y1 + 1, x2 - x1 - 2, y2 - y1 - 2)
 
     Object.startCache()
-    for _,collider in ipairs(Game.world.map.block_collision) do
+    for _,collider in ipairs(Game.world.board.map.block_collision) do
         if collider:collidesWith(bound_check) then
             collided = true
             break
@@ -201,7 +208,7 @@ function PushBlockBoard:checkCollision(facing)
     end
     if not collided then
         self.collidable = false
-        collided = self.world:checkCollision(bound_check)
+        collided = Game.world.board:checkCollision(bound_check)
         self.collidable = true
     end
     Object.endCache()
@@ -234,7 +241,7 @@ function PushBlockBoard:onPush(facing)
         self.state = "IDLE"
         self:onPushEnd(facing)
 
-        if input_lock and not self.world.cutscene then
+        if input_lock and not Game.world.cutscene then
             Game.lock_movement = false
         end
     end)
@@ -277,7 +284,7 @@ end
 
 
 function PushBlockBoard:canThrow()
-    local p = Game.world.player
+    local p = Game.world.board.player
     local a, b = Mod:getPf()
     local c, r = Mod:boardTile(p.x + a, p.y + b)
     self.throw_reticle.visible = true
