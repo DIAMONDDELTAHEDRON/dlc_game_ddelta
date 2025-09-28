@@ -95,7 +95,7 @@ function BoardUI:update()
         self.quit_timer = 0
     end
 
-    if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not (Game.world:hasCutscene() or self.sword_route) then
+    if Input.pressed("menu") and #Game.party == 1 and self.chara_state == "none" and not (Game.world:hasCutscene() or self.sword_route or Game.world.board.player.carry) then
         self:swapCharacter()
     end
 

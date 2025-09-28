@@ -52,6 +52,7 @@ function BoardWorld:init(map, x, y)
     super.init(self)
     self.world = self
     Game.world.board = self
+    Game.board = self
     self.camera = Camera(self, 0,0,384,256)
     -- states: GAMEPLAY, FADING, MENU
     self.state = "" -- Make warnings shut up, TODO: fix this
@@ -1393,6 +1394,10 @@ end
 
 function BoardWorld:canDeepCopy()
     return false
+end
+
+function BoardWorld:setScore(score)
+    self.ui:setScore(score)
 end
 
 function BoardWorld:drawMask()

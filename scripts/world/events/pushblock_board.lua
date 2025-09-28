@@ -69,7 +69,7 @@ function PushBlockBoard:init(data, x, y, shape, sprite, solved_sprite)
     
     local sprite_b = properties["sprite"] or sprite or "world/events/sword/pushableblock"
     self.carry = Sprite(sprite_b)
-    self.carry.y = -5
+    self.carry.y = -12
 end
 
 
@@ -124,7 +124,7 @@ function PushBlockBoard:update()
             p.carry = nil
 
             --1 frame pickup cooldown so susie doesnt pick it up the same frame she drops it
-            -- i'm sorry to anyone who is reading this
+            -- i'm sorry to anyone who is reading this code
             self.wait_a_frame_plz = 0 
         end
     end

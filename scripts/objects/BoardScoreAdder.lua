@@ -21,8 +21,8 @@ function BoardScoreAdder:update()
         self.score_init = true
 
         if self.mysign < 0 then
-            Game.board.score_bar.sprite:setColor(Utils.hexToRgb"#E33D47")
-            Game.board.score_bar:shake()
+            Game.board.ui.score_bar.sprite:setColor(Utils.hexToRgb"#E33D47")
+            Game.board.ui.score_bar:shake()
         end
 
         if self.modamt == 5 then
@@ -63,7 +63,7 @@ function BoardScoreAdder:update()
                 end
             end
         else
-            Game.board.score_bar.sprite:setColor(COLORS.white)
+            Game.board.ui.score_bar.sprite:setColor(COLORS.white)
             self:remove()
         end
     end

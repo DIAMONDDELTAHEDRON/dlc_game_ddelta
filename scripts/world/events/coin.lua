@@ -17,9 +17,9 @@ function Coin:onRemove(parent)
             Utils.removeFromTable(self.world.map.events_by_id[self.data.id], self)
         end
     end
-    --if parent:includes(World) or parent.world then
+    if parent:includes(BoardWorld) or parent.world then
         self.world = nil
-    --end
+    end
 end
 
 function Coin:onAdd(parent)
@@ -33,7 +33,7 @@ end
 function Coin:onCollide(chara)
     Assets.stopAndPlaySound("item", 1, 1.2)
 
-    local pointsDisplay = Game.world.board:spawnObject(BoardPointsDisplay(self.x, self.y, 20, Game.world.board.player.layer + 99))
+    Game.world.board:spawnObject(BoardPointsDisplay(self.x, self.y, 20), Game.world.board.player.layer + 0.1)
     --pointsDisplay:setLayer(Game.world.board.player.layer + 0.1)
     self:remove()
 end

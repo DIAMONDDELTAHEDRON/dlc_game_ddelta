@@ -10,11 +10,11 @@ function WorldCutscene:boardText(text, options)
 		self.board_texted = false
 	end
     self:closeText()
-
+    local world = Game.world.board or Game.world
 	local instant = self.board_texted or false
     self.textbox = BoardTextbox(128, 346, 384, 86, instant)
     self.textbox.layer = WORLD_LAYERS["above_events"]-0.01
-    self.world:addChild(self.textbox)
+    world:addChild(self.textbox)
     self.textbox:setParallax(0, 0)
 
     if options["top"] == nil and self.textbox_top == nil then
@@ -25,6 +25,13 @@ function WorldCutscene:boardText(text, options)
        self.textbox.y = -80
 	   self.textbox.endy = 48
 	   self.textbox.side = 0
+
+        if Game.world.board then
+            self.textbox.x = 0
+            self.textbox.y = -112
+            self.textbox.endy = -16
+        end
+
     end
     self.textbox.active = true
     self.textbox.visible = true

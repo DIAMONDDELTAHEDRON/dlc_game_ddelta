@@ -1,6 +1,18 @@
 function Mod:init()
     --print("Loaded "..self.info.name.."!")
 
+
+Utils.hook(NPC, "onAdd", function(orig, self, parent)
+
+    self.world = Game.world
+
+    --if parent.world then
+    --    self.world = parent.world
+    --else
+    --    self.world = Game.world.board
+    --end
+end)
+
 Utils.hook(World, "onKeyPressed", function(orig, self, key)
     if Kristal.Config["debug"] and Input.ctrl() then
         if key == "m" then
