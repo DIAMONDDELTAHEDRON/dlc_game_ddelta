@@ -7,7 +7,7 @@ return {
         local c = cutscene:choicer({"Dont", "PLAY"})
 
         if c == 2 then
-            local board = BoardWorld("world_test_map", 1, 2)
+            local board = BoardWorld("world_test_map", 2, 1)
             Game.world.player.active = false
             Game.world:addChild(board)
 
