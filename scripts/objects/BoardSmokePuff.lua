@@ -12,7 +12,7 @@ function BoardSmokePuff:init(x, y)
 
     self.width = self.frames[1]:getWidth()
     self.height = self.frames[1]:getHeight()
-    self:setOrigin(0.5, 0.5)
+    self:setOriginExact(8, 8)
     self:setScale(1)
 
     self.play_sound = true
