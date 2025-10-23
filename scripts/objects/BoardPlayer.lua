@@ -1,32 +1,18 @@
---- The character controlled by the player when in the Overworld.
----@class Player : Character
----@overload fun(chara: string|Actor, x?: number, y?: number) : Player
+--- The character controlled by the player when in the Board.
+---@class BoardPlayer : Character
+---@overload fun(chara: string|Actor, x?: number, y?: number) : BoardPlayer
 local BoardPlayer, super = Class(Character)
 
 function BoardPlayer:init(chara, x, y)
     super.init(self, chara, x, y)
+
     self.world = Game.world.board
     self.is_player = true
 
-    self.slide_sound = Assets.newSound("paper_surf")
-    self.slide_sound:setLooping(true)
-
     self.state_manager = StateManager("WALK", self, true)
     self.state_manager:addState("WALK", { update = self.updateWalk })
-    self.state_manager:addState("SLIDE", { update = self.updateSlide, enter = self.beginSlide, leave = self.endSlide })
-
-    self.force_run = false
-    self.force_walk = true
-    self.run_timer = 0
-    self.run_timer_grace = 0
 
     self.auto_moving = false
-
-    self.current_slide_area = nil
-    self.slide_in_place = false
-    self.slide_lock_movement = false
-    self.slide_dust_timer = 0
-    self.slide_land_timer = 0
 
     self.hurt_timer = 0
 
@@ -47,31 +33,73 @@ function BoardPlayer:init(chara, x, y)
     self.persistent = true
     self.noclip = false
 
-    local outlinefx = BattleOutlineFX()
-    outlinefx:setAlpha(self.battle_alpha)
 
-    self.outlinefx = self:addFX(outlinefx)
+    self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "jamm"}
+    self.chara_state = "none"
 
+    self.switch_char = true
+    self.switch_buffer = 0
+
+    --kris variables
+    self.kris_has_sword = false
+    self.sword_buffer = 0
+    self.sword_facing = "down"
+
+    --susie variables
+    self.grab = 0
+    self.grab_con = 0
+    self.grab_buffer = 0
+    self.grabbed = 0
+    self.grab_marker = nil
+    self.doagrab = false
+
+    --ralsei variables
+    self.go_stoole = false
+    self.stool = nil
+    self.stool_buffer = 0
+    self.unstoole = false
+
+    --lancer variables
+    self.dig_freeze = 0
+    self.dig_con = 0
+    self.dig_time = 0
+
+    self.boat = false
+
+    self.sleepy = false
+    self.sleeping = false
+    self.sleepytimer = 0
+
+    self.ribbon = false
+    self.bow_x = self.x
+    self.bow_y = self.y
+
+    self.stink = false
+    self.stink_timer = 0
+
+    self.hookshot = true
+    self.hook_buffer = 0
+    self.hook = 0
+    self.hook_con = 0
+    self.force_hook = false
+end
+
+function BoardPlayer:getBaseWalkSpeed()
+    return 4
+end
+
+function BoardPlayer:getCurrentSpeed()
+    local speed = self:getBaseWalkSpeed()
+    return speed
 end
 
 function BoardPlayer:getDebugInfo()
     local info = super.getDebugInfo(self)
     table.insert(info, "State: " .. self.state_manager.state)
-    table.insert(info, "Walk speed: " .. self.walk_speed)
-    table.insert(info, "Run timer: " .. self.run_timer)
-    table.insert(info, "Can run: " .. (self.force_walk and "False" or "True"))
+    table.insert(info, "Walk speed: " .. self:getBaseWalkSpeed())
+    table.insert(info, "Current walk speed: " .. self:getCurrentSpeed())
     table.insert(info, "Hurt timer: " .. self.hurt_timer)
-    table.insert(info, "Slide in place: " .. (self.slide_in_place and "True" or "False"))
     return info
-end
-
-function BoardPlayer:getDebugOptions(context)
-    context = super.getDebugOptions(self, context)
-    context:addMenuItem("Toggle force run", "Toggle if the player is forced to run or not",
-        function () self.force_run = not self.force_run end)
-    context:addMenuItem("Toggle force walk", "Toggle if the player is forced to walk or not",
-        function () self.force_walk = not self.force_walk end)
-    return context
 end
 
 function BoardPlayer:onAdd(parent)
@@ -85,7 +113,6 @@ end
 function BoardPlayer:onRemove(parent)
     super.onRemove(self, parent)
 
-    self.slide_sound:stop()
     if parent:includes(World) and parent.player == self then
         parent.player = nil
     end
@@ -93,7 +120,6 @@ end
 
 function BoardPlayer:onRemoveFromStage(stage)
     super.onRemoveFromStage(self, stage)
-    self.slide_sound:stop()
 end
 
 function BoardPlayer:setActor(actor)
@@ -186,13 +212,12 @@ function BoardPlayer:interpolateFollowers()
 end
 
 function BoardPlayer:isCameraAttachable()
-    return not (self.state_manager.state == "SLIDE" and self.slide_in_place)
+    return
 end
 
 function BoardPlayer:isMovementEnabled()
     return not OVERLAY_OPEN
         and not Game.lock_movement
-        and not self.slide_lock_movement
         and Game.state == "OVERWORLD"
         and self.world.state == "GAMEPLAY"
         and self.hurt_timer == 0
@@ -211,42 +236,9 @@ function BoardPlayer:handleMovement()
     self.moving_x = walk_x
     self.moving_y = walk_y
 
-    local running = (Input.down("cancel") or self.force_run) and not self.force_walk
-    if Kristal.Config["autoRun"] and not self.force_run and not self.force_walk then
-        running = not running
-    end
-
-    if self.force_run and not self.force_walk then
-        self.run_timer = 200
-    end
-
-    local speed = self.walk_speed
-    if running then
-        if self.run_timer > 60 then
-            speed = speed + (Game:isLight() and 6 or 5)
-        elseif self.run_timer > 10 then
-            speed = speed + 4
-        else
-            speed = speed + 2
-        end
-    end
+    local speed = self:getCurrentSpeed()
 
     self:move(walk_x, walk_y, speed * DTMULT)
-
-    if not running or self.last_collided_x or self.last_collided_y then
-        self.run_timer = 0
-    elseif running then
-        if walk_x ~= 0 or walk_y ~= 0 then
-            self.run_timer = self.run_timer + DTMULT
-            self.run_timer_grace = 0
-        else
-            -- Dont reset running until 2 frames after you release the movement keys
-            if self.run_timer_grace >= 2 then
-                self.run_timer = 0
-            end
-            self.run_timer_grace = self.run_timer_grace + DTMULT
-        end
-    end
 end
 
 function BoardPlayer:updateWalk()
@@ -259,64 +251,109 @@ function BoardPlayer:isMoving()
     return self.moving_x ~= 0 or self.moving_y ~= 0
 end
 
-function BoardPlayer:beginSlide(last_state, in_place, lock_movement)
-    self.slide_sound:play()
-    self.auto_moving = true
-    self.slide_in_place = in_place or false
-    self.slide_lock_movement = lock_movement or false
-    self.slide_land_timer = 0
-    self.sprite:setAnimation("slide")
+-- Creates a smoke puff effect.
+---@param x?        number  The x-coordinate of the effect. (Defaults to player's x-position)
+---@param y?        number  The y-coordinate of the effect. (Defaults to player's y-position)
+---@param color?    table   The color of the effect.
+function BoardPlayer:createPuff(x, y, color)
+    local color = color or {}
+
+    local puff = BoardSmokePuff(x or self.moving_x, y or self.moving_y)
+    puff:setColor(color[1] or 1, color[2] or 1, color[3] or 1, color[4] or 1)
+    puff:setOriginExact(8, 8)
+    puff:setLayer(self.layer + 0.1)
+    self:addChild(puff)
 end
 
-function BoardPlayer:updateSlideDust()
-    self.slide_dust_timer = Utils.approach(self.slide_dust_timer, 0, DTMULT)
+-- changes the current player character
+function BoardPlayer:switchCharacter()
+    self:createPuff(nil, nil, {201/255, 201/255, 201/255})
 
-    if self.slide_dust_timer == 0 then
-        self.slide_dust_timer = 3
+    local id = self.actor.id:gsub("board_", "")
+    for i, name in ipairs(self.charas) do
+        if name == id then
+            local next_index = (i % #self.charas) + 1
+            self:setActor("board_" .. self.charas[next_index])
 
-        local dust = Sprite("effects/slide_dust")
-        dust:play(1 / 15, false, function () dust:remove() end)
-        dust:setOrigin(0.5, 0.5)
-        dust:setScale(2, 2)
-        dust:setPosition(self.x, self.y)
-        dust.layer = self.layer - 0.01
-        dust.physics.speed_y = -6
-        dust.physics.speed_x = Utils.random(-1, 1)
-        self.world:addChild(dust)
+            Assets.playSound("voice/board", 1, 1.1 + (next_index / 10))
+            Assets.playSound("voice/board", 1, 0.2 + (next_index / 10))
+            Assets.playSound("board/splash", 0.4, 0.8)
+
+            break
+        end
     end
+
+    local b = self.world.ui.healthbars[1]
+    b:init(b.x, b.y, self.actor)
 end
 
-function BoardPlayer:updateSlide()
-    local slide_x = 0
-    local slide_y = 0
+-- abilities for the characters
+function BoardPlayer:characterAction()
+    local id = self.actor.id:gsub("board_", "")
+    local name = id..""..id
 
-    if self:isMovementEnabled() then
-        if Input.down("right") then slide_x = slide_x + 1 end
-        if Input.down("left") then slide_x = slide_x - 1 end
-        if Input.down("down") then slide_y = slide_y + 1 end
-        if Input.down("up") then slide_y = slide_y - 1 end
+    if name == id.."kris" then    -- nothing (unless you've obtained the sword or camera)
+        return
     end
-
-    if not self.slide_in_place then
-        slide_y = 2
+    if name == id.."susie" then   -- grab and throw
+        return
     end
+    if name == id.."ralsei" then  -- stool forme
+        local can_stoole = true
+        local stoolevolume = 0.6
+		
+        if self.chara_state == "none" and (self.stool_buffer <= 0 or self.go_stoole) then
+            if can_stoole then
+                self.go_stoole = false
+				
+                self.stool_x, self.stool_y = Mod:boardTile(self.x, self.y)
+                self.x, self.y = self.stool_x, self.stool_y
 
-    self.run_timer = 50
-    local speed = self.walk_speed + 4
+                --creates a "pushblock_board" event
+                self.stool = Game.world.board:spawnObject(Registry.createEvent("pushblock_board", {
+                    x = self.stool_x, 
+                    y =  self.stool_y, 
+                    properties = { 
+					    sprite = "sword/party/ralsei/stoolforme",
+					    pushsound = "voice/ralsei"
+                    }
+                }))
+                self.stool:setLayer(self.layer - 0.1)
 
-    self:move(slide_x, slide_y, speed * DTMULT)
+                self:createPuff(nil, nil, {19/255, 210/255, 111/255})
+                self.chara_state = "stoolforme"
+                Assets.playSound("board/ralsei_cube", stoolevolume, 1)
+                --Game.lock_movement = true
+                self.alpha = 0
+                self.stool_buffer = 3
+            end
+        end
 
-    self:updateSlideDust()
-end
+        if self.chara_state == "stoolforme" and (self.stool_buffer <= 0 or self.unstoole) then
+            self.unstoole = false
 
-function BoardPlayer:endSlide(next_state)
-    if self.slide_lock_movement then
-        self.slide_land_timer = 4
-    else
-        self.slide_sound:stop()
-        self.sprite:resetSprite()
+            Assets.playSound("board/ralsei_cube", stoolevolume, 0.7)
+            --Kristal.Console:log("unstooled")
+            self.stool:remove()
+            self:createPuff(nil, nil, {19/255, 210/255, 111/255})
+            --Game.lock_movement = false
+            self.chara_state = "none"
+            self.alpha = 1
+            self.stool_buffer = 3
+        end
     end
-    self.auto_moving = false
+    if name == id.."lancer" then  -- digging
+        return
+    end
+    if name == id.."elnina" then  -- crying
+        return
+    end
+    if name == id.."noelle" then  -- ice magic
+        return
+    end
+    if name == id.."jamm" then    -- hookshot
+        return
+    end
 end
 
 function BoardPlayer:updateHistory()
@@ -352,16 +389,7 @@ end
 
 function BoardPlayer:update()
     if self.hurt_timer > 0 then
-        self.hurt_timer = Utils.approach(self.hurt_timer, 0, DTMULT)
-    end
-
-    if self.slide_land_timer > 0 and self.state_manager.state ~= "SLIDE" then
-        self.slide_land_timer = Utils.approach(self.slide_land_timer, 0, DTMULT)
-        if self.slide_land_timer == 0 then
-            self.slide_sound:stop()
-            self.sprite:resetSprite()
-            self.slide_lock_movement = false
-        end
+        self.hurt_timer = MathUtils.approach(self.hurt_timer, 0, DTMULT)
     end
 
     self.state_manager:update()
@@ -369,27 +397,17 @@ function BoardPlayer:update()
     self:updateHistory()
 
     if not Game.world.cutscene and not Game.world.menu then
-        self.interact_buffer = Utils.approach(self.interact_buffer, 0, DT)
+        self.interact_buffer = MathUtils.approach(self.interact_buffer, 0, DT)
     end
 
-    --self.world.in_battle_area = false
-    for _, area in ipairs(self.world.map.battle_areas) do
-        if area:collidesWith(self.collider) then
-            if not self.world.in_battle_area then
-                self.world.in_battle_area = true
-            end
-            break
+    local id = self.actor.id:gsub("board_", "")
+    local name = id..""..id
+
+    if name == id.."ralsei" then
+        if self.stool_buffer > 0 then
+            self.stool_buffer = MathUtils.approach(self.stool_buffer, 0, DTMULT)
         end
     end
-
-    if self.world:inBattle() then
-        self.battle_alpha = math.min(self.battle_alpha + (0.04 * DTMULT), 0.8)
-    else
-        self.battle_alpha = math.max(self.battle_alpha - (0.08 * DTMULT), 0)
-    end
-
-    local outlinefx = self.outlinefx --[[@as BattleOutlineFX]]
-    outlinefx:setAlpha(self.battle_alpha)
 
     super.update(self)
 end

@@ -19,14 +19,9 @@ function BoardPointsDisplay:init(x, y, amount)
 	end)
 
     self.font = Assets.getFont("8bit")
---end
-
---function BoardPointsDisplay:update()
-  --  super.update(self)
 
     if not self.display_init then
-        --Utils.ease(self.y, self.y - 20, 6/30, "linear")
-Game.stage.timer:tween(6/30, self, { y = (self.y - 20) })
+        Game.stage.timer:tween(6/30, self, { y = (self.y - 20) })
 
         if not self.onlyvisual then
             Game.world.timer:after(7/30, function()
@@ -52,27 +47,22 @@ function BoardPointsDisplay:draw()
 
     love.graphics.setFont(self.font)
     Draw.setColor(COLORS.black)
-    love.graphics.printf(signer..self.amount, 0 - 2, 0, 0, "center")
-    love.graphics.printf(signer..self.amount, 0 - 2, 0 - 2, 0, "center")
-    love.graphics.printf(signer..self.amount, 0 - 2, 0 + 2, 0, "center")
-    love.graphics.printf(signer..self.amount, 0 + 2, 0, 640, "center")
-    love.graphics.printf(signer..self.amount, 0 + 2, 0 - 2, 0, "center")
-    love.graphics.printf(signer..self.amount, 0 + 2, 0 + 2, 0, "center")
-    love.graphics.printf(signer..self.amount, 0, 0, 640, "center")
-    love.graphics.printf(signer..self.amount, 0, 0 - 2, 0, "center")
-    love.graphics.printf(signer..self.amount, 0, 0 + 2, 0, "center")
-    Draw.setColor(COLORS.white)
+    love.graphics.print(signer..self.amount, 0 - 2, 0)
+    love.graphics.print(signer..self.amount, 0 - 2, 0 - 2)
+    love.graphics.print(signer..self.amount, 0 - 2, 0 + 2)
+    love.graphics.print(signer..self.amount, 0 + 2, 0)
+    love.graphics.print(signer..self.amount, 0 + 2, 0 - 2)
+    love.graphics.print(signer..self.amount, 0 + 2, 0 + 2)
+    love.graphics.print(signer..self.amount, 0, 0)
+    love.graphics.print(signer..self.amount, 0, 0 - 2)
+    love.graphics.print(signer..self.amount, 0, 0 + 2)
 
     if self.amount < 0 then
         Draw.setColor(Utils.hexToRgb"#473DE3")
+    else
+        Draw.setColor(COLORS.white)
     end
-
-
-
-    --love.graphics.printf(signer..self.amount, 0, 0, 60)
-
-    love.graphics.print(signer..self.amount, 0, 0)
-    --love.graphics.printf(signer..self.amount, 0, 0, 50, "center")
+    love.graphics.print(signer..self.amount,  0, 0)
     Draw.setColor(COLORS.white)
 end
 
