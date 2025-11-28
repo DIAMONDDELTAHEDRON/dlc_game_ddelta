@@ -94,7 +94,7 @@ end
 function BoardFollower:updatePlayer()
     local id = Game.party[self.party_slot].id
 
-    if self.p_update < 30 then
+    if self.p_update < 15 then
         self.p_update = self.p_update + DTMULT
         return
     end
@@ -108,6 +108,7 @@ function BoardFollower:updatePlayer()
         local dy = p.y - self.y
         local dd = dx * dx + dy * dy
         if not (dd <= 64 * 64) then self:pathfindTo(p.x, p.y) end
+    elseif id == "susie" then
     end
 end
 

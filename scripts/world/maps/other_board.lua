@@ -918,6 +918,7 @@ return {
           visible = true,
           properties = {
             ["actor"] = "board_npc",
+            ["cutscene"] = "sword.arltr",
             ["text1"] = "IF YOU STOPPED EXISTING.",
             ["text2"] = "WOULD ANYONE NOTICE?"
           }

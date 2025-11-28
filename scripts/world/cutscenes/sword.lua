@@ -38,7 +38,7 @@ return {
             return
         end
     end,
-    alrtr = function(cutscene, event)
-        cutscene:boardText("")
+    arltr = function(cutscene, event)
+        cutscene:boardText("[color:green]IF YOU STOPPED EXISTING.\nWOULD ANYONE NOTICE?")
     end,
 }
