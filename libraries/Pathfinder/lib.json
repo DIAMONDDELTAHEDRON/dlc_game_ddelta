@@ -1,0 +1,13 @@
+{
+    "id": "pathfinder",
+    "authors": [
+        "ThePlasticPotato"
+    ],
+    "version": "v1.0.0",
+    "engineVer": "v0.10.0",
+
+    "config": {
+        "default_node_size": 16,
+        "debug_render_pathfinding": true
+    }
+}

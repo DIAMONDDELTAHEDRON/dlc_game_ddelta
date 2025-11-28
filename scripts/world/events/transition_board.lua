@@ -43,11 +43,17 @@ function transition_board:teleportPlayer(chara)
 
     chara.x, chara.y = x, y
 
+    for _, i in ipairs(Game.world.board.followers) do
+        i.physics.move_path = nil
+        i.pathing = false
+        i.x = chara.x
+        i.y = chara.y
+    end
+
     local x, y = Game.world.board:getArea(x, y)
     self.world:moveCamera(x, y)
 
     Game.lock_movement = false
-
 end
 
 function transition_board:draw()

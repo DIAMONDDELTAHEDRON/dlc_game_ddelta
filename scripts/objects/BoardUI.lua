@@ -19,7 +19,7 @@ function BoardUI:init()
     self.healthbars[1] = BoardHealthBar(128, 32, Game.world.board.player.actor)
     self:addChild(self.healthbars[1])
 
-    for i, follower in ipairs(Game.world.followers) do
+    for i, follower in ipairs(Game.world.board.followers) do
         local x = 128 + (94 * i)
         local b = i + 1
         self.healthbars[b] = BoardHealthBar(x, 32, follower.actor)

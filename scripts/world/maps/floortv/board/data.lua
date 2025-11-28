@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.9",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.9.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -9,7 +9,7 @@ return {
   height = 12,
   tilewidth = 40,
   tileheight = 40,
-  nextlayerid = 7,
+  nextlayerid = 8,
   nextobjectid = 16,
   properties = {},
   tilesets = {
@@ -38,7 +38,7 @@ return {
         {
           id = 1,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 480,
@@ -100,7 +100,7 @@ return {
         {
           id = 6,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 320,
@@ -113,10 +113,10 @@ return {
         {
           id = 7,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
-          y = 440,
+          y = 480,
           width = 640,
           height = 40,
           rotation = 0,
@@ -126,7 +126,7 @@ return {
         {
           id = 11,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = -40,
           y = 320,
@@ -155,7 +155,7 @@ return {
         {
           id = 2,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 96,
           y = 324,
@@ -169,7 +169,7 @@ return {
         {
           id = 9,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 270,
           y = 356,
@@ -183,7 +183,7 @@ return {
         {
           id = 14,
           name = "interactable",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 280,
           y = 320,
@@ -199,12 +199,12 @@ return {
         {
           id = 15,
           name = "transition",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 640,
           y = 360,
           width = 40,
-          height = 80,
+          height = 120,
           rotation = 0,
           visible = true,
           properties = {
@@ -231,7 +231,7 @@ return {
         {
           id = 12,
           name = "spawn",
-          type = "",
+          class = "",
           shape = "point",
           x = 600,
           y = 400,
@@ -242,6 +242,21 @@ return {
           properties = {}
         }
       }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "objects",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {}
     },
     {
       type = "objectgroup",
@@ -260,7 +275,7 @@ return {
         {
           id = 3,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 0,
           y = 552,
@@ -274,7 +289,7 @@ return {
         {
           id = 5,
           name = "",
-          type = "",
+          class = "",
           shape = "rectangle",
           x = 128,
           y = 474,
