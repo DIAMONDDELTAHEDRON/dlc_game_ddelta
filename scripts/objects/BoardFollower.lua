@@ -10,6 +10,14 @@ function BoardFollower:init(chara, x, y, party_slot)
 
     self.party_slot = party_slot
 
+    self.following = false
+
+    if Game.party[party_slot].id == "ralsei" then
+        self.following = true
+    end
+
+    self.follow_delay = FOLLOW_DELAY
+
     self.world = Game.world.board
     self.is_player = true
 
@@ -92,7 +100,7 @@ function BoardFollower:isMovementEnabled()
 end
 
 function BoardFollower:updatePlayer()
-    local id = Game.party[self.party_slot].id
+    --[[local id = Game.party[self.party_slot].id
 
     if self.p_update < 15 then
         self.p_update = self.p_update + DTMULT
@@ -109,8 +117,112 @@ function BoardFollower:updatePlayer()
         local dd = dx * dx + dy * dy
         if not (dd <= 64 * 64) then self:pathfindTo(p.x, p.y) end
     elseif id == "susie" then
+    end]]
+end
+
+function BoardFollower:getTarget()
+    return Game.world.board.player
+end
+
+function BoardFollower:getTargetPosition()
+    local follow_delay = self:getFollowDelay()
+    local tx, ty, facing, state, args = self.x, self.y, self.facing, nil, {}
+    for i,v in ipairs(self.history) do
+        tx, ty, facing, state, args = v.x, v.y, v.facing, v.state, v.state_args
+        local upper = self.history_time - v.time
+        if upper > follow_delay then
+            if i > 1 then
+                local prev = self.history[i - 1]
+                local lower = self.history_time - prev.time
+
+                local t = (follow_delay - lower) / (upper - lower)
+
+                tx = MathUtils.lerp(prev.x, v.x, t)
+                ty = MathUtils.lerp(prev.y, v.y, t)
+            end
+            break
+        end
+    end
+    return tx, ty, facing, state, args
+end
+
+function BoardFollower:moveToTarget(speed)
+    if self:getTarget() and self:getTarget().history then
+        local tx, ty, facing, state, args = self:getTargetPosition()
+        local dx, dy = tx - self.x, ty - self.y
+
+        if speed then
+            dx = MathUtils.approach(self.x, tx, speed * DTMULT) - self.x
+            dy = MathUtils.approach(self.y, ty, speed * DTMULT) - self.y
+        end
+
+        self:move(dx, dy)
+
+        if facing and (not speed or (dx == 0 and dy == 0)) then
+            self:setFacing(facing)
+        end
+
+        if state and self.state_manager:hasState(state) then
+            self.state_manager:setState(state, unpack(args or {}))
+        end
+
+        return dx, dy
+    else
+        return 0, 0
     end
 end
+
+--- Gets the delay in seconds this follower will follow its target's position,
+--- taking into account the delay of followers in front of itself.
+function BoardFollower:getFollowDelay()
+    local total_delay = 0
+
+    for i,v in ipairs(Game.world.board.followers) do
+        total_delay = total_delay + v.follow_delay
+
+        if v == self then break end
+    end
+
+    return total_delay
+end
+
+function BoardFollower:isAutoMoving()
+    local target_time = self:getFollowDelay()
+    for i,v in ipairs(self.history) do
+        if v.auto then
+            return true
+        end
+        if (self.history_time - v.time) > target_time then
+            break
+        end
+    end
+    return false
+end
+
+
+function BoardFollower:updateHistory(moved, auto)
+    if moved then
+        self.blush_timer = 0
+    end
+    local target = self:getTarget()
+
+    local auto_move = auto or self:isAutoMoving()
+
+    if moved or auto_move then
+        self.history_time = self.history_time + DT
+
+        table.insert(self.history, 1, {x = target.x, y = target.y, facing = target.facing, time = self.history_time, state = target.state, state_args = target.state_manager.args, auto = auto})
+        while (self.history_time - self.history[#self.history].time) > (Game.max_followers * FOLLOW_DELAY) do
+            table.remove(self.history, #self.history)
+        end
+
+        if self.following and not self.physics.move_target then
+            self:moveToTarget()
+        end
+    end
+end
+
+
 
 function BoardFollower:handleMovement()
     local walk_x = 0

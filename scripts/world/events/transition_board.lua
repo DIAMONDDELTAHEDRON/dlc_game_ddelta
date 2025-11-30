@@ -44,6 +44,7 @@ function transition_board:teleportPlayer(chara)
     chara.x, chara.y = x, y
 
     for _, i in ipairs(Game.world.board.followers) do
+        i.history = {}
         i.physics.move_path = nil
         i.pathing = false
         i.x = chara.x

@@ -714,6 +714,13 @@ function BoardWorld:spawnParty(marker, party, extra, facing)
             self.followers[1] = follower
         end
 
+        if Game.party[3] then
+            local follower = self:spawnFollower(self.player.x, self.player.y, "board_ralsei", 3)
+            follower:setFacing(facing or self.player.facing)
+            
+            self.followers[2] = follower
+        end
+
     self.ui = BoardUI()
     Game.world:addChild(self.ui)
 
@@ -1405,6 +1412,7 @@ function BoardWorld:snapPlayer(dir, x, y)
     end
 
     for _, i in ipairs(self.followers) do
+        i.history = {}
         i.physics.move_path = nil
         i.pathing = false
         i.x = self.player.x

@@ -24,7 +24,13 @@ return {
             end
 
             cutscene:wait(0.6)
+            
+            for i, b in ipairs(Game.world.followers) do
+                b:setFacing("up")
+            end
 
+            Game.world.player:resetSprite()
+            cutscene:wait(0.5)
             local board = BoardWorld("world_test_map", 2, 0)
             Game.world.player.active = false
             Game.world:addChild(board)

@@ -165,7 +165,7 @@ function BoardPlayer:setState(state, ...)
 end
 
 function BoardPlayer:resetFollowerHistory()
-    for _, follower in ipairs(Game.world.followers) do
+    for _, follower in ipairs(Game.world.board.followers) do
         if follower:getTarget() == self then
             follower:copyHistoryFrom(self)
         end
@@ -204,7 +204,7 @@ end
 
 --- Adds all followers' current positions to their movement history.
 function BoardPlayer:interpolateFollowers()
-    for i, follower in ipairs(Game.world.followers) do
+    for i, follower in ipairs(Game.world.board.followers) do
         if follower:getTarget() == self then
             follower:interpolateHistory()
         end
@@ -376,12 +376,10 @@ function BoardPlayer:updateHistory()
         end
     end
 
---no board followers yet
---[[
-    for _, follower in ipairs(self.world.followers) do
+    -- Need this for ralsei
+    for _, follower in ipairs(Game.world.board.followers) do
         follower:updateHistory(moved, auto)
     end
-]]
 
     self.last_move_x = self.x
     self.last_move_y = self.y
