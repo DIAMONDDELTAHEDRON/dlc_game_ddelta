@@ -37,9 +37,8 @@ end
 
 function BoardUI:update()
     super.update(self)
-	
-    local p = Game.world.board.player
 
+    local p = Game.world.board.player
     if self.quit_timer >= 90 then
         self:quit()
     end
@@ -94,6 +93,10 @@ function BoardUI:draw()
 end
 
 function BoardUI:quit()
+    Game.world.board:remove()
+    self:remove()
+    Game.world.player.active = true
+    Game.world.music:stop()
 end
 
 return BoardUI
