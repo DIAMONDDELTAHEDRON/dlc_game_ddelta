@@ -20,6 +20,28 @@ function BoardInventoryBar:init(x, y)
     self.b2drawninfriendo = true
     self.photo = 0
     self.b2camera = 0 -- NOTE TO SELF: never name a variable "self.camera" otherwise the game will crash lmao.
+
+    self.inventory = {}
+
+    --{test_item = {amount = 1, sprite = "sword/ui/inventory/test_item"}, }
+end
+
+function BoardInventoryBar:addItem(item, slot)
+    local slot = slot or 0
+    local id = item.id
+    local spr = item.spr
+    if self[id] then
+        self[id] = self[id] + 1
+    else
+        if not self.inventory[id] then
+            self.inventory[id] = {}
+            self.inventory[id].amount = 1
+            self.inventory[id].sprite = spr
+            self.inventory[id].slot = slot
+        else
+            self.inventory[id].amount = self.inventory[id].amount + 1
+        end
+    end
 end
 
 function BoardInventoryBar:draw()
@@ -47,6 +69,14 @@ function BoardInventoryBar:draw()
 
     if self.rouxlsblock ~= 0 then
         Draw.draw(Assets.getTexture("world/events/sword/rouxlsblock"), item_x, item_y + 192, 0, 2, 2)
+    end
+
+    for item in pairs(self.inventory) do
+        local item = self.inventory[item]
+        local slot = item.slot * 48
+
+        Draw.draw(Assets.getTexture(item.sprite), item_x, item_y + slot, 0, 2, 2)
+        Draw.draw(Assets.getFrames("sword/ui/inventory/counter")[item.amount], counter_x, counter_y + slot, 0, 2, 2)
     end
 end
 

@@ -35,6 +35,10 @@ function BoardUI:init()
     self.sword_route = false
 end
 
+function BoardUI:addItem(item, slot)
+    self.inventory_bar:addItem(item, slot)
+end
+
 function BoardUI:update()
     super.update(self)
 
