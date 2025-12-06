@@ -404,13 +404,13 @@ IS FREE TO FRIENDS!</property>
     <property name="sprite" value="sword/party/lancer/walk/down"/>
    </properties>
   </object>
-  <object id="198" name="board_item" x="848" y="1145" width="32" height="32">
+  <object id="198" name="board_item" x="2096" y="57" width="32" height="32">
    <properties>
     <property name="id" value="cloak"/>
     <property name="name" value="???"/>
     <property name="price" value="9999"/>
-    <property name="shop" type="object" value="87"/>
-    <property name="sprite" value="sword/party/noelle/walk/down"/>
+    <property name="shop" type="object" value="86"/>
+    <property name="sprite" value="sword/party/noelle/walk/down_1"/>
    </properties>
   </object>
  </objectgroup>

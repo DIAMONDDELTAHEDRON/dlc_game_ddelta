@@ -1969,8 +1969,8 @@ return {
           name = "board_item",
           class = "",
           shape = "rectangle",
-          x = 848,
-          y = 1145,
+          x = 2096,
+          y = 57,
           width = 32,
           height = 32,
           rotation = 0,
@@ -1979,8 +1979,8 @@ return {
             ["id"] = "cloak",
             ["name"] = "???",
             ["price"] = "9999",
-            ["shop"] = { id = 87 },
-            ["sprite"] = "sword/party/noelle/walk/down"
+            ["shop"] = { id = 86 },
+            ["sprite"] = "sword/party/noelle/walk/down_1"
           }
         }
       }

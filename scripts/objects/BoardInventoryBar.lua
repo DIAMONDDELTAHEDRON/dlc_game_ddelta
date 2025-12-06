@@ -22,14 +22,13 @@ function BoardInventoryBar:init(x, y)
     self.b2camera = 0 -- NOTE TO SELF: never name a variable "self.camera" otherwise the game will crash lmao.
 
     self.inventory = {}
-
-    --{test_item = {amount = 1, sprite = "sword/ui/inventory/test_item"}, }
 end
 
 function BoardInventoryBar:addItem(item, slot)
     local slot = slot or 0
     local id = item.id
     local spr = item.spr
+    print(spr)
     if self[id] then
         self[id] = self[id] + 1
     else
