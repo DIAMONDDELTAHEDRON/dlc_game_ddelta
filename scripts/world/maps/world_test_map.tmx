@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="199">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="200">
  <editorsettings>
   <export target="world_test_map.lua" format="lua"/>
  </editorsettings>
@@ -404,13 +404,20 @@ IS FREE TO FRIENDS!</property>
     <property name="sprite" value="sword/party/lancer/walk/down"/>
    </properties>
   </object>
-  <object id="198" name="board_item" x="2096" y="57" width="32" height="32">
+  <object id="198" name="board_item" x="2192" y="153" width="32" height="32">
    <properties>
     <property name="id" value="cloak"/>
     <property name="name" value="???"/>
     <property name="price" value="9999"/>
     <property name="shop" type="object" value="86"/>
     <property name="sprite" value="sword/party/noelle/walk/down_1"/>
+   </properties>
+  </object>
+  <object id="199" name="npc" x="1056" y="618" width="32" height="16">
+   <properties>
+    <property name="actor" value="board_npc"/>
+    <property name="cutscene" value="sword.h"/>
+    <property name="sprite" value="h"/>
    </properties>
   </object>
  </objectgroup>

@@ -44,6 +44,9 @@ return {
             return
         end
     end,
+    h = function(cutscene, event)
+        cutscene:boardText("HHHHHHH HH HHH HHHH HHH HHHHHHHH HHHHHHHH!")
+    end,
     arltr = function(cutscene, event)
         cutscene:boardText("[color:green]IF YOU STOPPED EXISTING.\nWOULD ANYONE NOTICE?")
     end,

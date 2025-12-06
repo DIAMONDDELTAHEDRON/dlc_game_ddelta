@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 11,
-  nextobjectid = 199,
+  nextobjectid = 200,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -1969,8 +1969,8 @@ return {
           name = "board_item",
           class = "",
           shape = "rectangle",
-          x = 2096,
-          y = 57,
+          x = 2192,
+          y = 153,
           width = 32,
           height = 32,
           rotation = 0,
@@ -1981,6 +1981,23 @@ return {
             ["price"] = "9999",
             ["shop"] = { id = 86 },
             ["sprite"] = "sword/party/noelle/walk/down_1"
+          }
+        },
+        {
+          id = 199,
+          name = "npc",
+          class = "",
+          shape = "rectangle",
+          x = 1056,
+          y = 618,
+          width = 32,
+          height = 16,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "board_npc",
+            ["cutscene"] = "sword.h",
+            ["sprite"] = "h"
           }
         }
       }
