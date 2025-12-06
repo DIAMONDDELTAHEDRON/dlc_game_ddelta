@@ -37,8 +37,12 @@ return {
 			Game.world.music:stop()
 			board = Game.world.board
 			board.ui.healthbars[1].y = -32
-			board.ui.healthbars[2].y = -32
-			board.ui.healthbars[3].y = -32
+			if board.ui.healthbars[2] then
+				board.ui.healthbars[2].y = -32
+			end
+			if board.ui.healthbars[3] then
+				board.ui.healthbars[3].y = -32
+			end
 			board.ui.score_bar.y = -32
 			board.ui.inventory_bar.x = -48
 			local end_ui_move = false
