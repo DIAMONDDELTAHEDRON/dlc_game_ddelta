@@ -8,8 +8,8 @@ function BoardStarTransition:init(sprite, x, y, targx, targy, callback)
     self.texture = Assets.getTexture("sword/effects/startransition/" .. sprite) or Assets.getTexture("sword/effects/startransition/default")
 	self.rand_frames = {
 		Assets.getTexture("sword/effects/startransition/" .. Game.world.board.player.actor.id) or Assets.getTexture("sword/effects/startransition/board_kris"),
-		Assets.getTexture("sword/effects/startransition/" .. Game.world.board.followers[1].actor.id) or Assets.getTexture("sword/effects/startransition/board_susie"),
-		Assets.getTexture("sword/effects/startransition/" .. Game.world.board.followers[2].actor.id) or Assets.getTexture("sword/effects/startransition/board_ralsei"),
+		Game.world.board.followers[1] and Assets.getTexture("sword/effects/startransition/" .. Game.world.board.followers[1].actor.id) or Assets.getTexture("sword/effects/startransition/board_susie"),
+		Game.world.board.followers[2] and Assets.getTexture("sword/effects/startransition/" .. Game.world.board.followers[2].actor.id) or Assets.getTexture("sword/effects/startransition/board_ralsei"),
 		Assets.getTexture("sword/effects/startransition/yellow")
 	}
 	self.time = 0
