@@ -22,12 +22,18 @@ function board_item:onInteract(player, dir)
     local i = Game.world.board.ui.inventory_bar
     local p = Game.world.board.player
     local cutscene = Game.world:startCutscene(function(c)
-        Assets.playSound("board/itemget")
 
-        if self.price then
-            Game.world.board.ui:addScore(-self.price)
-            self.price = nil
+        if self.price and self.shop then
+            if Game:getFlag("points") >= tonumber(self.price) then
+                Game.world.board.ui:addScore(-self.price)
+                self.price = nil
+            else
+                Assets.playSound("error")
+                return
+            end
         end
+
+        Assets.playSound("board/itemget")
 
         self:slideTo(p.x - 16, p.y - 64 - 8, 0.5)
         p:spin(2)

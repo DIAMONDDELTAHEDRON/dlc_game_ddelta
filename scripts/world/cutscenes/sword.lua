@@ -2,7 +2,7 @@ return {
     play = function(cutscene, event)
         if Game.world.board then return end --This is such a hacky way to do this
 
-        local c = cutscene:choicer({"Play", "Map2", "Don't"})
+        local c = cutscene:choicer({"Play", "Don't"})
         if c == 1 then
 
 
@@ -35,7 +35,7 @@ return {
             Game.world.player.active = false
             Game.world:addChild(board)
             return
-        elseif c == 2 then
+        elseif c == 4 then
             local board = BoardWorld("other_board", 2, 2)
             Game.world.player.active = false
             Game.world:addChild(board)
@@ -46,6 +46,9 @@ return {
     end,
     h = function(cutscene, event)
         cutscene:boardText("HHHHHHH HH HHH HHHH HHH HHHHHHHH HHHHHHHH!")
+    end,
+    board_3_door = function(cutscene, event)
+        cutscene:boardText("MIKE DO CUTSCENE STUFF HERE WHEN THEY GET THE Q'S PLEASE!")
     end,
     arltr = function(cutscene, event)
         cutscene:boardText("[color:green]IF YOU STOPPED EXISTING.\nWOULD ANYONE NOTICE?")

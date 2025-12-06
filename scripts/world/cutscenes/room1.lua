@@ -1,6 +1,9 @@
 return {
     read = function(cutscene, event)
         cutscene:text("* Welcome to .[wait:10]\n* Just have some good ol' fun.")
+        cutscene:text("* Feel free to add what you like to this dlc.")
+        cutscene:text("* If you need help with sprites, message SadDiamondMan.")
+        cutscene:text("* Enjoy.")
         --* Welcome to plug'n play.
         --* Welcome to the game corner.
         --* Welcome to the play area.
