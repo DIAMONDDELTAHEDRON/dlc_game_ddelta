@@ -28,7 +28,6 @@ function BoardInventoryBar:addItem(item, slot)
     local slot = slot or 0
     local id = item.id
     local spr = item.spr
-    print(spr)
     if self[id] then
         self[id] = self[id] + 1
     else
