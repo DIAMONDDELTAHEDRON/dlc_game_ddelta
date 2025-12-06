@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 11,
-  nextobjectid = 207,
+  nextobjectid = 211,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -364,6 +364,45 @@ return {
           shape = "point",
           x = 1424,
           y = 704,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 208,
+          name = "spawn2",
+          class = "",
+          shape = "point",
+          x = 928,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 209,
+          name = "spawn3",
+          class = "",
+          shape = "point",
+          x = 992,
+          y = 160,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 210,
+          name = "spawn4",
+          class = "",
+          shape = "point",
+          x = 864,
+          y = 192,
           width = 0,
           height = 0,
           rotation = 0,
@@ -2046,6 +2085,23 @@ return {
             ["price"] = "100",
             ["shop"] = { id = 87 },
             ["sprite"] = "sword/npcs/pippins"
+          }
+        },
+        {
+          id = 207,
+          name = "npc",
+          class = "",
+          shape = "point",
+          x = 1648,
+          y = 96,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["actor"] = "board_npc",
+            ["cutscene"] = "sword.pip_lost",
+            ["sprite"] = "lost_pippins"
           }
         }
       }

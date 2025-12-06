@@ -563,14 +563,12 @@ function BoardWorld:spawnFollower(...)
             x, y = args[1], args[2]
             chara = args[3]
             party_slot = args[4]
-        elseif type(args[1]) == "string" then
-            x, y = self.map:getMarker(args[1])
-            chara = args[2] or chara
-            party = args[3]
         end
     end
 
-    local f = BoardFollower(chara, x, y, party_slot)
+    local m = self.map.markers["spawn".. party_slot]
+
+    local f = BoardFollower(chara, m.x, m.y, party_slot)
     f.world = self
     f.layer = self.map.object_layer
     f:setFacing(facing)

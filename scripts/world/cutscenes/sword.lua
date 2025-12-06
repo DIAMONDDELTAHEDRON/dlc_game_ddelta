@@ -144,6 +144,9 @@ return {
     h = function(cutscene, event)
         cutscene:boardText("HHHHHHH HH HHH HHHH HHH HHHHHHHH HHHHHHHH!")
     end,
+    pip_lost = function(cutscene, event)
+        cutscene:boardText("I'M LOST.")
+    end,
     board_3_door = function(cutscene, event)
         cutscene:boardText("MIKE DO CUTSCENE STUFF HERE WHEN THEY GET THE Q'S PLEASE!")
     end,
