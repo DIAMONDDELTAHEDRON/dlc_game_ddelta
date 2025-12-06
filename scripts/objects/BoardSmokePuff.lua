@@ -1,4 +1,4 @@
----@class Explosion : Object
+---@class BoardSmokePuff : Object
 ---@overload fun(...) : BoardSmokePuff
 local BoardSmokePuff, super = Class(Object)
 
