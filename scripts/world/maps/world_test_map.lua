@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 11,
-  nextobjectid = 196,
+  nextobjectid = 199,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -1813,21 +1813,6 @@ return {
           }
         },
         {
-          id = 89,
-          name = "npc",
-          class = "",
-          shape = "rectangle",
-          x = 944,
-          y = 1072,
-          width = 32,
-          height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {
-            ["actor"] = "board_lancer"
-          }
-        },
-        {
           id = 155,
           name = "transition_board",
           class = "",
@@ -1941,6 +1926,61 @@ return {
             ["name"] = "NESS",
             ["slot"] = "3",
             ["sprite"] = "sword/ui/inventory/test_item"
+          }
+        },
+        {
+          id = 196,
+          name = "board_item",
+          class = "",
+          shape = "rectangle",
+          x = 944,
+          y = 1056,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["id"] = "lancer",
+            ["name"] = "LANCER",
+            ["sprite"] = "sword/party/lancer/walk/down"
+          }
+        },
+        {
+          id = 197,
+          name = "board_item",
+          class = "",
+          shape = "rectangle",
+          x = 1040,
+          y = 1145,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["id"] = "lancer",
+            ["name"] = "LANCER",
+            ["price"] = "0",
+            ["shop"] = { id = 87 },
+            ["sprite"] = "sword/party/lancer/walk/down"
+          }
+        },
+        {
+          id = 198,
+          name = "board_item",
+          class = "",
+          shape = "rectangle",
+          x = 848,
+          y = 1145,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["id"] = "cloak",
+            ["name"] = "???",
+            ["price"] = "9999",
+            ["shop"] = { id = 87 },
+            ["sprite"] = "sword/party/noelle/walk/down"
           }
         }
       }

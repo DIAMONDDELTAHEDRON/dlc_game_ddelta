@@ -10,7 +10,6 @@ function board_item:init(data)
     self.slot = self.data.properties['slot'] or 0
 
     self.shop = self.data.properties['shop'] or nil
-    print(self.shop)
 
     self.price = self.data.properties['price'] or nil
 
@@ -56,11 +55,16 @@ function board_item:draw()
         local shop = Game.world.board:getEvent(self.shop.id)
         if shop.text_active then
             if not shop.dialogue_text:isTyping() then
-                love.graphics.setFont(Assets.getFont("main"))
+                love.graphics.setFont(Assets.getFont("8bit"))
                 love.graphics.setColor(1, 1, 1)
-        
-                love.graphics.printfOutline(self.name, 0, 28, 2)
-                love.graphics.printfOutline(self.price, 0, 54, 2)
+
+                love.graphics.printfOutline(self.name, (16 - #self.name * 8), 32, 2)
+                if self.price == "0" then
+                    love.graphics.printfOutline("FREE", -16, 48, 2)
+                else
+                    love.graphics.printfOutline(self.price, (16 - #self.price * 8), 48, 2)
+                end
+
             end
         end
     end
