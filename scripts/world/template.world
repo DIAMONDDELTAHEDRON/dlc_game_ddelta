@@ -11,8 +11,57 @@
             "fileName": "maps/room2.tmx",
             "height": 480,
             "width": 800,
-            "x": 880,
+            "x": 1000,
             "y": -120
+        },
+        {
+            "fileName": "maps/down_hall.tmx",
+            "height": 4800,
+            "width": 1000,
+            "x": 0,
+            "y": 880
+        },
+        {
+            "fileName": "maps/storage.tmx",
+            "height": 880,
+            "width": 1000,
+            "x": -1000,
+            "y": 4360
+        },
+        {
+            "fileName": "maps/storage-left.tmx",
+            "height": 880,
+            "width": 1000,
+            "x": -2000,
+            "y": 4360
+        },
+        {
+            "fileName": "maps/storage-down.tmx",
+            "height": 440,
+            "width": 2000,
+            "x": -2000,
+            "y": 5240
+        },
+        {
+            "fileName": "maps/storage-arcade.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -2640,
+            "y": 5080
+        },
+        {
+            "fileName": "maps/floortv/board/board.tmx",
+            "height": 480,
+            "width": 640,
+            "x": -640,
+            "y": -200
+        },
+        {
+            "fileName": "maps/storage-left-hall.tmx",
+            "height": 480,
+            "width": 2560,
+            "x": -4560,
+            "y": 4360
         }
     ],
     "onlyShowAdjacentMaps": false,
