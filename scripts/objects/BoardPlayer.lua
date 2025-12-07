@@ -34,7 +34,8 @@ function BoardPlayer:init(chara, x, y)
     self.persistent = true
     self.noclip = false
 
-    self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "hero", "jamm"}
+    self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "hero", "jamm", "len"} 
+
     self.chara_state = "none"
 
     self.switch_char = true
