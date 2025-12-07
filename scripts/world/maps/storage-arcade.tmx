@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="173">
+ <editorsettings>
+  <export target="storage-arcade.lua" format="lua"/>
+ </editorsettings>
+ <properties>
+  <property name="border" value="green_sloppy"/>
+  <property name="name" value="Play Room - Ramb"/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/castle.tsx"/>
+ <tileset firstgid="41" source="../tilesets/tv_floor/board.tsx"/>
+ <tileset firstgid="57" source="../tilesets/arcade-storage.tsx"/>
+ <layer id="10" name="tv" width="16" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,61,62,62,62,62,62,62,62,62,63,0,0,0,
+0,0,0,68,0,0,0,0,0,0,0,0,70,0,0,0,
+0,0,0,68,0,0,0,0,0,0,0,0,70,0,0,0,
+0,0,0,68,0,0,0,0,0,0,0,0,70,0,0,0,
+0,0,0,68,0,0,0,0,0,0,0,0,70,0,0,0,
+0,0,0,68,0,0,0,0,0,0,0,0,70,0,0,0,
+0,0,0,75,76,76,76,76,76,76,76,76,77,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="back" width="16" height="12">
+  <data encoding="csv">
+66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,66,
+66,66,66,80,80,80,80,80,80,80,80,80,80,66,66,66,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="1" name="tiles" width="16" height="12">
+  <data encoding="csv">
+72,73,74,73,73,73,73,73,73,73,73,73,73,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+72,73,74,0,0,0,0,0,0,0,0,0,0,72,73,74,
+79,80,81,57,57,71,71,71,57,71,64,57,71,79,80,81,
+78,78,78,71,78,71,71,71,78,78,78,78,71,78,78,71,
+78,71,78,71,78,71,71,71,71,71,71,78,71,71,78,71,
+71,71,71,78,78,78,71,78,78,71,71,71,78,78,78,78
+</data>
+ </layer>
+ <layer id="2" name="decal" width="16" height="12" offsetx="38" offsety="20">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup color="#0000ff" id="3" name="collision" opacity="0.5">
+  <object id="157" x="-40" y="360" width="40" height="120"/>
+  <object id="158" x="0" y="480" width="640" height="40"/>
+  <object id="159" x="520" y="320" width="120" height="40"/>
+  <object id="160" x="120" y="280" width="400" height="40"/>
+  <object id="161" x="0" y="320" width="120" height="40"/>
+  <object id="167" x="290" y="320" width="80" height="40"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="9" name="objects">
+  <object id="163" name="transition" x="640" y="360" width="40" height="120">
+   <properties>
+    <property name="map" value="storage-down"/>
+    <property name="marker" value="entry3"/>
+   </properties>
+  </object>
+  <object id="165" gid="48" x="280" y="356" width="100" height="34"/>
+  <object id="166" name="interactable" x="290" y="320" width="80" height="40">
+   <properties>
+    <property name="cutscene" value="sword.play"/>
+    <property name="map" value="world_abandoned_storage"/>
+    <property name="once" type="bool" value="false"/>
+    <property name="x" type="int" value="3"/>
+    <property name="y" type="int" value="3"/>
+   </properties>
+  </object>
+  <object id="168" name="interactable" x="200" y="280" width="40" height="40">
+   <properties>
+    <property name="text" value="* (The sign is too high up to read it)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#7f00ff" id="5" name="markers">
+  <object id="162" name="entry" x="600" y="420">
+   <point/>
+  </object>
+  <object id="172" name="spawn" x="330" y="430">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

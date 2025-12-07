@@ -4,7 +4,19 @@ return {
 
         local c = cutscene:choicer({"Play", "Don't"})
         if c == 1 then
-
+			local event = event or {}
+			local data = event.data or {}
+			local p = data.properties or {}
+			local board = p.map or p.board or "world_test_map"
+			-- Index starts at 0, (2 == 3, 1 == 2, etc)
+			if p.x then
+				p.x = p.x - 1
+			end
+			if p.y then
+				p.y = p.y - 1
+			end
+			local x = p.x or 2
+			local y = p.y or 0
 
             cutscene:detachFollowers()
             Assets.playSound("jump")
@@ -31,7 +43,7 @@ return {
 
             Game.world.player:resetSprite()
             cutscene:wait(0.5)
-            local board = BoardWorld("world_test_map", 2, 0)
+            local board = BoardWorld(board, x, y)
             Game.world.player.active = false
             Game.world:addChild(board)
 			Game.world.music:stop()
@@ -141,6 +153,29 @@ return {
             return
         end
     end,
+	fakeplay = function(cutscene, event)
+		local c = cutscene:choicer({"Play", "Don't"})
+		if c ~= 1 then return end
+		local event = event or {}
+		local data = event.data or {}
+		local properties = data.properties or {}
+		local x = properties.x
+		local y = properties.y
+		local board = Game.world.board
+		Assets.playSound("board/damage")
+		if x then
+			board.player.x = x
+			for _,follower in ipairs(board.followers) do
+				follower.x = x
+			end
+		end
+		if y then
+			board.player.y = y
+			for _,follower in ipairs(board.followers) do
+				follower.y = y
+			end
+		end
+	end,
     h = function(cutscene, event)
         cutscene:boardText("HHHHHHH HH HHH HHHH HHH HHHHHHHH HHHHHHHH!")
     end,
