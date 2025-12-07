@@ -398,7 +398,9 @@ function BoardWorld:getCollision(enemy_check)
         end
     end
     for _,child in ipairs(self.children) do
-        if child.collider and child.solid then
+        if child.solid_collider and child.solid then
+            table.insert(col, child.solid_collider)
+        elseif child.collider and child.solid then
             table.insert(col, child.collider)
         end
     end
