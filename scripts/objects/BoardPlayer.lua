@@ -11,6 +11,7 @@ function BoardPlayer:init(chara, x, y)
 
     self.state_manager = StateManager("WALK", self, true)
     self.state_manager:addState("WALK", { update = self.updateWalk })
+    self.state_manager:addState("HURT", { update = self.updateHurt })
 
     self.auto_moving = false
 
@@ -32,7 +33,6 @@ function BoardPlayer:init(chara, x, y)
 
     self.persistent = true
     self.noclip = false
-
 
     self.charas = {"kris", "susie", "ralsei", "lancer", "noelle", "hero", "jamm"}
     self.chara_state = "none"
@@ -82,6 +82,14 @@ function BoardPlayer:init(chara, x, y)
     self.hook = 0
     self.hook_con = 0
     self.force_hook = false
+	
+	self.hit_move = 0
+	self.hit_move_speed = 0
+	self.hit_x = 0
+	self.hit_y = 0
+	self.iframes = 0
+	self.stopiframesflickerconds = 0
+	self.iframes_visible = true
 end
 
 function BoardPlayer:getBaseWalkSpeed()
@@ -220,8 +228,107 @@ function BoardPlayer:isMovementEnabled()
         and not Game.lock_movement
         and Game.state == "OVERWORLD"
         and self.world.state == "GAMEPLAY"
-        and self.hurt_timer == 0
+        and self.hurt_timer <= 1
         and Game.world.door_delay == 0
+end
+
+function BoardPlayer:isHurtingEnabled()
+	return self:isMovementEnabled()
+end
+
+function BoardPlayer:hurt(amount, hazard)
+	if self.iframes <= 0 and self.actor.health > 0 and self:isHurtingEnabled() then
+		Assets.playSound("board/playerhurt")
+		self.iframes = 20
+		self.actor.health = self.actor.health - amount
+		self.iframes_visible = false
+		self.hurt_timer = 5
+		for _,healthbar in ipairs(self.world.ui.healthbars) do
+			if healthbar.party.id == self.actor.id then
+				healthbar:shake()
+				healthbar.override_color = COLORS.red
+				Game.world.timer:after(2/30, function()
+					healthbar.override_color = nil
+				end)
+			end
+		end		
+		if hazard then
+			self.hit_move = 32
+			self.hit_move_speed = 16
+			self.hit_x = 0
+			self.hit_y = 0
+			local dir = -math.deg(MathUtils.angle(self.x, self.y, hazard.last_x + hazard.width/2, hazard.last_y + hazard.height/2)) % 360
+			local check_collisions = false
+			if (not self.noclip) and (not NOCLIP) then
+				check_collisions = true
+			end
+			if check_collisions then
+				Object.startCache()
+				if dir >= 135 and dir < 225 then
+					local collider_check_x = Hitbox(self, self.collider.x + 16, self.collider.y, self.collider.width, self.collider.height)
+					local collider_check_y = Hitbox(self, self.collider.x, self.collider.y - 16, self.collider.width, self.collider.height)
+					local collider_check_z = Hitbox(self, self.collider.x, self.collider.y + 16, self.collider.width, self.collider.height)
+					local collided_x, _ = self.world:checkCollision(collider_check_x, false)
+					local collided_y, _ = self.world:checkCollision(collider_check_y, false)
+					local collided_z, _ = self.world:checkCollision(collider_check_z, false)
+					if not collided_x then
+						self.hit_x = self.hit_x + self.hit_move_speed
+					elseif hazard.y > self.y and not collided_y then
+						self.hit_y = self.hit_y - self.hit_move_speed
+					elseif not collided_z then
+						self.hit_y = self.hit_y + self.hit_move_speed
+					end
+				end
+				if dir >= 315 or dir < 45 then
+					local collider_check_x = Hitbox(self, self.collider.x - 16, self.collider.y, self.collider.width, self.collider.height)
+					local collider_check_y = Hitbox(self, self.collider.x, self.collider.y - 16, self.collider.width, self.collider.height)
+					local collider_check_z = Hitbox(self, self.collider.x, self.collider.y + 16, self.collider.width, self.collider.height)
+					local collided_x, _ = self.world:checkCollision(collider_check_x, false)
+					local collided_y, _ = self.world:checkCollision(collider_check_y, false)
+					local collided_z, _ = self.world:checkCollision(collider_check_z, false)
+					if not collided_x then
+						self.hit_x = self.hit_x - self.hit_move_speed
+					elseif hazard.y > self.y and not collided_y then
+						self.hit_y = self.hit_y - self.hit_move_speed
+					elseif not collided_z then
+						self.hit_y = self.hit_y + self.hit_move_speed
+					end
+				end
+				if dir >= 45 and dir < 135 then
+					local collider_check_x = Hitbox(self, self.collider.x, self.collider.y + 16, self.collider.width, self.collider.height)
+					local collider_check_y = Hitbox(self, self.collider.x - 16, self.collider.y, self.collider.width, self.collider.height)
+					local collider_check_z = Hitbox(self, self.collider.x + 16, self.collider.y, self.collider.width, self.collider.height)
+					local collided_x, _ = self.world:checkCollision(collider_check_x, false)
+					local collided_y, _ = self.world:checkCollision(collider_check_y, false)
+					local collided_z, _ = self.world:checkCollision(collider_check_z, false)
+					if not collided_x then
+						self.hit_y = self.hit_y + self.hit_move_speed
+					elseif hazard.x < self.x and not collided_y then
+						self.hit_x = self.hit_x - self.hit_move_speed
+					elseif not collided_z then
+						self.hit_x = self.hit_x + self.hit_move_speed
+					end
+				end
+				if dir >= 225 and dir < 315 then
+					local collider_check_x = Hitbox(self, self.collider.x, self.collider.y - 16, self.collider.width, self.collider.height)
+					local collider_check_y = Hitbox(self, self.collider.x - 16, self.collider.y, self.collider.width, self.collider.height)
+					local collider_check_z = Hitbox(self, self.collider.x + 16, self.collider.y, self.collider.width, self.collider.height)
+					local collided_x, _ = self.world:checkCollision(collider_check_x, false)
+					local collided_y, _ = self.world:checkCollision(collider_check_y, false)
+					local collided_z, _ = self.world:checkCollision(collider_check_z, false)
+					if not collided_x then
+						self.hit_y = self.hit_y - self.hit_move_speed
+					elseif hazard.x < self.x and not collided_y then
+						self.hit_x = self.hit_x - self.hit_move_speed
+					elseif not collided_z then
+						self.hit_x = self.hit_x + self.hit_move_speed
+					end
+				end
+				Object.endCache()
+			end
+		end
+		self:setState("HURT")
+	end
 end
 
 function BoardPlayer:handleMovement()
@@ -245,6 +352,26 @@ function BoardPlayer:updateWalk()
     if self:isMovementEnabled() then
         self:handleMovement()
     end
+end
+
+function BoardPlayer:updateHurt()
+	if self.hit_move > 0 then
+		self.hit_move = self.hit_move - self.hit_move_speed * DTMULT
+		self:move(self.hit_x, self.hit_y, DTMULT, true)
+	else
+		self.iframes_visible = true
+		if self.actor.health <= 0 then
+			self.actor.health = 0
+			if self.is_player then
+				self.actor.health = 1 -- placeholder
+				self:setState("WALK")
+			else
+				self:setState("DEATH")
+			end
+		else
+			self:setState("WALK")
+		end
+	end
 end
 
 function BoardPlayer:isMoving()
@@ -390,6 +517,31 @@ function BoardPlayer:update()
         self.hurt_timer = MathUtils.approach(self.hurt_timer, 0, DTMULT)
     end
 
+    if self.iframes > -5 then
+        self.iframes = MathUtils.approach(self.iframes, -5, DTMULT)
+    end	
+
+	if self.iframes > 0 then
+		if self.stopiframesflickerconds == 0 then
+			if MathUtils.round(self.iframes) % 2 == 0 then
+				if self.iframes_visible then
+					self.iframes_visible = false
+				else
+					self.iframes_visible = true
+				end
+				if FRAMERATE > 30 or (FRAMERATE == 0 and FPS > 30) then
+					self.stopiframesflickerconds = self.iframes
+				end
+			end
+		end
+		if self.stopiframesflickerconds ~= 0 and self.iframes <= self.stopiframesflickerconds-0.4 then
+			self.stopiframesflickerconds = 0
+		end
+	else
+		self.iframes_visible = true
+		self.stopiframesflickerconds = 0
+	end
+
     self.state_manager:update()
 
     self:updateHistory()
@@ -412,7 +564,9 @@ end
 
 function BoardPlayer:draw()
     -- Draw the player
-    super.draw(self)
+	if self.iframes_visible then
+		super.draw(self)
+	end
 
     local col = self.interact_collider[self.facing]
     if DEBUG_RENDER then

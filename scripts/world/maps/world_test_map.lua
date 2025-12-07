@@ -1,7 +1,7 @@
 return {
-  version = "1.9",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.9.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 11,
-  nextobjectid = 211,
+  nextobjectid = 214,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -256,7 +256,7 @@ return {
         {
           id = 12,
           name = "spawn",
-          class = "",
+          type = "",
           shape = "point",
           x = 960,
           y = 160,
@@ -269,7 +269,7 @@ return {
         {
           id = 60,
           name = "shop_enter",
-          class = "",
+          type = "",
           shape = "point",
           x = 960,
           y = 1264,
@@ -282,7 +282,7 @@ return {
         {
           id = 62,
           name = "shop_exit",
-          class = "",
+          type = "",
           shape = "point",
           x = 864,
           y = 384,
@@ -295,7 +295,7 @@ return {
         {
           id = 85,
           name = "dplroom",
-          class = "",
+          type = "",
           shape = "point",
           x = 2112,
           y = 472,
@@ -308,7 +308,7 @@ return {
         {
           id = 157,
           name = "secret_enter2",
-          class = "",
+          type = "",
           shape = "point",
           x = 80,
           y = 832,
@@ -321,7 +321,7 @@ return {
         {
           id = 159,
           name = "secret_exit2",
-          class = "",
+          type = "",
           shape = "point",
           x = 80,
           y = 1152,
@@ -334,7 +334,7 @@ return {
         {
           id = 160,
           name = "secret_exit1",
-          class = "",
+          type = "",
           shape = "point",
           x = 688,
           y = 1152,
@@ -347,7 +347,7 @@ return {
         {
           id = 181,
           name = "building_enter",
-          class = "",
+          type = "",
           shape = "point",
           x = 576,
           y = 1520,
@@ -360,7 +360,7 @@ return {
         {
           id = 201,
           name = "exit1",
-          class = "",
+          type = "",
           shape = "point",
           x = 1424,
           y = 704,
@@ -373,7 +373,7 @@ return {
         {
           id = 208,
           name = "spawn2",
-          class = "",
+          type = "",
           shape = "point",
           x = 928,
           y = 160,
@@ -386,7 +386,7 @@ return {
         {
           id = 209,
           name = "spawn3",
-          class = "",
+          type = "",
           shape = "point",
           x = 992,
           y = 160,
@@ -399,7 +399,7 @@ return {
         {
           id = 210,
           name = "spawn4",
-          class = "",
+          type = "",
           shape = "point",
           x = 864,
           y = 192,
@@ -429,7 +429,7 @@ return {
         {
           id = 18,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 224,
@@ -442,7 +442,7 @@ return {
         {
           id = 19,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 224,
@@ -455,7 +455,7 @@ return {
         {
           id = 21,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1088,
           y = 0,
@@ -468,7 +468,7 @@ return {
         {
           id = 22,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 0,
@@ -481,7 +481,7 @@ return {
         {
           id = 26,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 0,
@@ -494,7 +494,7 @@ return {
         {
           id = 35,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 800,
           y = 320,
@@ -507,7 +507,7 @@ return {
         {
           id = 37,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 896,
           y = 256,
@@ -520,7 +520,7 @@ return {
         {
           id = 38,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 448,
@@ -533,7 +533,7 @@ return {
         {
           id = 40,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 448,
@@ -546,7 +546,7 @@ return {
         {
           id = 43,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 256,
@@ -559,7 +559,7 @@ return {
         {
           id = 66,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 192,
@@ -572,7 +572,7 @@ return {
         {
           id = 67,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1952,
           y = 224,
@@ -585,7 +585,7 @@ return {
         {
           id = 68,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2016,
           y = 256,
@@ -598,7 +598,7 @@ return {
         {
           id = 69,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1920,
           y = 64,
@@ -611,7 +611,7 @@ return {
         {
           id = 70,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1952,
           y = 32,
@@ -624,7 +624,7 @@ return {
         {
           id = 71,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2144,
           y = 32,
@@ -637,7 +637,7 @@ return {
         {
           id = 72,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2272,
           y = 64,
@@ -650,7 +650,7 @@ return {
         {
           id = 73,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2272,
           y = 160,
@@ -663,7 +663,7 @@ return {
         {
           id = 74,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2208,
           y = 224,
@@ -676,7 +676,7 @@ return {
         {
           id = 75,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2144,
           y = 256,
@@ -689,7 +689,7 @@ return {
         {
           id = 76,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2048,
           y = 288,
@@ -702,7 +702,7 @@ return {
         {
           id = 77,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2144,
           y = 288,
@@ -715,7 +715,7 @@ return {
         {
           id = 93,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 256,
           y = 352,
@@ -728,7 +728,7 @@ return {
         {
           id = 96,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1152,
           y = 256,
@@ -741,7 +741,7 @@ return {
         {
           id = 97,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1248,
           y = 352,
@@ -754,7 +754,7 @@ return {
         {
           id = 98,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1408,
           y = 384,
@@ -767,7 +767,7 @@ return {
         {
           id = 100,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1408,
           y = 448,
@@ -780,7 +780,7 @@ return {
         {
           id = 103,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1504,
           y = 256,
@@ -793,7 +793,7 @@ return {
         {
           id = 104,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1248,
           y = 256,
@@ -806,7 +806,7 @@ return {
         {
           id = 105,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2080,
           y = 512,
@@ -819,7 +819,7 @@ return {
         {
           id = 107,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 704,
@@ -832,7 +832,7 @@ return {
         {
           id = 108,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 672,
@@ -845,7 +845,7 @@ return {
         {
           id = 109,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 448,
@@ -858,7 +858,7 @@ return {
         {
           id = 111,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 448,
@@ -871,7 +871,7 @@ return {
         {
           id = 112,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 512,
           y = 640,
@@ -889,7 +889,7 @@ return {
         {
           id = 113,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 640,
           y = 640,
@@ -907,7 +907,7 @@ return {
         {
           id = 114,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 704,
@@ -920,7 +920,7 @@ return {
         {
           id = 115,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 256,
@@ -933,7 +933,7 @@ return {
         {
           id = 116,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 256,
@@ -946,7 +946,7 @@ return {
         {
           id = 117,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1184,
           y = 736,
@@ -959,7 +959,7 @@ return {
         {
           id = 118,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1376,
           y = 736,
@@ -972,7 +972,7 @@ return {
         {
           id = 119,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 800,
@@ -985,7 +985,7 @@ return {
         {
           id = 120,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1120,
           y = 928,
@@ -998,7 +998,7 @@ return {
         {
           id = 121,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1184,
           y = 992,
@@ -1011,7 +1011,7 @@ return {
         {
           id = 122,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1504,
           y = 768,
@@ -1024,7 +1024,7 @@ return {
         {
           id = 123,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1504,
           y = 928,
@@ -1037,7 +1037,7 @@ return {
         {
           id = 124,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1760,
           y = 960,
@@ -1050,7 +1050,7 @@ return {
         {
           id = 125,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1856,
           y = 768,
@@ -1063,7 +1063,7 @@ return {
         {
           id = 126,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1632,
           y = 768,
@@ -1076,7 +1076,7 @@ return {
         {
           id = 127,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1600,
           y = 864,
@@ -1095,7 +1095,7 @@ return {
         {
           id = 128,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 1856,
           y = 896,
@@ -1114,7 +1114,7 @@ return {
         {
           id = 129,
           name = "",
-          class = "",
+          type = "",
           shape = "polygon",
           x = 2080,
           y = 896,
@@ -1133,7 +1133,7 @@ return {
         {
           id = 130,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2112,
           y = 768,
@@ -1146,7 +1146,7 @@ return {
         {
           id = 131,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2240,
           y = 768,
@@ -1159,7 +1159,7 @@ return {
         {
           id = 132,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 832,
@@ -1172,7 +1172,7 @@ return {
         {
           id = 133,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1088,
           y = 832,
@@ -1185,7 +1185,7 @@ return {
         {
           id = 134,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 864,
           y = 928,
@@ -1198,7 +1198,7 @@ return {
         {
           id = 135,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 864,
           y = 928,
@@ -1211,7 +1211,7 @@ return {
         {
           id = 136,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 960,
           y = 928,
@@ -1224,7 +1224,7 @@ return {
         {
           id = 137,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 640,
           y = 896,
@@ -1237,7 +1237,7 @@ return {
         {
           id = 138,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 896,
@@ -1250,7 +1250,7 @@ return {
         {
           id = 139,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 896,
@@ -1263,7 +1263,7 @@ return {
         {
           id = 140,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 32,
           y = 992,
@@ -1276,7 +1276,7 @@ return {
         {
           id = 143,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 192,
           y = 832,
@@ -1289,7 +1289,7 @@ return {
         {
           id = 145,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 96,
           y = 800,
@@ -1302,7 +1302,7 @@ return {
         {
           id = 147,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 800,
@@ -1315,7 +1315,7 @@ return {
         {
           id = 148,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 448,
           y = 1184,
@@ -1328,7 +1328,7 @@ return {
         {
           id = 149,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 320,
           y = 1120,
@@ -1341,7 +1341,7 @@ return {
         {
           id = 150,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 1184,
@@ -1354,7 +1354,7 @@ return {
         {
           id = 151,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1248,
@@ -1367,7 +1367,7 @@ return {
         {
           id = 152,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1056,
@@ -1380,7 +1380,7 @@ return {
         {
           id = 153,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 1056,
@@ -1393,7 +1393,7 @@ return {
         {
           id = 154,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 512,
           y = 1056,
@@ -1406,7 +1406,7 @@ return {
         {
           id = 163,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 448,
           y = 1472,
@@ -1419,7 +1419,7 @@ return {
         {
           id = 164,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 1472,
@@ -1432,7 +1432,7 @@ return {
         {
           id = 165,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 704,
           y = 1440,
@@ -1445,7 +1445,7 @@ return {
         {
           id = 166,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 352,
           y = 1440,
@@ -1458,7 +1458,7 @@ return {
         {
           id = 167,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 352,
           y = 1280,
@@ -1471,7 +1471,7 @@ return {
         {
           id = 168,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 448,
           y = 1280,
@@ -1484,7 +1484,7 @@ return {
         {
           id = 169,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 704,
           y = 1344,
@@ -1497,7 +1497,7 @@ return {
         {
           id = 170,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 32,
           y = 1280,
@@ -1510,7 +1510,7 @@ return {
         {
           id = 171,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1280,
@@ -1523,7 +1523,7 @@ return {
         {
           id = 172,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 32,
           y = 1504,
@@ -1536,7 +1536,7 @@ return {
         {
           id = 173,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 1344,
@@ -1549,7 +1549,7 @@ return {
         {
           id = 174,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 98,
           y = 1344,
@@ -1562,7 +1562,7 @@ return {
         {
           id = 175,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 256,
           y = 1344,
@@ -1575,7 +1575,7 @@ return {
         {
           id = 177,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1280,
           y = 1376,
@@ -1588,7 +1588,7 @@ return {
         {
           id = 178,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1216,
           y = 1504,
@@ -1601,7 +1601,7 @@ return {
         {
           id = 179,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1504,
           y = 1440,
@@ -1614,7 +1614,7 @@ return {
         {
           id = 182,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 832,
           y = 0,
@@ -1627,7 +1627,7 @@ return {
         {
           id = 185,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 0,
           y = 1024,
@@ -1640,7 +1640,7 @@ return {
         {
           id = 186,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 736,
           y = 1056,
@@ -1653,7 +1653,7 @@ return {
         {
           id = 187,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 608,
           y = 1248,
@@ -1666,7 +1666,7 @@ return {
         {
           id = 190,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 1048,
@@ -1679,7 +1679,7 @@ return {
         {
           id = 191,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1128,
           y = 1048,
@@ -1692,7 +1692,7 @@ return {
         {
           id = 192,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 1016,
@@ -1705,7 +1705,7 @@ return {
         {
           id = 193,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 768,
           y = 1254,
@@ -1718,7 +1718,7 @@ return {
         {
           id = 194,
           name = "",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 992,
           y = 1254,
@@ -1747,7 +1747,7 @@ return {
         {
           id = 57,
           name = "pushblock_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1312,
           y = 896,
@@ -1760,7 +1760,7 @@ return {
         {
           id = 58,
           name = "coin",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1632,
           y = 832,
@@ -1773,7 +1773,7 @@ return {
         {
           id = 59,
           name = "interactable_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 928,
           y = 96,
@@ -1789,7 +1789,7 @@ return {
         {
           id = 61,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 832,
           y = 336,
@@ -1805,7 +1805,7 @@ return {
         {
           id = 63,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 928,
           y = 1280,
@@ -1821,7 +1821,7 @@ return {
         {
           id = 84,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1440,
           y = 688,
@@ -1837,7 +1837,7 @@ return {
         {
           id = 86,
           name = "shopwriter_board",
-          class = "",
+          type = "",
           shape = "point",
           x = 2000,
           y = 88,
@@ -1852,7 +1852,7 @@ return {
         {
           id = 87,
           name = "shopwriter_board",
-          class = "",
+          type = "",
           shape = "point",
           x = 816,
           y = 1102,
@@ -1867,7 +1867,7 @@ return {
         {
           id = 155,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 64,
           y = 1088,
@@ -1882,7 +1882,7 @@ return {
         {
           id = 158,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 32,
           y = 800,
@@ -1897,7 +1897,7 @@ return {
         {
           id = 176,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 544,
           y = 1536,
@@ -1913,7 +1913,7 @@ return {
         {
           id = 180,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 928,
           y = 82,
@@ -1929,7 +1929,7 @@ return {
         {
           id = 183,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 944,
           y = 1145,
@@ -1948,7 +1948,7 @@ return {
         {
           id = 184,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 128,
           y = 672,
@@ -1965,7 +1965,7 @@ return {
         {
           id = 195,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1376,
           y = 384,
@@ -1977,13 +1977,14 @@ return {
             ["id"] = "test_item",
             ["name"] = "NESS",
             ["slot"] = "3",
-            ["sprite"] = "sword/ui/inventory/test_item"
+            ["sprite"] = "sword/ui/inventory/test_item",
+            ["text"] = "[color:yellow]NESS[color:reset]!"
           }
         },
         {
           id = 196,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 944,
           y = 1056,
@@ -2000,7 +2001,7 @@ return {
         {
           id = 197,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1040,
           y = 1145,
@@ -2019,7 +2020,7 @@ return {
         {
           id = 198,
           name = "board_item",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2192,
           y = 153,
@@ -2032,13 +2033,15 @@ return {
             ["name"] = "???",
             ["price"] = "9999",
             ["shop"] = { id = 86 },
-            ["sprite"] = "sword/party/noelle/walk/down_1"
+            ["sound"] = "board/itemget_bad",
+            ["sprite"] = "sword/party/noelle/walk/down_1",
+            ["text"] = "[color:yellow]HER[color:reset]"
           }
         },
         {
           id = 199,
           name = "npc",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 1056,
           y = 616,
@@ -2055,7 +2058,7 @@ return {
         {
           id = 200,
           name = "transition_board",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 2080,
           y = 496,
@@ -2071,7 +2074,7 @@ return {
         {
           id = 206,
           name = "help_pippins",
-          class = "",
+          type = "",
           shape = "rectangle",
           x = 848,
           y = 1145,
@@ -2086,7 +2089,7 @@ return {
         {
           id = 207,
           name = "npc",
-          class = "",
+          type = "",
           shape = "point",
           x = 1648,
           y = 96,
@@ -2098,6 +2101,22 @@ return {
             ["actor"] = "board_npc",
             ["cutscene"] = "sword.pip_lost",
             ["sprite"] = "lost_pippins"
+          }
+        },
+        {
+          id = 211,
+          name = "board_hazard",
+          type = "",
+          shape = "rectangle",
+          x = 1184,
+          y = 800,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["randframe"] = true,
+            ["sprite"] = "world/events/sword/cactus"
           }
         }
       }

@@ -16,6 +16,16 @@ function help_pippins:init(data)
     self.spr:setScale(2)
     self:addChild(self.spr)
     self.hitbox = {0, 0, 32, 32}
+	self.do_sucker = false
+end
+
+function help_pippins:update()
+	super.update(self)
+	if self.do_sucker and self.spr.x < -self.x + Game.world.board.camera.x - 384/2 - 32 then
+        self.price = nil
+        self.name = "SUCKER"
+		self.do_sucker = false
+	end
 end
 
 function help_pippins:onInteract(player, dir)
@@ -28,24 +38,21 @@ function help_pippins:onInteract(player, dir)
             if Game:getFlag("points") >= tonumber(self.price) then
                 Game.world.board.ui:addScore(-self.price)
             else
-                Assets.playSound("error")
                 return
             end
         end
 
-        Assets.playSound("board/itemget")
-
-        self.spr:slideTo(self.spr.x, self.spr.y - 32, 1)
-        p:spin(2)
-        c:wait(0.5)
-        p:spin(0)
-        p:setSprite("item")
-        c:wait(1.5)
-        self.price = nil
-        self.name = "SUCKER"
-        self.spr:slideTo(self.spr.x - 108, self.spr.y, 0.5)
-        c:wait(1)
-        p:resetSprite()
+		c:wait(0.5)
+		Game.world.timer:lerpVar(self.spr, "y", self.spr.y, self.spr.y - 32, 20, 2, "in")
+		c:wait(50/30)
+        Assets.playSound("board/mantle_dash_fast", 1, 1.8)
+        Assets.playSound("board/splash", 0.4, 1.8)
+		self.do_sucker = true
+		Game.world.timer:lerpVar(self.spr, "x", self.spr.x, self.spr.x - 320, 20)
+		c:wait(20/30)
+		self.spr.visible = false
+		self.collider.collidable = false
+		self.solid = false
     end)
     cutscene:after(function()
         --maybe do stuff here?
@@ -60,7 +67,7 @@ function help_pippins:draw()
     if self.shop then
         local shop = Game.world.board:getEvent(self.shop.id)
         if shop.text_active then
-            if not shop.dialogue_text:isTyping() then
+            --if not shop.dialogue_text:isTyping() then
                 love.graphics.setFont(Assets.getFont("8bit"))
                 love.graphics.setColor(1, 1, 1)
 
@@ -70,7 +77,7 @@ function help_pippins:draw()
                 else
                 end
 
-            end
+            --end
         end
     end
 end

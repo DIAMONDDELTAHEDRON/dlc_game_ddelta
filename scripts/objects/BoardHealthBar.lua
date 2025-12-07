@@ -17,6 +17,8 @@ function BoardHealthBar:init(x, y, party)
     self.party = party
     self.healthMax = party.healthMax
     self.health = party.health
+	
+	self.override_color = nil
 
     self.div = self.healthMax/50
 
@@ -31,7 +33,9 @@ function BoardHealthBar:h()
 end
 
 function BoardHealthBar:getHealthColor()
-    if self.party.health_color then
+	if self.override_color then
+		return self.override_color
+	elseif self.party.health_color then
         return self.party.health_color[1], self.party.health_color[2], self.party.health_color[3], self.party.health_color[4] or 1
     else
         return self.party:getColor()

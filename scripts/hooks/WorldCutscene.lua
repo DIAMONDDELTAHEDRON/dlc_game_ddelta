@@ -18,21 +18,26 @@ function WorldCutscene:boardText(text, options)
     self.textbox:setParallax(0, 0)
 
     if options["top"] == nil and self.textbox_top == nil then
-        local _, player_y = self.world.player:localToScreenPos()
-        options["top"] = player_y > 192-64
+        local _, player_y = world.player:localToScreenPos()
+        options["top"] = player_y > 192-32
     end
     if options["top"] or (options["top"] == nil and self.textbox_top) then
-       self.textbox.y = -80
-	   self.textbox.endy = 48
-	   self.textbox.side = 0
-
+		self.textbox.side = 0
         if Game.world.board then
             self.textbox.x = 0
             self.textbox.y = -112
             self.textbox.endy = -16
-        end
-
-    end
+        else
+		    self.textbox.y = -80
+			self.textbox.endy = 48
+		end
+    else
+		if Game.world.board then
+            self.textbox.x = 0
+            self.textbox.y = 284
+            self.textbox.endy = 156
+		end
+	end
     self.textbox.active = true
     self.textbox.visible = true
 	self.textbox.text.state["typing"] = false
