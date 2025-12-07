@@ -438,13 +438,9 @@ IS FREE TO FRIENDS!</property>
     <property name="music" value="dogcheck/ch3_board3"/>
    </properties>
   </object>
-  <object id="206" name="board_item" x="848" y="1145" width="32" height="32">
+  <object id="206" name="help_pippins" x="848" y="1145" width="32" height="32">
    <properties>
-    <property name="id" value="lancer"/>
-    <property name="name" value="HELP!"/>
-    <property name="price" value="100"/>
     <property name="shop" type="object" value="87"/>
-    <property name="sprite" value="sword/npcs/pippins"/>
    </properties>
   </object>
   <object id="207" name="npc" x="1648" y="96">

@@ -2070,7 +2070,7 @@ return {
         },
         {
           id = 206,
-          name = "board_item",
+          name = "help_pippins",
           class = "",
           shape = "rectangle",
           x = 848,
@@ -2080,11 +2080,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["id"] = "lancer",
-            ["name"] = "HELP!",
-            ["price"] = "100",
-            ["shop"] = { id = 87 },
-            ["sprite"] = "sword/npcs/pippins"
+            ["shop"] = { id = 87 }
           }
         },
         {
