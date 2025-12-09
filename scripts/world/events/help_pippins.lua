@@ -9,6 +9,7 @@ function help_pippins:init(data)
     self.solid = true
 
     self.shop = self.data.properties['shop'] or nil
+    self.wait_for_text = self.data.properties['waitfortext'] ~= false
 
     self.price = "100"
 
@@ -67,17 +68,15 @@ function help_pippins:draw()
     if self.shop then
         local shop = Game.world.board:getEvent(self.shop.id)
         if shop.text_active then
-            --if not shop.dialogue_text:isTyping() then
+            if not shop.dialogue_text:isTyping() or self.wait_for_text == false then
                 love.graphics.setFont(Assets.getFont("8bit"))
                 love.graphics.setColor(1, 1, 1)
 
                 love.graphics.printfOutline(self.name, (16 - #self.name * 8), 32, 2)
                 if self.price then
                     love.graphics.printfOutline(self.price, (16 - #self.price * 8), 48, 2)
-                else
                 end
-
-            --end
+           end
         end
     end
 end

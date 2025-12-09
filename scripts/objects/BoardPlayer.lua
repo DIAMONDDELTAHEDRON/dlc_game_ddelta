@@ -231,6 +231,7 @@ function BoardPlayer:isMovementEnabled()
         and self.world.state == "GAMEPLAY"
         and self.hurt_timer <= 1
         and Game.world.door_delay == 0
+		and not self.world.rafting
 end
 
 function BoardPlayer:isHurtingEnabled()
