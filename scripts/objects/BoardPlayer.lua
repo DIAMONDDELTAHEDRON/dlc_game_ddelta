@@ -91,6 +91,68 @@ function BoardPlayer:init(chara, x, y)
 	self.iframes = 0
 	self.stopiframesflickerconds = 0
 	self.iframes_visible = true
+
+    self.k = {"left", "right", "up", "down"}
+
+    self.frames = 0
+    self.rec_left = {}
+    self.rec_right = {}
+    self.rec_up = {}
+    self.rec_down = {}
+    self.recording = {["left"] = self.rec_left, ["right"] = self.rec_right, ["up"] = self.rec_up, ["down"] = self.rec_down}
+end
+
+
+function BoardPlayer:saveMovement()
+    love.filesystem.write("rec.json", JSON.encode(self.recording))
+end
+
+function BoardPlayer:handleRecord()
+    self.frames = self.frames + 1
+
+    for _, k in ipairs(self.k) do
+        local hf = "l_" .. k
+        local rt = self["rec_" .. k]
+
+
+        if Input.down(k) then
+            if not self[hf] then
+                rt[tostring(self.frames)] = 1
+                self[hf] = true
+            end
+
+        elseif self[hf] then
+            self[hf] = nil
+            rt[tostring(self.frames)] = 0
+        end
+    end
+end
+
+function BoardPlayer:handleMovement()
+    local walk_x = 0
+    local walk_y = 0
+
+    if     Input.down("left")  then walk_x = walk_x - 1
+    elseif Input.down("right") then walk_x = walk_x + 1 end
+    if     Input.down("up")    then walk_y = walk_y - 1
+    elseif Input.down("down")  then walk_y = walk_y + 1 end
+
+    if Input.down("f7") then
+        self:handleRecord()
+    end
+
+    self.moving_x = walk_x
+    self.moving_y = walk_y
+
+    local speed = self:getCurrentSpeed()
+
+    self:move(walk_x, walk_y, speed * DTMULT)
+end
+
+function BoardPlayer:updateWalk()
+    if self:isMovementEnabled() then
+        self:handleMovement()
+    end
 end
 
 function BoardPlayer:getBaseWalkSpeed()
@@ -331,29 +393,6 @@ function BoardPlayer:hurt(amount, hazard)
 		end
 		self:setState("HURT")
 	end
-end
-
-function BoardPlayer:handleMovement()
-    local walk_x = 0
-    local walk_y = 0
-
-    if     Input.down("left")  then walk_x = walk_x - 1
-    elseif Input.down("right") then walk_x = walk_x + 1 end
-    if     Input.down("up")    then walk_y = walk_y - 1
-    elseif Input.down("down")  then walk_y = walk_y + 1 end
-
-    self.moving_x = walk_x
-    self.moving_y = walk_y
-
-    local speed = self:getCurrentSpeed()
-
-    self:move(walk_x, walk_y, speed * DTMULT)
-end
-
-function BoardPlayer:updateWalk()
-    if self:isMovementEnabled() then
-        self:handleMovement()
-    end
 end
 
 function BoardPlayer:updateHurt()

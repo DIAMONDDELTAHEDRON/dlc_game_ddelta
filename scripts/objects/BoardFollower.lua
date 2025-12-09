@@ -44,6 +44,8 @@ function BoardFollower:init(chara, x, y, party_slot)
     self.noclip = false
 
     self.p_update = 0
+
+    self.frames = 0
 end
 
 function BoardFollower:getBaseWalkSpeed()
@@ -222,17 +224,49 @@ function BoardFollower:updateHistory(moved, auto)
     end
 end
 
+function BoardFollower:replayMovement(walk_x, walk_y)
 
+    if self.replay then
+        local f = "".. self.frames
+
+        if self.replay["left"][f] then
+            if self.replay["left"][f] == 1 then self.l = 1
+            else self.l = nil end
+        elseif self.replay["right"][f] then
+            if self.replay["right"][f] == 1 then self.r = 1
+            else self.r = nil end
+        end
+
+        if self.replay["down"][f] then
+            if self.replay["down"][f] == 1 then self.d = 1
+            else self.d = nil end
+        elseif self.replay["up"][f] then
+            if self.replay["up"][f] == 1 then self.u = 1
+            else self.u = nil end
+        end
+
+
+        if self.l then walk_x = walk_x - 1
+        elseif self.r then walk_x = walk_x + 1 end
+        if self.u then walk_y = walk_y - 1
+        elseif self.d then walk_y = walk_y + 1 end
+
+
+        local speed = self:getCurrentSpeed()
+
+
+        self:move(walk_x, walk_y, speed * DTMULT)
+        self.frames = self.frames + 1
+    end
+end
 
 function BoardFollower:handleMovement()
     local walk_x = 0
     local walk_y = 0
 
-    local speed = self:getCurrentSpeed()
+    self:replayMovement(walk_x, walk_y)
 
     self:updatePlayer()
-
-    self:move(walk_x, walk_y, speed * DTMULT)
 end
 
 function BoardFollower:updateWalk()
