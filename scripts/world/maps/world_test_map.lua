@@ -9,8 +9,8 @@ return {
   height = 48,
   tilewidth = 32,
   tileheight = 32,
-  nextlayerid = 11,
-  nextobjectid = 214,
+  nextlayerid = 12,
+  nextobjectid = 229,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -1170,19 +1170,6 @@ return {
           properties = {}
         },
         {
-          id = 133,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 1088,
-          y = 832,
-          width = 0,
-          height = 160,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 134,
           name = "",
           type = "",
@@ -1196,19 +1183,6 @@ return {
           properties = {}
         },
         {
-          id = 135,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 864,
-          y = 928,
-          width = 96,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
           id = 136,
           name = "",
           type = "",
@@ -1217,19 +1191,6 @@ return {
           y = 928,
           width = 0,
           height = 64,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 137,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 640,
-          y = 896,
-          width = 0,
-          height = 96,
           rotation = 0,
           visible = true,
           properties = {}
@@ -1269,19 +1230,6 @@ return {
           y = 992,
           width = 1088,
           height = 32,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 143,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 192,
-          y = 832,
-          width = 0,
-          height = 160,
           rotation = 0,
           visible = true,
           properties = {}
@@ -1727,6 +1675,187 @@ return {
           rotation = 0,
           visible = true,
           properties = {}
+        },
+        {
+          id = 220,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 1088,
+          y = 832,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 0, y = 128 },
+            { x = -32, y = 128 },
+            { x = -32, y = 160 },
+            { x = -32, y = 128 },
+            { x = 0, y = 128 }
+          },
+          properties = {}
+        },
+        {
+          id = 221,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 864,
+          y = 928,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 32, y = 0 },
+            { x = 32, y = -32 },
+            { x = 64, y = -32 },
+            { x = 64, y = 0 },
+            { x = 96, y = 0 },
+            { x = 64, y = 0 },
+            { x = 64, y = -32 },
+            { x = 32, y = -32 },
+            { x = 32, y = 0 }
+          },
+          properties = {}
+        },
+        {
+          id = 222,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 640,
+          y = 896,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 0, y = 32 },
+            { x = 32, y = 32 },
+            { x = 32, y = 64 },
+            { x = 0, y = 64 },
+            { x = 0, y = 96 },
+            { x = 0, y = 64 },
+            { x = 32, y = 64 },
+            { x = 32, y = 32 },
+            { x = 0, y = 32 }
+          },
+          properties = {}
+        },
+        {
+          id = 223,
+          name = "",
+          type = "",
+          shape = "polygon",
+          x = 192,
+          y = 832,
+          width = 0,
+          height = 0,
+          rotation = 0,
+          visible = true,
+          polygon = {
+            { x = 0, y = 0 },
+            { x = 0, y = 128 },
+            { x = 32, y = 128 },
+            { x = 32, y = 160 },
+            { x = 32, y = 128 },
+            { x = 0, y = 128 }
+          },
+          properties = {}
+        }
+      }
+    },
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 11,
+      name = "objects_raft",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 224,
+          name = "dock_board",
+          type = "",
+          shape = "rectangle",
+          x = 1056,
+          y = 960,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "horz"
+          }
+        },
+        {
+          id = 225,
+          name = "dock_board",
+          type = "",
+          shape = "rectangle",
+          x = 896,
+          y = 896,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "vert"
+          }
+        },
+        {
+          id = 226,
+          name = "dock_board",
+          type = "",
+          shape = "rectangle",
+          x = 640,
+          y = 928,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "horz"
+          }
+        },
+        {
+          id = 227,
+          name = "dock_board",
+          type = "",
+          shape = "rectangle",
+          x = 192,
+          y = 960,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["dir"] = "horz"
+          }
+        },
+        {
+          id = 228,
+          name = "raft_board",
+          type = "",
+          shape = "rectangle",
+          x = 1024,
+          y = 960,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {}
         }
       }
     },
@@ -1734,7 +1863,7 @@ return {
       type = "objectgroup",
       draworder = "topdown",
       id = 2,
-      name = "objects",
+      name = "objects_party",
       class = "",
       visible = true,
       opacity = 1,
@@ -1799,7 +1928,8 @@ return {
           visible = true,
           properties = {
             ["marker"] = { id = 60 },
-            ["music"] = "none"
+            ["music"] = "pause",
+            ["musicload"] = "end"
           }
         },
         {
@@ -1815,7 +1945,8 @@ return {
           visible = true,
           properties = {
             ["marker"] = { id = 62 },
-            ["music"] = "dogcheck/ch3_board3"
+            ["music"] = "dogcheck/ch3_board3",
+            ["musicload"] = "start"
           }
         },
         {
@@ -1942,6 +2073,7 @@ return {
             ["name"] = "Q",
             ["price"] = "100",
             ["shop"] = { id = 87 },
+            ["slot"] = 0,
             ["sprite"] = "sword/ui/inventory/q"
           }
         },
@@ -1959,6 +2091,7 @@ return {
           properties = {
             ["id"] = "qcount",
             ["name"] = "Q",
+            ["slot"] = 0,
             ["sprite"] = "sword/ui/inventory/q"
           }
         },
@@ -1976,7 +2109,7 @@ return {
           properties = {
             ["id"] = "test_item",
             ["name"] = "NESS",
-            ["slot"] = "3",
+            ["slot"] = "2",
             ["sprite"] = "sword/ui/inventory/test_item",
             ["text"] = "[color:yellow]NESS[color:reset]!"
           }
@@ -1995,6 +2128,7 @@ return {
           properties = {
             ["id"] = "lancer",
             ["name"] = "LANCER",
+            ["slot"] = 1,
             ["sprite"] = "sword/party/lancer/walk/down"
           }
         },
@@ -2014,6 +2148,7 @@ return {
             ["name"] = "LANCER",
             ["price"] = "0",
             ["shop"] = { id = 87 },
+            ["slot"] = 1,
             ["sprite"] = "sword/party/lancer/walk/down"
           }
         },
@@ -2033,9 +2168,11 @@ return {
             ["name"] = "???",
             ["price"] = "9999",
             ["shop"] = { id = 86 },
+            ["slot"] = 4,
             ["sound"] = "board/itemget_bad",
             ["sprite"] = "sword/party/noelle/walk/down_1",
-            ["text"] = "[color:yellow]HER[color:reset]"
+            ["text"] = "[color:yellow]HER[color:reset]",
+            ["waitfortext"] = false
           }
         },
         {

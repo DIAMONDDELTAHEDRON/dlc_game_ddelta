@@ -13,6 +13,8 @@ function board_item:init(data)
     self.shop = self.data.properties['shop'] or nil
 
     self.price = self.data.properties['price'] or nil
+    self.glow = self.data.properties['glow'] or false
+    self.wait_for_text = self.data.properties['waitfortext'] ~= false
 
     self:setSprite(self.spr)
     self.hitbox = {0, 0, 32, 32}
@@ -21,20 +23,20 @@ function board_item:init(data)
 	end
 	
 	if self.id == "keycount" then
-		self.slot = 0
-		self.text = "[color:yellow]KEY[color:reset] x1"
+		self.text = self.data.properties['text'] or "[color:yellow]KEY[color:reset] x1"
 	elseif self.id == "qcount" then
-		self.slot = 1
-		self.text = "[color:yellow]Q[color:reset] x1"
+		self.text = self.data.properties['text'] or "[color:yellow]Q[color:reset] x1"
+		self.glow = self.data.properties['glow'] or true
 	elseif self.id == "lancer" then
-		self.slot = 2
-		self.text = "[color:yellow]LANCER[color:reset]!"
-	elseif self.id == "rouxlsblock" then
-		self.slot = 4
+		self.text = self.data.properties['text'] or "[color:yellow]LANCER[color:reset]!"
 	end
 	self.makestars = false
 	self.makestarstimer = 0
 	self.makestarstimerloop = 0
+	self.glowtimer = 0
+	self.glowsiner = 0
+    self.color_mask = self.sprite:addFX(ColorMaskFX(COLORS.white, 0))
+    self.color_mask.amount = 0
 end
 
 function board_item:update()
@@ -72,6 +74,16 @@ function board_item:update()
 			self.makestars = false
 		end
 	end
+	if self.glow and not (self.shop and self.price) then
+		self.glowtimer = self.glowtimer + DTMULT
+		if self.glowtimer >= 8 then
+			self.glowsiner = self.glowsiner + DTMULT
+			self.glowtimer = 0
+		end
+		self.color_mask.amount = math.abs(math.sin(self.glowsiner / 2))
+	else
+		self.color_mask.amount = 0
+	end
 end
 
 function board_item:onInteract(player, dir)
@@ -98,7 +110,7 @@ function board_item:pickup()
 	local p = Game.world.board.player
 	local cutscene = Game.world:startCutscene(function(c)
 		if self.id == "lancer" and i.lancer > 0 then
-			self.text = "ANOTHER [color:yellow]LANCER[color:reset]!"
+			self.text = self.data.properties['text'] or "ANOTHER [color:yellow]LANCER[color:reset]!"
 		end
 		if self.price and self.shop then
 			if Game:getFlag("points") >= tonumber(self.price) then
@@ -106,7 +118,7 @@ function board_item:pickup()
 				self.price = nil
 			end
 		end
-			
+		self.glow = false
 		self.layer = p.layer
 		Game.world.timer:script(function(wait)
 			if not p.actor.no_spin then
@@ -181,7 +193,7 @@ function board_item:draw()
     if self.shop and self.price then
         local shop = Game.world.board:getEvent(self.shop.id)
         if shop.text_active then
-            --if not shop.dialogue_text:isTyping() then
+            if not shop.dialogue_text:isTyping() or self.wait_for_text == false then
                 love.graphics.setFont(Assets.getFont("8bit"))
                 love.graphics.setColor(1, 1, 1)
 
@@ -192,7 +204,7 @@ function board_item:draw()
                     love.graphics.printfOutline(self.price, (16 - #self.price * 8), 48, 2)
                 end
 
-            --end
+            end
         end
     end
 end

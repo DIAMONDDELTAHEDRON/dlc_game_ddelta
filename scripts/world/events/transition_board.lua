@@ -6,6 +6,7 @@ function transition_board:init(data)
 
     self.data = data
     self.marker = self.data.properties['marker'] or nil
+    self.musicload = self.data.properties['musicload'] or "middle"
     self.solid = true
     --self.hitbox = {0, 0, data.width, data.height}
 end
@@ -18,9 +19,31 @@ function transition_board:onCollide(chara)
     Assets.playSound("board/escaped")
     local layer = 100
     
+	if self.musicload == "start" then
+		local music = self.data.properties.music
+		if music == "pause" then
+			Game.world.music:pause()
+		elseif music and (Game.world.music.current == music and not Game.world.music.started) then
+		    Game.world.music:resume()
+		elseif music and (Game.world.music.current ~= music) then
+		    Game.world.music:play(music)
+		end
+	end
     self.world.fader:transition(function ()
         self:teleportPlayer(chara)
-    end)
+    end, function ()
+		if self.musicload == "end" then
+			local music = self.data.properties.music
+			if music == "pause" then
+				Game.world.music:pause()
+			elseif music and (Game.world.music.current == music and not Game.world.music.started) then
+				Game.world.music:resume()
+			elseif music and (Game.world.music.current ~= music) then
+				Game.world.music:play(music)
+			end
+		end
+		Game.lock_movement = false
+    end, 2)
 
 end
 
@@ -36,10 +59,16 @@ function transition_board:teleportPlayer(chara)
     --Game.world.camera.x = math.floor(chara.x / grid_w) * grid_w + 192
     --Game.world.camera.y = math.floor(chara.y / grid_h) * grid_h + 176
     
-    local music = self.data.properties.music
-    if music and (Game.world.music.current ~= music) then
-       Game.world.music:play(music)
-    end
+	if self.musicload == "middle" then
+		local music = self.data.properties.music
+		if music == "pause" then
+			Game.world.music:pause()
+		elseif music and (Game.world.music.current == music and not Game.world.music.started) then
+		    Game.world.music:resume()
+		elseif music and (Game.world.music.current ~= music) then
+		    Game.world.music:play(music)
+		end
+	end
 
     chara.x, chara.y = x, y
 
@@ -53,8 +82,6 @@ function transition_board:teleportPlayer(chara)
 
     local x, y = Game.world.board:getArea(x, y)
     self.world:moveCamera(x, y)
-
-    Game.lock_movement = false
 end
 
 function transition_board:draw()

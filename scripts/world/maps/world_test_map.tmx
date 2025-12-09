@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="214">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="12" nextobjectid="229">
  <editorsettings>
   <export target="world_test_map.lua" format="lua"/>
  </editorsettings>
@@ -269,15 +269,11 @@
   <object id="130" x="2112" y="768" width="128" height="96"/>
   <object id="131" x="2240" y="768" width="64" height="256"/>
   <object id="132" x="192" y="832" width="896"/>
-  <object id="133" x="1088" y="832" height="160"/>
   <object id="134" x="864" y="928" height="64"/>
-  <object id="135" x="864" y="928" width="96"/>
   <object id="136" x="960" y="928" height="64"/>
-  <object id="137" x="640" y="896" height="96"/>
   <object id="138" x="512" y="896" width="128"/>
   <object id="139" x="512" y="896" height="96"/>
   <object id="140" x="32" y="992" width="1088" height="32"/>
-  <object id="143" x="192" y="832" height="160"/>
   <object id="145" x="96" y="800" width="192" height="32"/>
   <object id="147" x="0" y="800" width="32" height="224"/>
   <object id="148" x="448" y="1184" width="192" height="64"/>
@@ -312,8 +308,43 @@
   <object id="192" x="768" y="1016" width="384" height="32"/>
   <object id="193" x="768" y="1254" width="160" height="32"/>
   <object id="194" x="992" y="1254" width="160" height="32"/>
+  <object id="220" x="1088" y="832">
+   <polygon points="0,0 0,128 -32,128 -32,160 -32,128 0,128"/>
+  </object>
+  <object id="221" x="864" y="928">
+   <polygon points="0,0 32,0 32,-32 64,-32 64,0 96,0 64,0 64,-32 32,-32 32,0"/>
+  </object>
+  <object id="222" x="640" y="896">
+   <polygon points="0,0 0,32 32,32 32,64 0,64 0,96 0,64 32,64 32,32 0,32"/>
+  </object>
+  <object id="223" x="192" y="832">
+   <polygon points="0,0 0,128 32,128 32,160 32,128 0,128"/>
+  </object>
  </objectgroup>
- <objectgroup color="#ff00ff" id="2" name="objects">
+ <objectgroup color="#ff55ff" id="11" name="objects_raft">
+  <object id="224" name="dock_board" x="1056" y="960" width="32" height="32">
+   <properties>
+    <property name="dir" value="horz"/>
+   </properties>
+  </object>
+  <object id="225" name="dock_board" x="896" y="896" width="32" height="32">
+   <properties>
+    <property name="dir" value="vert"/>
+   </properties>
+  </object>
+  <object id="226" name="dock_board" x="640" y="928" width="32" height="32">
+   <properties>
+    <property name="dir" value="horz"/>
+   </properties>
+  </object>
+  <object id="227" name="dock_board" x="192" y="960" width="32" height="32">
+   <properties>
+    <property name="dir" value="horz"/>
+   </properties>
+  </object>
+  <object id="228" name="raft_board" x="1024" y="960" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup color="#ff00ff" id="2" name="objects_party">
   <object id="57" name="pushblock_board" x="1312" y="896" width="32" height="32"/>
   <object id="58" name="coin" x="1632" y="832" width="32" height="32"/>
   <object id="59" name="interactable_board" x="928" y="96" width="64" height="32">
@@ -325,13 +356,15 @@
   <object id="61" name="transition_board" x="832" y="336" width="64" height="32">
    <properties>
     <property name="marker" type="object" value="60"/>
-    <property name="music" value="none"/>
+    <property name="music" value="pause"/>
+    <property name="musicload" value="end"/>
    </properties>
   </object>
   <object id="63" name="transition_board" x="928" y="1280" width="64" height="32">
    <properties>
     <property name="marker" type="object" value="62"/>
     <property name="music" value="dogcheck/ch3_board3"/>
+    <property name="musicload" value="start"/>
    </properties>
   </object>
   <object id="84" name="transition_board" x="1440" y="688" width="32" height="16">
@@ -382,6 +415,7 @@ IS FREE TO FRIENDS!</property>
     <property name="name" value="Q"/>
     <property name="price" value="100"/>
     <property name="shop" type="object" value="87"/>
+    <property name="slot" type="int" value="0"/>
     <property name="sprite" value="sword/ui/inventory/q"/>
    </properties>
   </object>
@@ -389,6 +423,7 @@ IS FREE TO FRIENDS!</property>
    <properties>
     <property name="id" value="qcount"/>
     <property name="name" value="Q"/>
+    <property name="slot" type="int" value="0"/>
     <property name="sprite" value="sword/ui/inventory/q"/>
    </properties>
   </object>
@@ -396,7 +431,7 @@ IS FREE TO FRIENDS!</property>
    <properties>
     <property name="id" value="test_item"/>
     <property name="name" value="NESS"/>
-    <property name="slot" value="3"/>
+    <property name="slot" value="2"/>
     <property name="sprite" value="sword/ui/inventory/test_item"/>
     <property name="text" value="[color:yellow]NESS[color:reset]!"/>
    </properties>
@@ -405,6 +440,7 @@ IS FREE TO FRIENDS!</property>
    <properties>
     <property name="id" value="lancer"/>
     <property name="name" value="LANCER"/>
+    <property name="slot" type="int" value="1"/>
     <property name="sprite" value="sword/party/lancer/walk/down"/>
    </properties>
   </object>
@@ -414,6 +450,7 @@ IS FREE TO FRIENDS!</property>
     <property name="name" value="LANCER"/>
     <property name="price" value="0"/>
     <property name="shop" type="object" value="87"/>
+    <property name="slot" type="int" value="1"/>
     <property name="sprite" value="sword/party/lancer/walk/down"/>
    </properties>
   </object>
@@ -423,9 +460,11 @@ IS FREE TO FRIENDS!</property>
     <property name="name" value="???"/>
     <property name="price" value="9999"/>
     <property name="shop" type="object" value="86"/>
+    <property name="slot" type="int" value="4"/>
     <property name="sound" value="board/itemget_bad"/>
     <property name="sprite" value="sword/party/noelle/walk/down_1"/>
     <property name="text" value="[color:yellow]HER[color:reset]"/>
+    <property name="waitfortext" type="bool" value="false"/>
    </properties>
   </object>
   <object id="199" name="npc" x="1056" y="616" width="32" height="16">

@@ -122,6 +122,9 @@ function BoardWorld:init(map, x, y)
         ["time"] = function () return ((Kristal.getTime() * 30)/2) % 3 end,
         ["texsize"] = {1/self.camera.width, 1/self.camera.height},
     }))
+	
+	self.rafting = false
+	self.targets_can_update_cam = true
 end
 
 --- Heals a member of the party
@@ -1303,10 +1306,13 @@ function BoardWorld:draw()
 end
 
 function BoardWorld:cameraUpdate() -- this whole thing scares me
-
-    if self.player then
-        local px = self.player.x
-        local py = self.player.y
+	local target = self.player
+	if self.targets_can_update_cam then
+		target = self:getCameraTarget()
+	end
+    if target then
+        local px = target.x
+        local py = target.y
         local grid_w = 192 * 2
         local grid_h = 256
 
@@ -1350,7 +1356,19 @@ function BoardWorld:shiftGrid(direction, after)
         x = x - 1
     end
     local cx, cy = self:getAreaCenter(x, y)
-    self.camera:panTo(cx, cy, 0.5, "linear", function ()
+	local xx, yy = self:getAreaPosition(x, y)
+	local c, r = self:getArea(xx, yy)
+	local x1, y1, x2, y2 = self:getAreaBounds(c,r)
+    if direction == "up" then
+		self.timer:tween(0.5, self:getCameraTarget(), {y = y2})
+    elseif direction == "down" then
+		self.timer:tween(0.5, self:getCameraTarget(), {y = y1})
+    elseif direction == "right" then
+		self.timer:tween(0.5, self:getCameraTarget(), {x = x1})
+    elseif direction == "left" then
+		self.timer:tween(0.5, self:getCameraTarget(), {x = x2})
+    end
+	self.camera:panTo(cx, cy, 0.5, "linear", function ()
         if after and after(self) then return end
         Game.lock_movement = false
         self.area_column, self.area_row = x, y
@@ -1401,14 +1419,18 @@ end
 function BoardWorld:snapPlayer(dir, x, y)
     local c, r = self:getArea(x, y)
     local x1, y1, x2, y2 = self:getAreaBounds(c,r)
+	local target = self.player
+	if self.targets_can_update_cam then
+		target = self:getCameraTarget()
+	end
     if dir == "left" then
-        self.player.x = x1
+        target.x = x1
     elseif dir == "right" then
-        self.player.x = x2
+        target.x = x2
     elseif dir == "top" then
-        self.player.y = y1
+        target.y = y1
     elseif dir == "bottom" then
-        self.player.y = y2
+        target.y = y2
     end
 
     for _, i in ipairs(self.followers) do
