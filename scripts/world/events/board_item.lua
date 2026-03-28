@@ -17,13 +17,15 @@ function board_item:init(data)
     self.price = self.data.properties['price'] or nil
     self.glow = self.data.properties['glow'] or false
     self.wait_for_text = self.data.properties['waitfortext'] ~= false
+	self.endmovetype = self.data.properties['movetype'] or 0
+	self.swordwarpmarker = nil
 
     self:setSprite(self.spr)
     self.hitbox = {0, 0, 32, 32}
 	if self.shop then
 		self.hitbox = {2, 2, 30, 30}
 	end
-	
+	self.playerspin = self.data.properties['spin'] or true
 	if self.id == "keycount" then
 		self.text = self.data.properties['text'] or "YOU GOT [color:yellow]KEY[color:reset] x1"
 	elseif self.id == "qcount" then
@@ -35,6 +37,11 @@ function board_item:init(data)
 		self.text = self.data.properties['text'] or "YOU GOT THE [color:yellow]CAMERA[color:reset]!"
 		self.moretext[1] = self.moretext and self.moretext[1] or "PRESS [color:yellow]"..Input.getText("confirm").."[color:reset] TO TAKE A PICTURE!"
 		self.amt = self.data.properties['amount'] or 0
+		self.endmovetype = self.data.properties['movetype'] or 1
+	elseif self.id == "sword" then
+		self.sound = self.data.properties['sound'] or "board/secret_bad"
+		self.swordwarpmarker = self.data.properties['warpmarker'] or nil
+		self.playerspin = self.data.properties['spin'] or false
 	end
 	self.makestars = false
 	self.makestarstimer = 0
@@ -45,6 +52,7 @@ function board_item:init(data)
     self.color_mask.amount = 0
 	self.true_x = self.x
 	self.true_y = self.y
+	self.sword_init = false
 end
 
 function board_item:update()
@@ -129,7 +137,7 @@ function board_item:pickup()
 		self.glow = false
 		self.layer = p.layer
 		Game.world.timer:script(function(wait)
-			if not p.actor.no_spin then
+			if self.playerspin then
 				wait(3/30)
 				p:setFacing("left")
 				wait(1/30)
@@ -154,6 +162,37 @@ function board_item:pickup()
 		Game.world.timer:lerpVar(self, "y", self.y, p.y - 64 - 8, 12, 2, "out")
 		c:wait(12/30)
 		Assets.playSound(self.sound)
+		if self.id == "sword" then
+			Game.world.music:stop()
+			c:wait(60/30)
+			Game.lock_movement = true
+			if not self.sword_init then
+				self.sword_init = true
+				for _,screencol in ipairs(Game.world.board:getEvents("screencolorchanger")) do
+					screencol.active = false
+				end
+				Game.world.board.fader:transition(function ()
+					p:resetSprite()
+					for _,trans in ipairs(Game.world.board:getEvents("transition_board")) do
+						if trans and trans.swordremove then
+							trans:remove()
+						end
+					end
+					self:teleportPlayer(p)
+				end, function ()
+					self:remove()
+					Game.world.timer:after(10/30, function()
+						Game.world.board:transitionMusic({"board_sword_music", 1, self.musicpitch}, false)
+						for _,screencol in ipairs(Game.world.board:getEvents("screencolorchanger")) do
+							screencol.active = true
+						end
+						p.sword = true
+						Game.lock_movement = false
+					end)
+				end, 15, {speed = 5})
+			end
+			return
+		end
 		self.makestars = true
 		c:boardText(self.text) 
 		if self.moretext then
@@ -165,28 +204,38 @@ function board_item:pickup()
 		self.collider.collidable = false
 		p:resetSprite()
 		self.makestars = false
-		if self.slot ~= -1 then
-			self.visible = false
-			local xx, yy = self:localToScreenPos(Game.world.board.off_x, Game.world.board.off_y)
-			self.item_sprite = Sprite(self.spr, xx, yy)
-			self.item_sprite:setOrigin(0)
-			self.item_sprite:setScale(2)
-			self.item_sprite:setLayer(WORLD_LAYERS["top"] - 1)
-			Game.world:addChild(self.item_sprite)
-			local desigx = 0
-			local desigy = 0
-			if i then
-				desigx = i.x + 8
-				desigy = i.y + 10 + (48 * self.slot)
+		if self.slot ~= -1 then	
+			if self.endmovetype == 1 then
+				self.layer = p.layer - 0.01
+				Game.world.timer:lerpVar(self, "y", self.y, self.y + 32, 8, 2, "in")
+				Game.world.timer:after(8/30, function()
+					Assets.playSound("item")
+					Game.world.board.ui:addItem(self, self.slot)
+					self:remove()
+				end)
+			else
+				self.visible = false
+				local xx, yy = self:localToScreenPos(Game.world.board.off_x, Game.world.board.off_y)
+				self.item_sprite = Sprite(self.spr, xx, yy)
+				self.item_sprite:setOrigin(0)
+				self.item_sprite:setScale(2)
+				self.item_sprite:setLayer(WORLD_LAYERS["top"] - 1)
+				Game.world:addChild(self.item_sprite)
+				local desigx = 0
+				local desigy = 0
+				if i then
+					desigx = i.x + 8
+					desigy = i.y + 10 + (48 * self.slot)
+				end
+				Game.world.timer:lerpVar(self.item_sprite, "x", xx, desigx, 20, 2, "in")
+				Game.world.timer:lerpVar(self.item_sprite, "y", yy, desigy, 20, 2, "out")
+				Game.world.timer:after(20/30, function()
+					Assets.playSound("item")
+					Game.world.board.ui:addItem(self, self.slot)
+					self.item_sprite:remove()
+					self:remove()
+				end)
 			end
-			Game.world.timer:lerpVar(self.item_sprite, "x", xx, desigx, 20, 2, "in")
-			Game.world.timer:lerpVar(self.item_sprite, "y", yy, desigy, 20, 2, "out")
-			Game.world.timer:after(20/30, function()
-				Assets.playSound("item")
-				Game.world.board.ui:addItem(self, self.slot)
-				self.item_sprite:remove()
-				self:remove()
-			end)
 		else
 			Game.world.timer:after(3/30, function()
 				self:remove()
@@ -212,6 +261,26 @@ function board_item:postDraw()
 	super.postDraw(self)
 	self.x = self.true_x
 	self.y = self.true_y
+end
+
+function board_item:teleportPlayer(chara)
+    local grid_w = Game.world.board.game_width
+    local grid_h = Game.world.board.game_height
+
+    local x, y = Game.world.board.map:getMarker(type(self.swordwarpmarker) == "table" and self.data.properties.warpmarker.id or self.swordwarpmarker)
+
+    chara.x, chara.y = x, y
+
+    for _, i in ipairs(Game.world.board.followers) do
+        i.history = {}
+        i.physics.move_path = nil
+        i.pathing = false
+        i.x = chara.x
+        i.y = chara.y
+    end
+
+    local x, y = Game.world.board:getArea(x, y)
+    self.world:moveCamera(x, y)
 end
 
 function board_item:draw()

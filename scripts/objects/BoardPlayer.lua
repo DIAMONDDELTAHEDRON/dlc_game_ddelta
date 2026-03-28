@@ -110,6 +110,12 @@ function BoardPlayer:init(chara, x, y)
 	self.true_x = self.x
 	self.true_y = self.y
 	self.cambuff = 0
+	self.sword = false
+	self.swordlv = 1
+	self.xp = 0
+	self.xptolevel = 3
+	self.maxhealth = 12
+	self.myhealth = self.maxhealth
 end
 
 function BoardPlayer:saveMovement()

@@ -2,9 +2,10 @@
 ---@overload fun(...) : BoardUI
 local BoardUI, super = Class(Object)
 
-function BoardUI:init()
+function BoardUI:init(type)
     super.init(self)
 
+	self.type = type or 0
     self.quit_timer = 0
     Game.world.in_game = true
 
@@ -16,11 +17,14 @@ function BoardUI:init()
 
     -- x + 94 for every other health bar
     self.healthbars = {}
-    self.healthbars[1] = BoardHealthBar(128, 32, Game.world.board.player.actor)
+    self.healthbars[1] = BoardHealthBar(128 + 94, 32, Game.world.board.player.actor)
     self:addChild(self.healthbars[1])
 
     for i, follower in ipairs(Game.world.board.followers) do
         local x = 128 + (94 * i)
+		if i == 1 then -- order hack
+			x = 128
+		end
         local b = i + 1
         self.healthbars[b] = BoardHealthBar(x, 32, follower.actor)
         self:addChild(self.healthbars[b])
@@ -33,12 +37,21 @@ function BoardUI:init()
     self:addChild(self.inventory_bar)
 	
     self.sword_route = false
+	if self.type == 1 then
+		self.sword_route = true
+		for _, healthbar in ipairs(self.healthbars) do
+			healthbar.visible = false
+		end
+		self.score_bar.visible = false
+		self.inventory_bar.visible = false
+	end
     self.font = Assets.getFont("main")
     self.instruction_active = false
     self.instruction_lerp = 0
 	self.timer_tex = Assets.getFrames("ui/timer/timer")
 	self.canceltimer = 0
 	self.canceltime = 30
+	self.ui_enabled = true
 end
 
 function BoardUI:addItem(item, slot)
@@ -185,15 +198,17 @@ end
 
 function BoardUI:quit()
 	self.instruction_active = false	
-	Game.world.timer:lerpVar(self.inventory_bar, "x", 80, -48, 10, 3, "in")
-	Game.world.timer:lerpVar(self.healthbars[1], "y", 32, -32, 10, 3, "in")
-	if self.healthbars[2] then
-		Game.world.timer:lerpVar(self.healthbars[2], "y", 32, -32, 10, 3, "in")
+	if self.ui_enabled then
+		Game.world.timer:lerpVar(self.inventory_bar, "x", 80, -48, 10, 3, "in")
+		Game.world.timer:lerpVar(self.healthbars[1], "y", 32, -32, 10, 3, "in")
+		if self.healthbars[2] then
+			Game.world.timer:lerpVar(self.healthbars[2], "y", 32, -32, 10, 3, "in")
+		end
+		if self.healthbars[3] then
+			Game.world.timer:lerpVar(self.healthbars[3], "y", 32, -32, 10, 3, "in")
+		end
+		Game.world.timer:lerpVar(self.score_bar, "y", 32, -32, 10, 3, "in")
 	end
-	if self.healthbars[3] then
-		Game.world.timer:lerpVar(self.healthbars[3], "y", 32, -32, 10, 3, "in")
-	end
-	Game.world.timer:lerpVar(self.score_bar, "y", 32, -32, 10, 3, "in")
 	local tvturnoff = TVTurnOff(0, -48)
 	tvturnoff.layer = self.layer + 1
     Game.world:addChild(tvturnoff)

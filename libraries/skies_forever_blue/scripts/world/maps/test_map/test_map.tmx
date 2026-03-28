@@ -7,8 +7,8 @@
   <property name="music" value="dogcheck/ch3_board3"/>
  </properties>
  <tileset firstgid="1" source="../../tilesets/skies_forever_blue.tsx"/>
- <tileset firstgid="197" source="../../tilesets/bg_board_adventure_tileset.tsx"/>
- <tileset firstgid="1109" source="../../tilesets/board_adventure_tileset_dp.tsx"/>
+ <tileset firstgid="197" source="../../../../../../scripts/world/tilesets/bg_board_adventure_tileset.tsx"/>
+ <tileset firstgid="1109" source="../../../../../../scripts/world/tilesets/board_adventure_tileset_dp.tsx"/>
  <layer id="4" name="tiles" width="64" height="32">
   <data encoding="csv">
 327,328,328,328,328,328,328,328,328,328,328,329,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

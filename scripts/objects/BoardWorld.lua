@@ -48,14 +48,17 @@
 local BoardWorld, super = Class(Object)
 
 ---@param map? string    The optional name of a map to initially load with the world
-function BoardWorld:init(map, x, y, offx, offy, swidth, sheight)
+function BoardWorld:init(map, type, x, y, offx, offy, swidth, sheight, gwidth, gheight)
     super.init(self)
+	self.type = type or 0
     self.world = self
     Game.world.board = self
     Game.board = self
 	self.screen_width = swidth or 384
 	self.screen_height = sheight or 256
-    self.camera = Camera(self, 0,0,self.screen_width,self.screen_height)
+	self.game_width = gwidth or 384
+	self.game_height = gheight or 256
+	self.camera = Camera(self, 0,0,self.game_width,self.game_height)
     -- states: GAMEPLAY, FADING, MENU
     self.state = "" -- Make warnings shut up, TODO: fix this
     self.state_manager = StateManager("GAMEPLAY", self, true)
@@ -122,9 +125,22 @@ function BoardWorld:init(map, x, y, offx, offy, swidth, sheight)
 	self.grayregion = nil
 	self.chromstrength = 0.5
 	self.crt_glitch = 0
+	self.crt_glitchstrength = 0
 	self.crttimer = 0
 	self.crtshader = Assets.getShader("crt")
 	self.grayshader = Assets.getShader("grayscalesand")
+	self.font = Assets.getFont("8bit")
+	self.ui_sword_tex = Assets.getTexture("sword/ui/sword")
+	self.tvglow_tex = Assets.getTexture("world/maps/tvland/board/gameshow_swordroute_tvglow")
+	self.drawui_sword = false
+	self.nochange = false
+	self.screencolor = COLORS.black
+	self.newcolor = COLORS.black
+	self.screenalpha = 0.5
+	self.colorchange = 0
+	self.colorchangetime = 5
+	self.doomed = false
+	self.sword_yoff_active = false
 end
 
 --- Heals a member of the party
@@ -743,7 +759,7 @@ function BoardWorld:spawnParty(marker, party, extra, facing)
             self.followers[2] = follower
         end
 
-    self.ui = BoardUI()
+    self.ui = BoardUI(self.type)
     Game.world:addChild(self.ui)
 
 
@@ -1218,6 +1234,21 @@ function BoardWorld:inBattle()
 end
 
 function BoardWorld:update()
+	if self.type == 1 then
+		if not self.nochange then
+			if self.colorchange > 0 then
+				self.screencolor = ColorUtils.mergeColor(self.newcolor, self.screencolor, self.colorchange / self.colorchangetime)
+				self.colorchange = self.colorchange - DTMULT
+			end
+		end
+		for _,chara in ipairs(Game.stage:getObjects(Character)) do
+			local hfx = chara:getFX("highlight")
+			if hfx then
+				hfx.alpha = self.screenalpha
+				hfx.color = self.screencolor
+			end
+		end
+	end
     if self.state == "GAMEPLAY" then
         -- Object collision
         local collided = {}
@@ -1281,7 +1312,6 @@ function BoardWorld:update()
     if (self.door_delay > 0) then
         self.door_delay = math.max(self.door_delay - DT, 0)
     end
-
     self.map:update()
 
     -- Always sort
@@ -1310,7 +1340,11 @@ function BoardWorld:fullDraw(...)
     Draw.popCanvas(true)
     Draw.setColor(1, 1, 1)
 	local crt_canvas = Draw.pushCanvas(self.screen_width, self.screen_height)
-    Draw.drawCanvas(self.main_canvas)
+	local yoff = 0
+	if self.type == 1 and self.sword_yoff_active then
+		yoff = 32
+	end
+    Draw.drawCanvas(self.main_canvas, 0, yoff)
 	local drawgray = true
 	if self:isTextboxOpen() then
 		drawgray = false
@@ -1328,9 +1362,56 @@ function BoardWorld:fullDraw(...)
 				self.grayshader:sendColor("sandcol", {0.82, 0.82, 0.82})
 				local last_shader = love.graphics.getShader()
 				love.graphics.setShader(self.grayshader)
-				Draw.drawCanvas(self.main_canvas)
+				Draw.drawCanvas(self.main_canvas, 0, yoff)
 				love.graphics.setShader(last_shader)
 				Draw.popScissor()
+			end
+		end
+	end
+	if self.drawui_sword then
+		Draw.setColor(COLORS.black)
+		love.graphics.rectangle("fill", 0, 0, self.game_width, 32)
+		Draw.setColor(COLORS.white)
+		if self.player then
+			local lilkris = self.player
+			love.graphics.setFont(self.font)
+			love.graphics.print("HP", 4, 16 - 3)
+			local hp = lilkris.myhealth
+			local maxhp = lilkris.maxhealth
+			hp = MathUtils.clamp(hp, 0, maxhp)
+			local absolutemaxhp = 32
+			local maxbarsize = 110 + (30 * lilkris.swordlv - 1)
+			local barfill = hp / absolutemaxhp
+			if barfill > 1 then
+				barfill = 1
+			end
+			Draw.setColor(1,1,1,0.25)
+			love.graphics.rectangle("fill", 38, 16, (maxhp / absolutemaxhp) * maxbarsize, 14)
+			Draw.setColor(1,1,1,1)
+			love.graphics.rectangle("fill", 38, 16, barfill * maxbarsize, 14)
+			if lilkris.sword then
+				local level = lilkris.swordlv
+				local xp = lilkris.xp
+				local maxxp = lilkris.xptolevel
+				local maxbarsize = 66
+				local barsize = MathUtils.round(((xp / maxxp) * maxbarsize) / 2) * 2
+				barsize = MathUtils.clamp(barsize, 0, maxbarsize)
+				if level < 4 then
+					love.graphics.print("L", 152, 16 - 3)
+					love.graphics.print("V", 166, 16 - 3)
+					love.graphics.print(level, 182, 16 - 3)
+				else					
+					love.graphics.print("MAX", 150, 16 - 3)
+					barsize = maxbarsize
+				end
+				Draw.setColor(1,1,1,0.25)
+				love.graphics.rectangle("fill", 200, 16, maxbarsize, 14)
+				Draw.setColor(1,1,1,1)
+				love.graphics.rectangle("fill", 200, 16, barsize, 14)
+				local lv = math.min(lilkris.swordlv, 4)
+				for i = 0, lv - 1 do
+					Draw.draw(self.ui_sword_tex, 364 - (20 * i), 14, 0, 2, 2)
+				end
 			end
 		end
 	end
@@ -1350,9 +1431,14 @@ function BoardWorld:fullDraw(...)
 	self.crtshader:send("time", self.crttimer)
 	self.crtshader:send("texsize", {1/self.screen_width, 1/self.screen_height})
 	local last_shader = love.graphics.getShader()
-	love.graphics.setShader(self.crtshader)
-    Draw.drawCanvas(crt_canvas, self.off_x, self.off_y)
+	love.graphics.setShader(self.crtshader) 
+	local dx = self.crt_glitch > 0 and (MathUtils.random(-1, 1) * MathUtils.clamp(self.crt_glitch / self.crt_glitchstrength, 0, 3)) or 0
+	local dy = self.crt_glitch > 0 and (MathUtils.random(-1, 1) * MathUtils.clamp(self.crt_glitch / self.crt_glitchstrength, 0, 3)) or 0
+    Draw.drawCanvas(crt_canvas, self.off_x + math.min(dx, 0), self.off_y + math.min(dy, 0), 0, 1 + (math.abs(dx)/self.screen_width), 1 + (math.abs(dy)/self.screen_height))
 	love.graphics.setShader(last_shader)
+	if self.crt_glitch > 0 then
+		self.crt_glitch = self.crt_glitch - DTMULT
+	end
 end
 
 function BoardWorld:draw()
@@ -1383,20 +1469,20 @@ function BoardWorld:cameraUpdate() -- this whole thing scares me
     if target then
         local px = target.x
         local py = target.y
-        local grid_w = 192 * 2
-        local grid_h = 256
+        local grid_w = self.game_width * 2
+        local grid_h = self.game_height
 
-        local xa = math.floor((px + 15) / grid_w) * grid_w + 192
-        local ya = math.floor((py + 8) / grid_h) * grid_h + 176
+        local xa = math.floor((px + 15) / grid_w) * grid_w + self.game_width / 2
+        local ya = math.floor((py + 8) / grid_h) * grid_h + self.game_height - 80
 
-        local xb = math.floor((px - 15) / grid_w) * grid_w + 192
-        local yb = math.floor((py - 24) / grid_h) * grid_h + 176
+        local xb = math.floor((px - 15) / grid_w) * grid_w + self.game_width / 2
+        local yb = math.floor((py - 24) / grid_h) * grid_h + self.game_height - 80
         
         local x1,y1,x2,y2 = self:getAreaBounds()
 
         if not self.swapping_grid and not Game.lock_movement then
-            local x = math.floor(px / grid_w) * grid_w + 192
-            local y = math.floor(py / grid_h) * grid_h + 176
+            local x = math.floor(px / grid_w) * grid_w + self.game_width / 2
+            local y = math.floor(py / grid_h) * grid_h + self.game_height - 80
             if px < x1 then
                 self:shiftGrid("left")
             elseif px > x2 then
@@ -1466,8 +1552,8 @@ end
 ---@param x integer
 ---@param y integer
 function BoardWorld:moveCamera(x, y) --Faking the camera again
-    local cam_x = (x + 0.5) * self.screen_width
-    local cam_y = (y + 0.5) * self.screen_height
+    local cam_x = (x + 0.5) * self.game_width
+    local cam_y = (y + 0.5) * self.game_height
     self.camera.x = cam_x
     self.camera.y = cam_y
     self.area_column, self.area_row = x, y
@@ -1478,13 +1564,13 @@ end
 ---@param y integer
 ---@return number, number
 function BoardWorld:getAreaCenter(x,y)
-    return (x + 0.5) * self.screen_width,
-           (y + 0.5) * self.screen_height
+    return (x + 0.5) * self.game_width,
+           (y + 0.5) * self.game_height
 end
 
 function BoardWorld:getArea(x, y)
-    local w = 192 * 2
-    local h = 256
+    local w = self.game_width
+    local h = self.game_height
 
     local col = math.floor(x / w)
     local row = math.floor(y / h)
@@ -1542,7 +1628,7 @@ function BoardWorld:getAreaPosition(x, y)
     end
     assert(x == math.floor(x), "Non-integer x value passed: "..x)
     assert(y == math.floor(y), "Non-integer y value passed: "..y)
-    return x * self.camera.width, y * self.camera.height
+    return x * self.game_width, y * self.game_height
 end
 
 function BoardWorld:canDeepCopy()

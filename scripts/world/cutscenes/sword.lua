@@ -9,30 +9,34 @@ return {
 			local p = data.properties or {}
 			local board = p.map or p.board or "world_test_map"
 			-- Index starts at 0, (2 == 3, 1 == 2, etc)
-			if p.x then
-				p.x = p.x - 1
-			end
-			if p.y then
-				p.y = p.y - 1
-			end
 			local x = p.x or 2
 			local y = p.y or 0
 
             cutscene:detachFollowers()
             Assets.playSound("jump")
 
-            Game.world.player:jumpTo(258, 474, 20, 0.5, "ball", "landed")
+			local offx = {}
+			offx["kris"] = 5
+			offx["hero"] = 2
+			offx["susie"] = 2
+			offx["ralsei"] = 2
+			offx["dess"] = 2
+			local offy = {}
+			offy["susie"] = 10
+			offy["ralsei"] = 10
+			offy["dess"] = 10
+            Game.world.player:jumpTo(262 + (offx[Game.world.player.actor.id] and offx[Game.world.player.actor.id] or 0), 472 + (offy[Game.world.player.actor.id] and offy[Game.world.player.actor.id] or 0), 20, 0.5, "ball", "landed")
             local f = Game.world.followers
             if f[1] then
-                f[1]:jumpTo(162, 474, 20, 0.5, "ball", "landed")
+                f[1]:jumpTo(162 + (offx[f[1].actor.id] and offx[f[1].actor.id] or 0), 472 + (offy[f[1].actor.id] and offy[f[1].actor.id] or 0), 20, 0.5, "ball", "landed")
             end
 
             if f[2] then
-                f[2]:jumpTo(362, 474, 20, 0.5, "ball", "landed")
+                f[2]:jumpTo(362 + (offx[f[2].actor.id] and offx[f[2].actor.id] or 0), 472 + (offy[f[2].actor.id] and offy[f[2].actor.id] or 0), 20, 0.5, "ball", "landed")
             end
 
             if f[3] then
-                f[3]:jumpTo(462, 474, 20, 0.5, "ball", "landed")
+                f[3]:jumpTo(462 + (offx[f[3].actor.id] and offx[f[3].actor.id] or 0), 472 + (offy[f[3].actor.id] and offy[f[3].actor.id] or 0), 20, 0.5, "ball", "landed")
             end
 
             cutscene:wait(0.6)
@@ -43,7 +47,7 @@ return {
 
             Game.world.player:resetSprite()
             cutscene:wait(0.5)
-            local board = BoardWorld(board, x, y)
+            local board = BoardWorld(board, 0, x, y)
             Game.world.player.active = false
             Game.world:addChild(board)
 			Game.world.music:stop()
@@ -58,31 +62,41 @@ return {
 			board.ui.score_bar.y = -32
 			board.ui.inventory_bar.x = -48
 			local end_ui_move = false
-			Game.world.timer:lerpVar(board.ui.inventory_bar, "x", -48, 80, 15, 3, "out")
-			Game.world.timer:after(2/30, function()
-				Game.world.timer:lerpVar(board.ui.healthbars[1], "y", -32, 32, 15, 3, "out")
-			end)
-			Game.world.timer:after(4/30, function()
-				if board.ui.healthbars[2] then
-					Game.world.timer:lerpVar(board.ui.healthbars[2], "y", -32, 32, 15, 3, "out")
-				else
-					Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
-					end_ui_move = true
-				end
-			end)
-			Game.world.timer:after(6/30, function()
-				if board.ui.healthbars[3] and not end_ui_move then
-					Game.world.timer:lerpVar(board.ui.healthbars[3], "y", -32, 32, 15, 3, "out")
-				else				
-					Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
-					end_ui_move = true
-				end
-			end)
-			Game.world.timer:after(8/30, function()
-				if not end_ui_move then
-					Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
-				end
-			end)
+			if not p.no_ui then
+				Game.world.timer:lerpVar(board.ui.inventory_bar, "x", -48, 80, 15, 3, "out")
+				Game.world.timer:after(2/30, function()
+					if board.ui.healthbars[2] then
+						Game.world.timer:lerpVar(board.ui.healthbars[2], "y", -32, 32, 15, 3, "out")
+					else
+						Game.world.timer:lerpVar(board.ui.healthbars[1], "y", -32, 32, 15, 3, "out")
+					end
+				end)
+				Game.world.timer:after(4/30, function()
+					if board.ui.healthbars[2] then
+						Game.world.timer:lerpVar(board.ui.healthbars[1], "y", -32, 32, 15, 3, "out")
+					else
+						Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
+						end_ui_move = true
+					end
+				end)
+				Game.world.timer:after(6/30, function()
+					if not end_ui_move then
+						if board.ui.healthbars[3] then
+							Game.world.timer:lerpVar(board.ui.healthbars[3], "y", -32, 32, 15, 3, "out")
+						else
+							Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
+							end_ui_move = true
+						end
+					end
+				end)
+				Game.world.timer:after(8/30, function()
+					if not end_ui_move then
+						Game.world.timer:lerpVar(board.ui.score_bar, "y", -32, 32, 15, 3, "out")
+					end
+				end)
+			else
+				board.ui.ui_enabled = false
+			end
 			board.player.visible = false
 			for _,follower in ipairs(board.followers) do
 				follower.visible = false
@@ -152,6 +166,97 @@ return {
         else
             return
         end
+	end,
+    play_sword = function(cutscene, event)
+        if Game.world.board then return end
+        cutscene:detachFollowers()
+		local krx = 320
+		local kry = 374
+		local dist = MathUtils.round(math.abs(krx - Game.world.player.x) / 2)
+		local walktime = dist
+		if dist > 0 then
+			Game.world.player:walkTo(krx, kry, dist/30)
+		end
+		cutscene:wait(walktime/30)
+		Game.world.player:setPosition(krx, kry)
+		Game.world.player:setFacing("up")
+		cutscene:text("* (Looks like a game console.)")
+		cutscene:text("* (Play it?)")
+        local c = cutscene:choicer({"Yes", "No"})
+        if c == 1 then
+			local event = event or {}
+			local data = event.data or {}
+			local p = data.properties or {}
+			local board = p.map or p.board or "sword_test_map"
+			-- Index starts at 0, (2 == 3, 1 == 2, etc)
+			local x = p.x or 2
+			local y = p.y or 0
+            Game.world.player:resetSprite()
+            local board = BoardWorld(board, 1, x, y, 128, 32, 384, 288)
+            Game.world.player.active = false
+            Game.world:addChild(board)
+			Game.world.music:stop()
+			board = Game.world.board
+			board.sword_yoff_active = false
+			board.ui.ui_enabled = false
+			board.player.visible = false
+			for _,follower in ipairs(board.followers) do
+				follower.visible = false
+			end
+			for _,screencol in ipairs(board:getEvents("screencolorchanger")) do
+				screencol.active = false
+			end
+			local black = Rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
+			black:setParallax(0)
+			black:setColor(COLORS.black)
+			black.alpha = 1
+			black.layer = WORLD_LAYERS["top"] - 2
+            Game.world.board:addChild(black)
+			local starter = BoardConsoleStarter(-128, -32, 0)
+			starter.layer = WORLD_LAYERS["top"] - 1
+            Game.world.board:addChild(starter)
+			cutscene:wait(function() 
+				if starter and starter:isRemoved() then
+					return true
+				end
+				return false
+			end)
+			if Game.world.board.doomed then
+				Game.world.board.ui:remove()
+				Game.world.board:remove()
+				Game.world.player:setFacing("down")
+				Game.world.player.active = true
+			else
+				black:remove()
+				board.sword_yoff_active = true
+				board.player.visible = true
+				local squaretrans = BoardSquareTransition(-128, -64)
+				squaretrans.layer = WORLD_LAYERS["top"] - 1
+				Game.world.board:addChild(squaretrans)
+				local start_color = board.map.data.properties.start_color and TiledUtils.parseColorProperty(board.map.data.properties.start_color) or ColorUtils.hexToRGB("#E2FF81")
+				local steps = 8
+				local delay = 15
+				for i = 0, steps do
+					Game.world.timer:after((delay * (i - 1))/30, function()
+						board.screencolor = ColorUtils.mergeColor(COLORS.black, start_color, i / steps)
+					end)
+				end
+				cutscene:wait(function() 
+					if squaretrans and squaretrans.completed then
+						return true
+					end
+					return false
+				end)
+				Game.world.board.drawui_sword = true
+				for _,screencol in ipairs(board:getEvents("screencolorchanger")) do
+					screencol.active = true
+				end
+				Game.world.music:play()
+			end
+            return
+        else
+            return
+        end
     end,
 	fakeplay = function(cutscene, event)
 		local c = cutscene:choicer({"Play", "Don't"})
@@ -163,6 +268,8 @@ return {
 		local y = properties.y
 		local board = Game.world.board
 		Assets.playSound("board/damage")
+		board.crt_glitch = 6
+		board.crt_glitchstrength = 10
 		if x then
 			board.player.x = x
 			for _,follower in ipairs(board.followers) do

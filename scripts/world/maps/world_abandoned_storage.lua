@@ -1,7 +1,7 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.2",
+  tiledversion = "1.10.2",
   class = "",
   orientation = "orthogonal",
   renderorder = "right-down",
@@ -12,592 +12,44 @@ return {
   nextlayerid = 19,
   nextobjectid = 329,
   properties = {
-    ["music"] = "TAEFED"
+    ["music"] = "disturbed_house"
   },
   tilesets = {
     {
       name = "skies_forever_blue",
       firstgid = 1,
-      class = "",
-      tilewidth = 16,
-      tileheight = 16,
-      spacing = 0,
-      margin = 0,
-      columns = 14,
-      image = "../../../libraries/skies_forever_blue/assets/sprites/tilesets/blue_skies.png",
-      imagewidth = 224,
-      imageheight = 224,
-      objectalignment = "unspecified",
-      tilerendersize = "grid",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 32,
-        height = 32
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 196,
-      tiles = {}
+      filename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/skies_forever_blue.tsx",
+      exportfilename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/skies_forever_blue.lua"
     },
     {
       name = "bg_board_adventure_tileset",
       firstgid = 197,
-      class = "",
-      tilewidth = 16,
-      tileheight = 16,
-      spacing = 0,
-      margin = 0,
-      columns = 16,
-      image = "../../../assets/sprites/tilesets/bg_board_adventure_tileset.png",
-      imagewidth = 256,
-      imageheight = 912,
-      objectalignment = "unspecified",
-      tilerendersize = "grid",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 16,
-        height = 16
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 912,
-      tiles = {
-        {
-          id = 19,
-          animation = {
-            {
-              tileid = 19,
-              duration = 250
-            },
-            {
-              tileid = 528,
-              duration = 250
-            },
-            {
-              tileid = 529,
-              duration = 250
-            },
-            {
-              tileid = 530,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 20,
-          animation = {
-            {
-              tileid = 20,
-              duration = 250
-            },
-            {
-              tileid = 544,
-              duration = 250
-            },
-            {
-              tileid = 545,
-              duration = 250
-            },
-            {
-              tileid = 546,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 21,
-          animation = {
-            {
-              tileid = 21,
-              duration = 250
-            },
-            {
-              tileid = 560,
-              duration = 250
-            },
-            {
-              tileid = 561,
-              duration = 250
-            },
-            {
-              tileid = 562,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 35,
-          animation = {
-            {
-              tileid = 35,
-              duration = 250
-            },
-            {
-              tileid = 515,
-              duration = 250
-            },
-            {
-              tileid = 516,
-              duration = 250
-            },
-            {
-              tileid = 517,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 36,
-          animation = {
-            {
-              tileid = 36,
-              duration = 250
-            },
-            {
-              tileid = 512,
-              duration = 250
-            },
-            {
-              tileid = 513,
-              duration = 250
-            },
-            {
-              tileid = 514,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 37,
-          animation = {
-            {
-              tileid = 37,
-              duration = 250
-            },
-            {
-              tileid = 531,
-              duration = 250
-            },
-            {
-              tileid = 532,
-              duration = 250
-            },
-            {
-              tileid = 533,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 51,
-          animation = {
-            {
-              tileid = 51,
-              duration = 250
-            },
-            {
-              tileid = 547,
-              duration = 250
-            },
-            {
-              tileid = 548,
-              duration = 250
-            },
-            {
-              tileid = 549,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 52,
-          animation = {
-            {
-              tileid = 52,
-              duration = 250
-            },
-            {
-              tileid = 563,
-              duration = 250
-            },
-            {
-              tileid = 564,
-              duration = 250
-            },
-            {
-              tileid = 565,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 53,
-          animation = {
-            {
-              tileid = 53,
-              duration = 250
-            },
-            {
-              tileid = 518,
-              duration = 250
-            },
-            {
-              tileid = 519,
-              duration = 250
-            },
-            {
-              tileid = 520,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 68,
-          animation = {
-            {
-              tileid = 68,
-              duration = 250
-            },
-            {
-              tileid = 534,
-              duration = 250
-            },
-            {
-              tileid = 535,
-              duration = 250
-            },
-            {
-              tileid = 536,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 69,
-          animation = {
-            {
-              tileid = 69,
-              duration = 250
-            },
-            {
-              tileid = 537,
-              duration = 250
-            },
-            {
-              tileid = 538,
-              duration = 250
-            },
-            {
-              tileid = 539,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 84,
-          animation = {
-            {
-              tileid = 84,
-              duration = 250
-            },
-            {
-              tileid = 550,
-              duration = 250
-            },
-            {
-              tileid = 551,
-              duration = 250
-            },
-            {
-              tileid = 552,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 85,
-          animation = {
-            {
-              tileid = 85,
-              duration = 250
-            },
-            {
-              tileid = 553,
-              duration = 250
-            },
-            {
-              tileid = 554,
-              duration = 250
-            },
-            {
-              tileid = 555,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 86,
-          animation = {
-            {
-              tileid = 86,
-              duration = 250
-            },
-            {
-              tileid = 87,
-              duration = 250
-            },
-            {
-              tileid = 88,
-              duration = 250
-            },
-            {
-              tileid = 89,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 90,
-          animation = {
-            {
-              tileid = 90,
-              duration = 250
-            },
-            {
-              tileid = 91,
-              duration = 250
-            },
-            {
-              tileid = 92,
-              duration = 250
-            },
-            {
-              tileid = 93,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 102,
-          animation = {
-            {
-              tileid = 102,
-              duration = 250
-            },
-            {
-              tileid = 103,
-              duration = 250
-            },
-            {
-              tileid = 104,
-              duration = 250
-            },
-            {
-              tileid = 105,
-              duration = 250
-            }
-          }
-        },
-        {
-          id = 106,
-          animation = {
-            {
-              tileid = 106,
-              duration = 250
-            },
-            {
-              tileid = 107,
-              duration = 250
-            },
-            {
-              tileid = 108,
-              duration = 250
-            },
-            {
-              tileid = 109,
-              duration = 250
-            }
-          }
-        }
-      }
+      filename = "../tilesets/bg_board_adventure_tileset.tsx",
+      exportfilename = "../tilesets/bg_board_adventure_tileset.lua"
     },
     {
       name = "board_adventure_tileset_dp",
       firstgid = 1109,
-      class = "",
-      tilewidth = 16,
-      tileheight = 16,
-      spacing = 0,
-      margin = 0,
-      columns = 16,
-      image = "../../../assets/sprites/tilesets/board_adventure_tileset_dp.png",
-      imagewidth = 256,
-      imageheight = 912,
-      objectalignment = "unspecified",
-      tilerendersize = "grid",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 16,
-        height = 16
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 912,
-      tiles = {}
+      filename = "../tilesets/board_adventure_tileset_dp.tsx",
+      exportfilename = "../tilesets/board_adventure_tileset_dp.lua"
     },
     {
       name = "board_arcade_storage",
       firstgid = 2021,
-      class = "",
-      tilewidth = 32,
-      tileheight = 32,
-      spacing = 0,
-      margin = 0,
-      columns = 7,
-      image = "../../../assets/sprites/tilesets/board_arcade_storage.png",
-      imagewidth = 224,
-      imageheight = 128,
-      objectalignment = "unspecified",
-      tilerendersize = "tile",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 32,
-        height = 32
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 28,
-      tiles = {}
+      filename = "../tilesets/board-arcade-storage.tsx",
+      exportfilename = "../tilesets/board-arcade-storage.lua"
     },
     {
       name = "board",
       firstgid = 2049,
-      class = "",
-      tilewidth = 320,
-      tileheight = 240,
-      spacing = 0,
-      margin = 0,
-      columns = 0,
-      objectalignment = "unspecified",
-      tilerendersize = "tile",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 1,
-        height = 1
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 9,
-      tiles = {
-        {
-          id = 7,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_console.png",
-          width = 50,
-          height = 17
-        },
-        {
-          id = 8,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_couch.png",
-          width = 319,
-          height = 50
-        },
-        {
-          id = 9,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_floor.png",
-          width = 320,
-          height = 81
-        },
-        {
-          id = 10,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_playerpodiums.png",
-          width = 135,
-          height = 18
-        },
-        {
-          id = 11,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_tvframe.png",
-          width = 218,
-          height = 162
-        },
-        {
-          id = 12,
-          image = "../../../assets/sprites/world/maps/tvland/board/gameshow_wall.png",
-          width = 320,
-          height = 240
-        },
-        {
-          id = 13,
-          image = "../../../assets/sprites/world/maps/tvland/board/back.png",
-          width = 195,
-          height = 60
-        },
-        {
-          id = 14,
-          image = "../../../assets/sprites/world/maps/tvland/board/front.png",
-          width = 191,
-          height = 53
-        },
-        {
-          id = 15,
-          image = "../../../assets/sprites/world/maps/tvland/board/put_lemons_in_your_eyes.png",
-          width = 108,
-          height = 74
-        }
-      }
+      filename = "../tilesets/tv_floor/board.tsx",
+      exportfilename = "../tilesets/tv_floor/board.lua"
     },
     {
       name = "castle_tiny",
       firstgid = 2065,
-      class = "",
-      tilewidth = 32,
-      tileheight = 32,
-      spacing = 0,
-      margin = 0,
-      columns = 4,
-      image = "../../../assets/sprites/tilesets/castle_tiny.png",
-      imagewidth = 128,
-      imageheight = 320,
-      objectalignment = "unspecified",
-      tilerendersize = "tile",
-      fillmode = "stretch",
-      tileoffset = {
-        x = 0,
-        y = 0
-      },
-      grid = {
-        orientation = "orthogonal",
-        width = 32,
-        height = 32
-      },
-      properties = {},
-      wangsets = {},
-      tilecount = 40,
-      tiles = {}
+      filename = "../tilesets/castle_tiny.tsx",
+      exportfilename = "../tilesets/castle_tiny.lua"
     }
   },
   layers = {
@@ -2261,7 +1713,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "You should not be here"
+            ["text"] = "You shouldn't be here."
           }
         },
         {
@@ -2276,7 +1728,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "Leave NOW"
+            ["text"] = "Leave, NOW."
           }
         },
         {
@@ -2321,7 +1773,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "You don't fit trough the door frame"
+            ["text"] = "FOR SOME REASON, YOU CAN'T GO THROUGH."
           }
         },
         {
@@ -2366,7 +1818,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "You can't be here"
+            ["text"] = "You can't be here."
           }
         },
         {
@@ -2609,7 +2061,7 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["text"] = "The sign is too high up to read it"
+            ["text"] = "THE SIGN IS TOO HIGH TO READ."
           }
         },
         {

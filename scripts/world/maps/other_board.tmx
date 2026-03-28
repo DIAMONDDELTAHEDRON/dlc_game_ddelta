@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="68">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="72" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="68">
  <editorsettings>
   <export target="other_board.lua" format="lua"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../libraries/skies_forever_blue/scripts/world/tilesets/bg_board_adventure_tileset.tsx"/>
+ <tileset firstgid="1" source="../tilesets/bg_board_adventure_tileset.tsx"/>
  <layer id="1" name="Tile Layer 1" width="72" height="48">
   <data encoding="csv">
 406,406,406,406,406,406,406,406,406,406,406,406,405,405,405,405,405,405,405,405,405,405,405,405,406,406,406,406,406,406,406,406,406,406,406,406,1073742677,1073742677,1073742645,1073742677,2147484546,1073742722,3221226370,898,1073742677,1073742645,1073742677,1073742677,820,820,822,852,1073742657,897,897,3221226305,821,822,820,838,405,405,405,405,405,405,405,405,405,405,405,405,

@@ -16,6 +16,7 @@ function shopwriter_board:init(data)
     self:addChild(self.dialogue_text)
 	self.text_active = false
 	self.advance_snd = false
+	self.swordonly = data.properties["sword"] ~= false
     --self.hitbox = {0, 0, data.width, data.height}
 end
 
@@ -24,6 +25,9 @@ function shopwriter_board:update()
 
 	local board = Game.world.board
 	if not board then
+		return
+	end
+	if self.swordonly and not board.player.sword then
 		return
 	end
 	local cola, rowa = board:getArea(board.player.x, board.player.y - 1)

@@ -10,7 +10,7 @@ return {
   tilewidth = 32,
   tileheight = 32,
   nextlayerid = 10,
-  nextobjectid = 87,
+  nextobjectid = 90,
   properties = {
     ["music"] = "dogcheck/ch3_board3"
   },
@@ -24,14 +24,14 @@ return {
     {
       name = "bg_board_adventure_tileset",
       firstgid = 197,
-      filename = "../../tilesets/bg_board_adventure_tileset.tsx",
-      exportfilename = "../../tilesets/bg_board_adventure_tileset.lua"
+      filename = "../../../../../../scripts/world/tilesets/bg_board_adventure_tileset.tsx",
+      exportfilename = "../../../../../../scripts/world/tilesets/bg_board_adventure_tileset.lua"
     },
     {
       name = "board_adventure_tileset_dp",
       firstgid = 1109,
-      filename = "../../tilesets/board_adventure_tileset_dp.tsx",
-      exportfilename = "../../tilesets/board_adventure_tileset_dp.lua"
+      filename = "../../../../../../scripts/world/tilesets/board_adventure_tileset_dp.tsx",
+      exportfilename = "../../../../../../scripts/world/tilesets/board_adventure_tileset_dp.lua"
     }
   },
   layers = {
@@ -125,8 +125,8 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1210, 1211, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1226, 1227, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -193,12 +193,12 @@ return {
           properties = {}
         },
         {
-          id = 85,
-          name = "dplroom",
+          id = 66,
+          name = "dplstart",
           type = "",
           shape = "point",
           x = 1344,
-          y = 728,
+          y = 736,
           width = 0,
           height = 0,
           rotation = 0,
@@ -470,7 +470,7 @@ return {
           properties = {}
         },
         {
-          id = 66,
+          id = 70,
           name = "",
           type = "",
           shape = "rectangle",
@@ -483,7 +483,7 @@ return {
           properties = {}
         },
         {
-          id = 67,
+          id = 71,
           name = "",
           type = "",
           shape = "rectangle",
@@ -496,7 +496,7 @@ return {
           properties = {}
         },
         {
-          id = 68,
+          id = 72,
           name = "",
           type = "",
           shape = "rectangle",
@@ -509,7 +509,7 @@ return {
           properties = {}
         },
         {
-          id = 69,
+          id = 73,
           name = "",
           type = "",
           shape = "rectangle",
@@ -522,7 +522,7 @@ return {
           properties = {}
         },
         {
-          id = 70,
+          id = 74,
           name = "",
           type = "",
           shape = "rectangle",
@@ -535,7 +535,7 @@ return {
           properties = {}
         },
         {
-          id = 71,
+          id = 76,
           name = "",
           type = "",
           shape = "rectangle",
@@ -548,7 +548,7 @@ return {
           properties = {}
         },
         {
-          id = 72,
+          id = 77,
           name = "",
           type = "",
           shape = "rectangle",
@@ -561,7 +561,7 @@ return {
           properties = {}
         },
         {
-          id = 73,
+          id = 78,
           name = "",
           type = "",
           shape = "rectangle",
@@ -574,7 +574,7 @@ return {
           properties = {}
         },
         {
-          id = 74,
+          id = 79,
           name = "",
           type = "",
           shape = "rectangle",
@@ -587,7 +587,7 @@ return {
           properties = {}
         },
         {
-          id = 75,
+          id = 82,
           name = "",
           type = "",
           shape = "rectangle",
@@ -600,7 +600,7 @@ return {
           properties = {}
         },
         {
-          id = 76,
+          id = 83,
           name = "",
           type = "",
           shape = "rectangle",
@@ -613,7 +613,7 @@ return {
           properties = {}
         },
         {
-          id = 77,
+          id = 88,
           name = "",
           type = "",
           shape = "rectangle",
@@ -716,7 +716,7 @@ return {
           }
         },
         {
-          id = 84,
+          id = 65,
           name = "transition_board",
           type = "",
           shape = "rectangle",
@@ -727,17 +727,32 @@ return {
           rotation = 0,
           visible = true,
           properties = {
-            ["marker"] = { id = 85 },
+            ["marker"] = { id = 66 },
             ["music"] = "none"
           }
         },
         {
-          id = 86,
+          id = 67,
+          name = "interactable_board",
+          type = "",
+          shape = "rectangle",
+          x = 1328,
+          y = 656,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["text1"] = "Come closer, HERO!"
+          }
+        },
+        {
+          id = 89,
           name = "shopwriter_board",
           type = "",
           shape = "point",
-          x = 1232,
-          y = 640,
+          x = 1248,
+          y = 624,
           width = 0,
           height = 0,
           rotation = 0,

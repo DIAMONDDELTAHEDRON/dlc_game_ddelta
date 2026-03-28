@@ -1,11 +1,11 @@
 return {
-  version = "1.11",
+  version = "1.10",
   luaversion = "5.1",
-  tiledversion = "1.11.0",
+  tiledversion = "1.10.2",
   name = "board",
   class = "",
-  tilewidth = 320,
-  tileheight = 240,
+  tilewidth = 330,
+  tileheight = 250,
   spacing = 0,
   margin = 0,
   columns = 0,
@@ -23,7 +23,7 @@ return {
   },
   properties = {},
   wangsets = {},
-  tilecount = 9,
+  tilecount = 10,
   tiles = {
     {
       id = 7,
@@ -78,6 +78,12 @@ return {
       image = "../../../../assets/sprites/world/maps/tvland/board/put_lemons_in_your_eyes.png",
       width = 108,
       height = 74
+    },
+    {
+      id = 16,
+      image = "../../../../assets/sprites/world/maps/tvland/board/gameshow_swordroutebg.png",
+      width = 330,
+      height = 250
     }
   }
 }
