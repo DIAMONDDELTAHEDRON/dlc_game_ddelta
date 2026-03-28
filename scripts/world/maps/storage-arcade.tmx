@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="184">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="16" height="12" tilewidth="40" tileheight="40" infinite="0" nextlayerid="12" nextobjectid="184">
  <editorsettings>
   <export target="storage-arcade.lua" format="lua"/>
  </editorsettings>
@@ -101,14 +101,15 @@
    <properties>
     <property name="cutscene" value="sword.play"/>
     <property name="map" value="world_abandoned_storage"/>
+    <property name="no_ui" type="bool" value="true"/>
     <property name="once" type="bool" value="false"/>
-    <property name="x" type="int" value="5"/>
-    <property name="y" type="int" value="3"/>
+    <property name="x" type="int" value="4"/>
+    <property name="y" type="int" value="2"/>
    </properties>
   </object>
   <object id="168" name="interactable" x="200" y="280" width="40" height="40">
    <properties>
-    <property name="text" value="* (The sign is too high up to read it)"/>
+    <property name="text" value="* (The sign is way too high to read.)"/>
    </properties>
   </object>
  </objectgroup>

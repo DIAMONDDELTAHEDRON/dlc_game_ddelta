@@ -18,6 +18,7 @@ function BoardFader:init()
 	end
 	self.type = 0
 	self.prefill = 0	
+	self.s_curcol = COLORS.black
 end
 
 function BoardFader:preFill()
@@ -31,6 +32,9 @@ end
 function BoardFader:transition(middle_callback, end_callback, pausetime, options)
     options = options or {}
 	pausetime = pausetime or 15
+	if Game.world.board.type == 1 then
+		self.s_curcol = Game.world.board.screencolor
+	end
     self:fadeOut(function()
         if middle_callback then
             middle_callback()
@@ -46,6 +50,10 @@ end
 function BoardFader:update()
     if self.state == "FADEOUT" then
 		self.timer = self.timer + DTMULT
+		if Game.world.board.type == 1 then
+			local amt = ColorUtils.mergeColor(self.s_curcol, COLORS.black, (self.tilescovered + 1) / 8)
+			Game.world.board.screencolor = amt
+		end
 		for i = 0, self.width-1 do
 			self.tile[math.min(i, self.width-1)+1][math.min(self.tilescovered, self.height-1)+1] = 1
 			self.tile[math.min(i, self.width-1)+1][math.min((self.height - 1) - self.tilescovered, self.height-1)+1] = 1
@@ -68,6 +76,20 @@ function BoardFader:update()
     end
     if self.state == "FADEIN" then
 		self.timer = self.timer + DTMULT
+		if Game.world.board.type == 1 then
+			local mynewcolor = nil
+			local amt = self.tilescovered / 8
+			for _,screencol in ipairs(Game.world.board:getEvents("screencolorchanger")) do
+				local cola, rowa = Game.world.board.area_column, Game.world.board.area_row
+				local colb, rowb = Game.world.board:getArea(screencol.x, screencol.y)
+				if cola == colb and rowa == rowb then
+					mynewcolor = screencol
+				end
+			end
+			if mynewcolor then
+				Game.world.board.screencolor = ColorUtils.mergeColor(mynewcolor.color, COLORS.black, amt)
+			end
+		end
         if (self.timer >= self.speed) then
 			self.timer = 0
 			self.tilescovered = self.tilescovered - 1

@@ -24,14 +24,14 @@ return {
     {
       name = "bg_board_adventure_tileset",
       firstgid = 197,
-      filename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/bg_board_adventure_tileset.tsx",
-      exportfilename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/bg_board_adventure_tileset.lua"
+      filename = "../tilesets/bg_board_adventure_tileset.tsx",
+      exportfilename = "../tilesets/bg_board_adventure_tileset.lua"
     },
     {
       name = "board_adventure_tileset_dp",
       firstgid = 1109,
-      filename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/board_adventure_tileset_dp.tsx",
-      exportfilename = "../../../libraries/skies_forever_blue/scripts/world/tilesets/board_adventure_tileset_dp.lua"
+      filename = "../tilesets/board_adventure_tileset_dp.tsx",
+      exportfilename = "../tilesets/board_adventure_tileset_dp.lua"
     }
   },
   layers = {

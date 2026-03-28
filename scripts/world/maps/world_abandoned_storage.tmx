@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.11" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="96" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="329">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="96" height="48" tilewidth="32" tileheight="32" infinite="0" nextlayerid="19" nextobjectid="329">
  <editorsettings>
   <export target="world_abandoned_storage.lua" format="lua"/>
  </editorsettings>
  <properties>
-  <property name="music" value="TAEFED"/>
+  <property name="music" value="disturbed_house"/>
  </properties>
  <tileset firstgid="1" source="../../../libraries/skies_forever_blue/scripts/world/tilesets/skies_forever_blue.tsx"/>
- <tileset firstgid="197" source="../../../libraries/skies_forever_blue/scripts/world/tilesets/bg_board_adventure_tileset.tsx"/>
- <tileset firstgid="1109" source="../../../libraries/skies_forever_blue/scripts/world/tilesets/board_adventure_tileset_dp.tsx"/>
+ <tileset firstgid="197" source="../tilesets/bg_board_adventure_tileset.tsx"/>
+ <tileset firstgid="1109" source="../tilesets/board_adventure_tileset_dp.tsx"/>
  <tileset firstgid="2021" source="../tilesets/board-arcade-storage.tsx"/>
  <tileset firstgid="2049" source="../tilesets/tv_floor/board.tsx"/>
  <tileset firstgid="2065" source="../tilesets/castle_tiny.tsx"/>
@@ -585,12 +585,12 @@
   </object>
   <object id="222" name="interactable_board" x="1604" y="549.667" width="32" height="32">
    <properties>
-    <property name="text" value="You should not be here"/>
+    <property name="text" value="You shouldn't be here."/>
    </properties>
   </object>
   <object id="259" name="interactable_board" x="1983" y="288.667" width="32" height="32">
    <properties>
-    <property name="text" value="Leave NOW"/>
+    <property name="text" value="Leave, NOW."/>
    </properties>
   </object>
   <object id="276" name="interactable_board" x="1216" y="288" width="32" height="32">
@@ -605,7 +605,7 @@
   </object>
   <object id="313" name="interactable_board" x="912" y="256" width="32" height="32">
    <properties>
-    <property name="text" value="You don't fit trough the door frame"/>
+    <property name="text" value="FOR SOME REASON, YOU CAN'T GO THROUGH."/>
    </properties>
   </object>
   <object id="317" name="detach_board" x="912" y="248" width="32" height="32">
@@ -620,7 +620,7 @@
   </object>
   <object id="277" name="interactable_board" x="1600" y="288" width="32" height="32">
    <properties>
-    <property name="text" value="You can't be here"/>
+    <property name="text" value="You can't be here."/>
    </properties>
   </object>
   <object id="268" name="interactable_board" x="1888" y="320" width="32" height="64">
@@ -697,7 +697,7 @@
   </object>
   <object id="308" name="interactable_board" x="576" y="192" width="32" height="32">
    <properties>
-    <property name="text" value="The sign is too high up to read it"/>
+    <property name="text" value="THE SIGN IS TOO HIGH TO READ."/>
    </properties>
   </object>
   <object id="319" name="interactable_board" x="2760" y="1320" width="32" height="32">

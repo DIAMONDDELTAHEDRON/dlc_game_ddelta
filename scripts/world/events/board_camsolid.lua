@@ -21,6 +21,12 @@ function BoardCamSolid:init(data)
 	self.camblock_collider = Hitbox(self, 0, 0, 32, 32)
 	self.collider = ColliderGroup(self, self.solid_colliders)
 	self.solid = true
+	self.start_layer = 0
+end
+
+function BoardCamSolid:onAdd(parent)
+	super.onAdd(self, parent)
+	self.start_layer = self.layer
 end
 
 function BoardCamSolid:update()
@@ -47,6 +53,13 @@ function BoardCamSolid:update()
 			self.solid_colliders[4].collidable = false
 		end
 	end
+	self.layer = self.start_layer
+	for i = 1, 4 do
+		if not self.solid_colliders[i].collidable then
+			self.layer = self.start_layer - 0.1
+			break
+		end
+	end	
 end
 
 function BoardCamSolid:draw()
